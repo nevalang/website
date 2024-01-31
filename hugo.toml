@@ -1,0 +1,28 @@
+baseURL = 'https://nevalang.org/'
+languageCode = 'en-us'
+title = 'Neva Programming Language'
+
+[[menus.main]]
+name = 'Docs'
+url = '/docs'
+weight = 10
+
+[[menus.main]]
+name = 'Blog'
+url = '/blog'
+weight = 20
+
+[[menus.main]]
+name = 'Community'
+url = "/community"
+weight = 30
+
+[[menus.main]]
+name = 'GitHub'
+url = "https://github.com/nevalang/neva"
+weight = 40
+
+[module]
+[module.hugoVersion]
+extended = false
+min = "0.116.0"
