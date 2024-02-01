@@ -1,5 +1,9 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  {{ partial "terms.html" (dict "taxonomy" "tags" "page" .) }}
+<div class="row">
+  <aside class="col-3">{{ partial "docs-nav.html" . }}</aside>
+  <div class="col-9">
+    <h1>{{ .Title }}</h1>
+    {{ .Content }}
+  </div>
+</div>
 {{ end }}

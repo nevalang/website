@@ -1,1 +1,19 @@
-{{ partial "menu.html" (dict "menuID" "main" "page" .) }}
+<nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="is-paddingless">
+      <img
+        src="/images/logo/light.svg"
+        alt="Neva language logo"
+        width="63"
+        height="40"
+      />
+    </a>
+  </div>
+  <div class="nav-right">
+    <div class="tabs">
+      {{- range site.Menus.main }}
+      <a href="{{ .URL }}">{{ .Name }} </a>
+      {{- end }}
+    </div>
+  </div>
+</nav>

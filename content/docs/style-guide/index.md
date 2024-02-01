@@ -1,5 +1,6 @@
 ---
-Title: Style guide
+title: Style guide
+weight: 9
 ---
 
 Neva language has official style guide and it's described in this document.

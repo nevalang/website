@@ -1,16 +1,7 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
-  {{ .Content }}
-  <div class="row">
-    <aside class="col-3">
-      {{ range .Pages }}
-        <ul>
-          <a href="{{ .RelPermalink }}">
-            <li>{{ .LinkTitle }}</li>
-          </a>
-        </ul>
-      {{ end }}
-    </aside>
-    <div class="col-9"></div>
-  </div>
+<h1>{{ .Title }}</h1>
+<div class="row">
+  <aside class="col-3">{{ partial "docs-nav.html" . }}</aside>
+  <div class="col-9">{{ .Content }}</div>
+</div>
 {{ end }}

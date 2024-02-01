@@ -1,5 +1,6 @@
 ---
-Title: FAQ
+title: FAQ
+weight: 8
 ---
 
 ## What is this?
@@ -317,7 +318,6 @@ If you have a component `C1` that takes `T` and you want to operate on `SubStrea
 If you need to continue sub-stream you simply send `SubStreamItem<T>` from you wrapper component downstream. Or `SubStreamItem<WhateverYouWant>` (probably preserving `isLast` value).
 
 It's either you continue sub-stream or you do not. Depending on what your're doing (maybe you're counting sub-stream items so you just sends `int` eachtime sub-stream ends).
-
 
 ## Why `out:exit` of the `Main` is't `int`?
 

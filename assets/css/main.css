@@ -13,6 +13,10 @@ body.dark {
   --color-darkGrey: #777;
 }
 
+.tabs > a {
+  padding: 20px;
+}
+
 body {
   display: flex;
   flex-direction: column;
@@ -36,4 +40,11 @@ header .tabs > a, header .tabs > a:hover {
 
 main {
   flex-grow: 1;
+  padding: 20px 0;
 }
+
+footer {
+  padding: 20px 0;
+  border-top: solid 1px var(--color-lightGrey);
+}
+

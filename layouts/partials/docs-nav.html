@@ -1,0 +1,15 @@
+<ul>
+    {{ $currentPageSection := .Section }}
+    {{ range where .Site.Pages "Section" $currentPageSection }}
+    <li>
+        <a
+            href="{{ .RelPermalink }}"
+            {{ if eq .RelPermalink $.RelPermalink }}
+            class="bg-primary text-white"
+            {{ end }}
+        >
+            {{ .Title }}
+        </a>
+    </li>
+    {{ end }}
+</ul>

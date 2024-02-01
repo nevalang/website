@@ -1,7 +1,7 @@
 ---
-Title: Compiler directives
+title: Compiler directives
+weight: 10
 ---
-
 
 # Compiler Directives
 

@@ -1,6 +1,15 @@
 ---
-Title: Neva Programming Language
+title: Neva Programming Language
 ---
 
-Welcome to Nevalang
+## Features
+
+### Flow Based Paradigm
+
+### Static Typing
+
+### Visual Programming Support
+
+### Go Interop
+
 

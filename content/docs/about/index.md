@@ -1,5 +1,6 @@
 ---
-Title: About the language
+title: About the language
+weight: 2
 ---
 
 Nevalang is a programming language with unique set of characteristics. Let's break down each one of them
