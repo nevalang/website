@@ -1,5 +1,5 @@
 :root {
-  --color-primary: #da1d50; /* brand color */
+  --color-primary: #439ceb; /* brand color */
   --grid-maxWidth: 960px; /* max container width 1080px */
   --font-family-sans:  'Nunito', sans-serif;
   --font-family-mono: monaco, "Consolas", "Lucida Console", monospace;
@@ -11,10 +11,6 @@ body.dark {
   --font-color: #f5f5f5;
   --color-grey: #ccc;
   --color-darkGrey: #777;
-}
-
-.tabs > a {
-  padding: 20px;
 }
 
 body {
@@ -31,7 +27,6 @@ header {
   top: 0;
   z-index: 1000;
   background-color: var(--bg-color);
-  border-bottom: solid 1px var(--color-lightGrey);
 }
 
 header .tabs > a, header .tabs > a:hover {
@@ -40,11 +35,40 @@ header .tabs > a, header .tabs > a:hover {
 
 main {
   flex-grow: 1;
-  padding: 20px 0;
+  /* padding: 20px 0; */
 }
 
 footer {
   padding: 20px 0;
-  border-top: solid 1px var(--color-lightGrey);
 }
 
+.nav {
+  align-items: center;
+}
+
+.tabs > a {
+  padding: 20px;
+  color: var(--font-color);
+}
+
+.logo {
+  width: 63px;
+  height: 40px;
+  background-image: url('/images/light_gradient.svg');
+  background-size: cover;
+  background-position: center;
+}
+
+.dark .logo {
+  background-image: url('/images/light.svg');
+}
+
+.banner .dark {
+  display: none;
+}
+.dark .banner .light {
+  display: none;
+}
+.dark .banner .dark {
+  display: block;
+}

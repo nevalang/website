@@ -1,1 +1,14 @@
-<span>© {{ now.Year }} Emil Valeev</span>
+<script>
+  function toggleDarkMode() {
+    const got = localStorage.getItem("dark");
+    localStorage.setItem("dark", got === "true" ? "false" : "true");
+    location.reload();
+  }
+</script>
+
+<div>
+  <span class="pull-left">© {{ now.Year }} Emil Valeev</span>
+  <a class="pull-right" href="javascript:void(0)" onclick="toggleDarkMode(this)"
+    >🌙</a
+  >
+</div>
