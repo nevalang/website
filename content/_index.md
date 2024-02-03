@@ -1,15 +1,17 @@
 ---
-# title: Neva Programming Language
+title: Home
 ---
 
-## Features
+# Hello World
 
-### Flow Based Paradigm
-
-### Static Typing
-
-### Visual Programming Support
-
-### Go Interop
-
-
+```neva
+components {
+	Main(enter any) (exit any) {
+		nodes { printer Printer<string> }
+		net {
+			in:enter -> ('Hello, World!' -> printer:data)
+			printer:sig -> out:exit
+		}
+	}
+}
+```

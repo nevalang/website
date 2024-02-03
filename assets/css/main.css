@@ -35,7 +35,6 @@ header .tabs > a, header .tabs > a:hover {
 
 main {
   flex-grow: 1;
-  /* padding: 20px 0; */
 }
 
 footer {
@@ -63,12 +62,22 @@ footer {
   background-image: url('/images/light.svg');
 }
 
+.banner {
+  display: flex;
+  justify-content: center;
+  height: 250px;
+  width: 100%;
+}
+
 .banner .dark {
   display: none;
 }
+
 .dark .banner .light {
   display: none;
 }
+
 .dark .banner .dark {
   display: block;
 }
+
