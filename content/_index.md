@@ -4,7 +4,6 @@ title: Home
 
 {{< tabs >}}
 {{% tab name="Hello world" %}}
-
 ```neva
 component Main(enter any) (exit any) {
 	nodes { printer Printer<string> }
@@ -14,37 +13,33 @@ component Main(enter any) (exit any) {
 	}
 }
 ```
-
 {{% /tab %}}
-{{% tab name="Dependency injection" %}}
 
+{{% tab name="Dependency injection" %}}
 ```neva
+component Main(enter any) (exit any) {
+    nodes {
+        subNode SecondComponent { depNode Printer<any> }
+    }
+    net {
+        in:enter -> subNode:msg
+        subNode:msg -> out:exit
+    }
+}
+
 interface IPrinter<T>(data T) (sig T)
 
-components {
-    Main(enter any) (exit any) {
-        nodes {
-            subNode SecondComponent { depNode Printer<any> }
-        }
-        net {
-            in:enter -> subNode:msg
-            subNode:msg -> out:exit
-        }
-    }
-
-    SecondComponent (msg any) (msg any) {
-        nodes { depNode IPrinter<any> }
-        net {
-            in:msg -> depNode:data
-            depNode:sig -> out:msg
-        }
+component SecondComponent (msg any) (msg any) {
+    nodes { depNode IPrinter<any> }
+    net {
+        in:msg -> depNode:data
+        depNode:sig -> out:msg
     }
 }
 ```
-
 {{% /tab %}}
-{{% tab name="Struct builder" %}}
 
+{{% tab name="Struct builder" %}}
 ```neva
 type User struct {
     age int
@@ -64,6 +59,5 @@ component Main(enter any) (exit any) {
     }
 }
 ```
-
 {{% /tab %}}
 {{< /tabs >}}

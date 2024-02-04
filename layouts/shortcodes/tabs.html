@@ -26,7 +26,7 @@ function switchTab(groupId, name) {
     <div class="tabs">
     {{ range $idx, $tab := .Scratch.Get "tabs" }}
         <a
-            href="#"
+            href="javascript:void(0)"
             data-tab-id="{{ printf "%s%s" $groupId .name }}"
             class="{{ cond (eq $idx 0) "active" ""}}"
             onclick="switchTab('{{ $groupId }}','{{ .name }}')"

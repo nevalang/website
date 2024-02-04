@@ -96,11 +96,13 @@ pre {
   border-radius: 5px;
 }
 
+.tab-panel .tabs a,
 .tab-panel .tabs a:hover {
-  border-color: var(--color-lightGrey);
+  border-color: transparent;
 }
-.tab-panel .tabs a.active:hover {
-  border-color: var(--color-primary);
+
+.tab-panel .tabs a.active {
+  border-color: var(--color-lightGrey);
 }
 
 .tab-content > section {
