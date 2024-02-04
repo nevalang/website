@@ -31,7 +31,7 @@ At first, you think the type system can do without generics... How naive. Then y
 
 ### Lack Of References
 
-I found it hard to find references. There are visual languages out there, but they are usually very specialized: LabVIEW, Unreal Blueprints, Node-RED, Blocky, Ballerina, DRAKON, you name it.
+I found it hard to find references. There are visual languages out there, but they are usually very specialized: Scratch, LabVIEW, Unreal Blueprints, Node-RED, Blocky, Ballerina, DRAKON, you name it.
 
 The same goes for dataflow languages. There are some general purpose things like NoFlo, but they aren't statically typed, which is a big deal. I also looked for an FBP language that didn't require using a traditional language like JavaScript, but FBP itself doesn't limit you to that, making it hard to find examples.
 
