@@ -81,3 +81,6 @@ footer {
   display: block;
 }
 
+pre {
+  border-radius: 5px;
+}
