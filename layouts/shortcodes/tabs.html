@@ -1,0 +1,48 @@
+<script>
+// TODO figure out whether we can move this from here
+// we don't wanna create multiple instances of switchTab
+function switchTab(groupId, name) {
+  const id = groupId + name;
+
+  const tabs = document.querySelectorAll("[data-tab-id]");
+  const tabContents = document.querySelectorAll("[data-tab-content-id]");
+  [...tabs, ...tabContents].forEach(function (element) {
+    element.classList.remove("active");
+  });
+
+  const activeTab = document.querySelector(`[data-tab-id="${id}"]`);
+  activeTab.classList.add("active");
+
+  const activeTabContent = document.querySelector(
+    `[data-tab-content-id="${id}"]`
+  );
+  activeTabContent.classList.add("active");
+}
+</script>
+
+{{ with .Inner }}{{ end }}
+{{ $groupId := default "default" (.Get "groupId") }}
+<div class="tab-panel">
+    <div class="tabs">
+    {{ range $idx, $tab := .Scratch.Get "tabs" }}
+        <a
+            href="#"
+            data-tab-id="{{ printf "%s%s" $groupId .name }}"
+            class="{{ cond (eq $idx 0) "active" ""}}"
+            onclick="switchTab('{{ $groupId }}','{{ .name }}')"
+        >
+            {{ .name }}
+        </a>
+    {{ end }}
+    </div>
+    <div class="tab-content">
+        {{ range $idx, $tab := .Scratch.Get "tabs" }}
+        <section
+            data-tab-content-id="{{ printf "%s%s" $groupId .name }}"
+            class="{{ cond (eq $idx 0) "active" ""}}"
+        >
+            {{ .content }}
+        </section>
+        {{ end }}
+    </div>
+</div>

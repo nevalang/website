@@ -1,4 +1,15 @@
 :root {
+  --bg-color: #ffffff;
+  --bg-secondary-color: #f3f3f6;
+  --color-lightGrey: #d2d6dd;
+  --color-grey: #747681;
+  --color-darkGrey: #3f4144;
+  --color-error: #d43939;
+  --color-success: #28bd14;
+  --grid-gutter: 2rem;
+  --font-size: 1.6rem;
+  --font-color: #333333;
+  
   --color-primary: #439ceb; /* brand color */
   --grid-maxWidth: 960px; /* max container width 1080px */
   --font-family-sans:  'Nunito', sans-serif;
@@ -83,4 +94,19 @@ footer {
 
 pre {
   border-radius: 5px;
+}
+
+.tab-panel .tabs a:hover {
+  border-color: var(--color-lightGrey);
+}
+.tab-panel .tabs a.active:hover {
+  border-color: var(--color-primary);
+}
+
+.tab-content > section {
+  display: none;
+}
+
+.tab-content > section.active {
+  display: block;
 }
