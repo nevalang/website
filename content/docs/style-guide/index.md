@@ -31,6 +31,40 @@ Avoid lines that are longer than **80** characters.
 3. Many people use big fonts because they care about their eyes. Long lines means horizontal scroll for them and scroll itself takes time.
 4. Professional programmers sometimes uses different kinds of "code lenses" in their IDEs so e.g. the line that is technically 120 characters becomes actually 150 or 200. Think of argument names lenses for instance.
 
+### Use entity blocks when necessary
+
+Usually if you have several entities of the same _kind_ (e.g. several _types_ or _components_) then use should group them into single `{}` block by using _entity block_ syntax
+
+```
+// bad
+type X any
+type Y any
+
+// good
+types {
+    X any
+    Y any
+}
+```
+
+However you don't have to always follow that rule. Just as always common sense should be in priority. You are free to break this rule when you have separate contexts for entities like in ths example:
+
+```neva
+type User struct {
+    // ...
+}
+
+component UserProcessor ...
+
+type File struct {
+    // ...
+}
+
+component FileProcessor ...
+```
+
+However ask yourself should these entities be in a single file.
+
 ### Add Newlines
 
 #### Between Sections
