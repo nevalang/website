@@ -111,3 +111,7 @@ Nevalang started as a visual programming language but has evolved into a hybrid,
 ## Go Interop (WIP)
 
 Nevalang's compiler can generate human-readable Go code. There are plans to utilize this feature for interoperability with existing Go codebases, allowing you to use existing Go code inside your Nevalang programs and, vice versa, to integrate Nevalang modules into your Go programs.
+
+## No Runtime Exceptions (WIP)
+
+Nevalang plans to achieve high reliability, where programs either fail at startup or run without crashes forever. It will do this by analyzing the program for errors before it runs (static semantic analysis) and checking for problems when the program starts (runtime checks). If a program crashes after starting, it's likely a bug in Nevalang itself. Users might still encounter logical mistakes in their code though.
