@@ -29,6 +29,11 @@ body {
   flex-direction: column;
 }
 
+a:hover:not(.button) {
+  opacity: 1;
+  text-decoration: underline;
+}
+
 header, main, footer {
   flex-shrink: 0;
 }
@@ -42,6 +47,10 @@ header {
 
 header .tabs > a, header .tabs > a:hover {
   border: none;
+}
+
+.tabs > a:hover {
+  text-decoration: underline;
 }
 
 main {
@@ -111,4 +120,15 @@ pre {
 
 .tab-content > section.active {
   display: block;
+}
+
+.docs-nav {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.25em;
+}
+
+.docs-nav a:hover {
+  opacity: 1;
+  text-decoration: underline;
 }

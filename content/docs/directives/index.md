@@ -1,6 +1,6 @@
 ---
 title: Compiler directives
-weight: 10
+weight: 5
 ---
 
 Compiler directives are special instructions for compiler.
@@ -17,4 +17,4 @@ Directive for _node_ that tells the compiler to insert given message to correspo
 
 ## `#autoports`
 
-tells the compiler that inports for this component are not defined in nevalang source code but instead must be derived from it's type-argument which is the structure. Inports will correspond to structure fields.
+Tells the compiler that inports for this component are not defined in nevalang source code but instead must be derived from it's type-argument which is the structure. Inports will correspond to structure fields.

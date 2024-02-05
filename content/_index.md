@@ -88,6 +88,10 @@ With static typing, Nevalang catches a significant number of bugs at compile tim
 
 Nevalang provides the ability to compile into either machine code for deployment as a single executable binary, or into Go, using it as its intermediate representation. This functionality generates human-readable Go code that developers can compile themselves using the official Go compiler or its alternatives. This includes the ability to produce WebAssembly, thereby extending Nevalang's utility for web-based applications.
 
+## Simple and Clean C-like Syntax
+
+Nevalang offers a syntax that is not only simple and easy to understand but also clean and minimalistic without the clutter and noise. Despite its powerful capabilities, Nevalang boasts very few syntax constructs and language abstractions compared to most popular programming languages, maintaining a small core.
+
 ## Interpreter Mode
 
 To support rapid development and debugging, Nevalang includes an interpreter mode. This means the compiler doesn't have to rush, allowing it to create more optimized code for final use.
