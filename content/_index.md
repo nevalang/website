@@ -70,42 +70,40 @@ component Main(enter any) (exit any) {
 {{% /tab %}}
 {{< /tabs >}}
 
-# Flow Based Programming
+# Features
 
-Nevalang operates on a flow-based programming model, where components are connected through inputs and outputs, it eliminates the need for low-level instructions like "call/return" and state manipulations and empowers you to reason about programs in a more natural way.
+## Flow Based Programming
 
-# Effortless Concurrency
+Nevalang operates on a flow-based programming model, where components are connected through inputs and outputs. This eliminates the need for low-level instructions like "call/return" and state manipulations, empowering you to reason about programs in a more natural way.
 
-FBP allows messages to flow concurrently across connections. This fundamental shift from synchronous to asynchronous operations by default enables seamless parallel computation without the complexities of mutexes, channels, or promises and common pitfalls of deadlocks and race conditions. First-class support for streaming data processing allows the system to operate on a maximum speed.
+## Effortless Concurrency
 
-# Static Type System
+FBP allows messages to flow concurrently across connections. This fundamental shift from synchronous to asynchronous operations by default enables seamless parallel computation, without the complexities of mutexes, channels, or promises, and avoids common pitfalls like deadlocks and race conditions. First-class support for streaming data processing allows the system to operate at maximum speed.
 
-With static typing, Nevalang catches a lot of bugs at compile time, enhancing code safety and reliability. Structural sub-typing further refines this by allowing components to receive more detailed data than required, intelligently ignoring unnecessary information. This reduces the need for boilerplate adapter code, streamlining the development process.
+## Static Type System
 
-# Interpreter Mode
+With static typing, Nevalang catches a significant number of bugs at compile time, enhancing code safety and reliability. Structural sub-typing further refines this approach by allowing components to receive more detailed data than required, intelligently ignoring unnecessary information. This reduces the need for boilerplate adapter code, streamlining the development process.
 
-To support rapid development and debugging, Nevalang includes an interpreter mode. It means compiler doesn't have to rush, allowing it to create more optimized code for final use.
+## Interpreter Mode
 
-# Dependency Injection
+To support rapid development and debugging, Nevalang includes an interpreter mode. This means the compiler doesn't have to rush, allowing it to create more optimized code for final use.
+
+## Dependency Injection
 
 With first-class support for dependency injection and interfaces, Nevalang encourages a modular design that’s easy to test, enhancing code quality and maintainability.
 
-# Message Tracing
+## Message Tracing
 
-Nevalang’s built-in observability traces every message paths throughout execution at runtime, offering superior debugging capabilities.
+Nevalang’s built-in observability feature traces every message path throughout execution at runtime, offering superior debugging capabilities.
 
-# Garbage Collection
+## Garbage Collection
 
 Leveraging Go's garbage collector, Nevalang frees you from manual memory management, allowing you to concentrate on developing your application.
 
-# Visual Programming (WIP)
+## Visual Programming (WIP)
 
 Nevalang started as a visual programming language but has evolved into a hybrid, offering a clean, C-like syntax alongside a visual editor. This approach addresses common drawbacks of visual programming by supporting standard development practices like version control and code reviews, while also making complex projects manageable through its package system and component abstractions.
 
-# Go Interop (WIP)
+## Go Interop (WIP)
 
 Nevalang's compiler can generate either machine code for optimal performance or Go code for interoperability with existing Go codebases.
-
----
-
-Discover Nevalang: where simplicity meets power. Explore a new world of programming that’s asynchronous, intuitive, and modular by design. Start your journey with Nevalang today and experience coding like never before.
