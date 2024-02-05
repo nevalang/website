@@ -72,7 +72,7 @@ component Main(enter any) (exit any) {
 
 # Features
 
-## Flow Based Programming
+## Flow-Based Programming
 
 Nevalang operates on a flow-based programming model, where components are connected through inputs and outputs. This eliminates the need for low-level instructions like "call/return" and state manipulations, empowering you to reason about programs in a more natural way.
 
@@ -84,15 +84,19 @@ FBP allows messages to flow concurrently across connections. This fundamental sh
 
 With static typing, Nevalang catches a significant number of bugs at compile time, enhancing code safety and reliability. Structural sub-typing further refines this approach by allowing components to receive more detailed data than required, intelligently ignoring unnecessary information. This reduces the need for boilerplate adapter code, streamlining the development process.
 
+## Multi-Target Compilation
+
+Nevalang provides the ability to compile into either machine code for deployment as a single executable binary, or into Go, using it as its intermediate representation. This functionality generates human-readable Go code that developers can compile themselves using the official Go compiler or its alternatives. This includes the ability to produce WebAssembly, thereby extending Nevalang's utility for web-based applications.
+
 ## Interpreter Mode
 
 To support rapid development and debugging, Nevalang includes an interpreter mode. This means the compiler doesn't have to rush, allowing it to create more optimized code for final use.
 
-## Dependency Injection
+## First-Class Dependency Injection
 
 With first-class support for dependency injection and interfaces, Nevalang encourages a modular design that’s easy to test, enhancing code quality and maintainability.
 
-## Message Tracing
+## Builtin Message Tracing
 
 Nevalang’s built-in observability feature traces every message path throughout execution at runtime, offering superior debugging capabilities.
 
@@ -106,4 +110,4 @@ Nevalang started as a visual programming language but has evolved into a hybrid,
 
 ## Go Interop (WIP)
 
-Nevalang's compiler can generate either machine code for optimal performance or Go code for interoperability with existing Go codebases.
+Nevalang's compiler can generate human-readable Go code. There are plans to utilize this feature for interoperability with existing Go codebases, allowing you to use existing Go code inside your Nevalang programs and, vice versa, to integrate Nevalang modules into your Go programs.
