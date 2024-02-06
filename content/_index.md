@@ -72,35 +72,35 @@ component Main(enter any) (exit any) {
 
 # Features
 
-## Flow-Based Programming
+## 🌊 Flow-Based Programming
 
 Nevalang operates on a flow-based programming model, where components are connected through inputs and outputs. This eliminates the need for low-level instructions like "call/return" and state manipulations, empowering you to reason about programs in a more natural way.
 
-## Effortless Concurrency
+## 🔀 Effortless Concurrency
 
 FBP allows messages to flow concurrently across connections. This fundamental shift from synchronous to asynchronous operations by default enables seamless parallel computation, without the complexities of mutexes, channels, or promises, and avoids common pitfalls like deadlocks and race conditions. First-class support for streaming data processing allows the system to operate at maximum speed.
 
-## Static Type System
+## 🛡️ Static Type System
 
 With static typing, Nevalang catches a significant number of bugs at compile time, enhancing code safety and reliability. Structural sub-typing further refines this approach by allowing components to receive more detailed data than required, intelligently ignoring unnecessary information. This reduces the need for boilerplate adapter code, streamlining the development process.
 
-## Multi-Target Compilation
+## 🎯 Multi-Target Compilation
 
 Nevalang provides the ability to compile into either machine code for deployment as a single executable binary, or into Go, using it as its intermediate representation. This functionality generates human-readable Go code that developers can compile themselves using the official Go compiler or its alternatives. This includes the ability to produce WebAssembly, thereby extending Nevalang's utility for web-based applications.
 
-## Interpreter Mode
+## 🏃‍♂️ Interpreter Mode
 
 To support rapid development and debugging, Nevalang includes an interpreter mode. This means the compiler doesn't have to rush, allowing it to create more optimized code for final use.
 
-## First-Class Dependency Injection
+## 💉 First-Class Dependency Injection
 
 With first-class support for dependency injection and interfaces, Nevalang encourages a modular design that’s easy to test, enhancing code quality and maintainability.
 
-## Builtin Message Tracing
+## 🕵️‍♂️ Builtin Message Tracing
 
 Nevalang’s built-in observability feature traces every message path throughout execution at runtime, offering superior debugging capabilities.
 
-## Garbage Collection
+## ♻️ Garbage Collection
 
 Leveraging Go's garbage collector, Nevalang frees you from manual memory management, allowing you to concentrate on developing your application.
 
