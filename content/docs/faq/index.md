@@ -130,17 +130,17 @@ It's not the problem that it's tedious (even though it is, imagine having 10 unw
 Imagine that `B` has outports `v` (for valid results) and `err` (for error messages). It fires either `v` or `err` and never both at the same time. And we want out program to terminate if there's nothing to do left. Consider this code:
 
 ```neva
-Main(enter) (exit) {
+component Main(start any) (stop any) {
     nodes {
         b B
-        void Void
+        destructor Destructor
         print Print
     }
     net {
-        in.enter -> b.sig
-        b.err -> void.v // ignore the `err` outport, only handle happy path
-        b.v -> print.v
-        print.v -> out.exit
+        in:start -> b:sig
+        b:err -> destructor:msg // ignore the `err` outport, only handle happy path
+        b:v -> print:v
+        print:v -> out:exit
     }
 }
 ```
@@ -150,7 +150,7 @@ We print the success result and then terminate. If there is no success result an
 ```neva
 // ...
 net {
-    in.enter -> b.sig
+    in.start -> b.sig
 
     // print both result and error
     b.err -> print.v
@@ -274,9 +274,9 @@ If you need to continue sub-stream you simply send `SubStreamItem<T>` from you w
 
 It's either you continue sub-stream or you do not. Depending on what your're doing (maybe you're counting sub-stream items so you just sends `int` eachtime sub-stream ends).
 
-## Why `out:exit` of the `Main` is't `int`?
+## Why `out:stop` of the `Main` is't `int`?
 
-This is the question about why `out:exit` isn't interpreted as exit code.
+This is the question about why `out:stop` isn't interpreted as exit code.
 
 The things is - you don't always have `int` as your exit condition. That's why it's `any`.
 
@@ -284,7 +284,7 @@ Ok, but why then we don't check if that `any` is actually `int` under the hood a
 
 Well, we can do that. But that would lead to situations where you accidentally have `int` like your exit condition but don't actually want it to be your exit code. Such cases are non obvious and will require you to somehow check that you send exit code you want.
 
-This problem gets bigger when you have `any` or _union_ `... | int` outport that is directed to `out:exit` - you'll have to check whether value isn't an `int`. Otherwise you're at risk of terminating with wrong code.
+This problem gets bigger when you have `any` or _union_ `... | int` outport that is directed to `out:stop` - you'll have to check whether value isn't an `int`. Otherwise you're at risk of terminating with wrong code.
 
 **Exit codes are important**. Shell scripts and CI/CD depends on that. Most of the time you want your exit code to be `zero`. Non-zero exit code is not happypath, it's more rare. Having corner case like a base design decision is not what we want.
 

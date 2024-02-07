@@ -22,6 +22,7 @@ The Nevalang style guide outlined in this document sets the standards for organi
 - **Flow Separation**: Use outports to differentiate data paths and structs for data that always moves together.
 - **Network Structure**: Favor simple, understandable topologies like pipes or trees over complex networks with multiple parent nodes.
 - **Port Numbers**: Limit the number of ports. Ideally, no more than three inports and five outports to keep the network comprehensible.
+- **Interface Size**: Keep your interfaces small. The lesser ports interface have, the easier it is to implement it.
 
 ## Naming Conventions
 
