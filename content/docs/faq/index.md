@@ -319,3 +319,25 @@ A few components in stdlib don't follow style-guide in their naming. Examples ar
 ## What is the reasoning behind naming in Nevalang?
 
 So it's not classic FBP with processes, IPs, IIPS, etc. The reasoning was pretty much simple - stuff should look familiar for most of the programmers. Kinda like in "Interslavic" language if that makes sense. They have to shift paradigm so let's help them at least for a little.
+
+## Why struct and map literals require `:` and `,` and `struct` declaration not?
+
+Indeed you define structures like this:
+
+```neva
+type struct Point {
+    x int
+    y int
+}
+```
+
+And not like this
+
+```neva
+type struct Point {
+    x: int,
+    y: int,
+}
+```
+
+So why you define struct/map literals with colons and commas? Well, the answer is that this way it almost valid JSON just like in Python in JS. Except (optional) trailing comma (afterall JSON compatibility is not our goal). This also good to distinguish easily between type and const expressions. Finally this is how we do in JS/TS, Python and Go.
