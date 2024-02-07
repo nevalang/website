@@ -96,11 +96,11 @@ Nevalang offers a syntax that is not only simple and easy to understand but also
 
 To support rapid development and debugging, Nevalang includes an interpreter mode. This means the compiler doesn't have to rush, allowing it to create more optimized code for final use.
 
-## First-Class Dependency Injection
+## 💉 First-Class Dependency Injection
 
 With first-class support for dependency injection and interfaces, Nevalang encourages a modular design that’s easy to test, enhancing code quality and maintainability.
 
-## Builtin Message Tracing
+## Builtin Observability
 
 Nevalang’s built-in observability feature traces every message path throughout execution at runtime, offering superior debugging capabilities.
 
