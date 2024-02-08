@@ -1,9 +1,11 @@
 {{ define "main" }}
-<div class="row">
-  <aside class="col-3">{{ partial "docs-nav.html" . }}</aside>
-  <div class="col-9">
-    <h1>{{ .Title }}</h1>
-    {{ .Content }}
+  <h1 class="text-center">{{.Title}}</h1>
+  <div>
+    {{ range .Pages }}
+      <a href="{{ .RelPermalink }}" class="card docs-card">
+        <h2>{{ .Title }}</h2>
+        <p>{{ .Description }}</p>
+      </a>
+    {{ end }}
   </div>
-</div>
-{{ end }}
+{{ end }} 

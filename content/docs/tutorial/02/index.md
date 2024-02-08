@@ -1,55 +1,7 @@
 ---
-title: Tutorial
-weight: 3
+title: Echo
+weight: 2
 ---
-
-Welcome to the "Learn Nevalang the Hard Way" tutorial! This comprehensive guide is designed to teach you the Nevalang programming language through detailed examples, covering everything you need to grasp the full scope of the language.
-
-In this tutorial, you'll explore and simplify many small programs, moving from complex and wordy to simple and clear. By breaking these down step by step, you'll fully understand how things work in Nevalang, ensuring that nothing feels like magic. Let's dive in!
-
-## A Program That Does Nothing
-
-Here is the smallest program in Nevalang that compiles. It absolutely does nothing, but by looking at it, you can learn a lot about Nevalang.
-
-```neva
-component Main(start any) (stop any) {
-    net { in:start -> out:stop }
-}
-```
-
-Let's break down what's written here.
-
-A Nevalang program consists of _components_ that send _messages_ to each other through _ports_ but ports cannot be connected randomly. Each port has its own _data type_, and when we connect one port to another, the compiler checks if they are _compatible_. Otherwise, it throws an error.
-
-It states that there is a "Main" component (every component has a name), with two ports - one for input - `start` - and one for output - `stop`. The data type of both ports is `any` - a universal data type, saying "I am compatible with any types of data."
-
-```neva
-Main (start any) (stop any)
-```
-
-Next, we see a block of curly braces `{}` and inside another one with the keyword `net`.
-
-```neva
-{
-    net { in:start -> out:stop }
-}
-```
-
-Ports are the _interface_ of a component, but in addition to the interface, a component also needs a _body_ - code that describes what exactly the component does, what work it performs. In this case, the curly braces are the body, and `net` is the _network_ - the computational scheme of the component.
-
-In Nevalang, programming is _flow-based_, and instead of controlling the flow of execution, as in conventional languages, we control the flow of data. We don't call functions, don't execute instructions; we just route messages from one place to another, thus creating a graph that describes how data flows through the program. That's why such programming is called flow-based.
-
-In this case, we see that data flows directly from the input port `start` to the output port `stop`.
-
-```
-in:start -> out:stop
-```
-
-In other words, our Main component does nothing. It just lets data pass through itself without having any impact on the external world. Essentially, it could be called a bypass, but in a Nevalang program, there must always be at least one `Main` component (we'll understand why later).
-
-The curious reader may wonder, what about `in:` and `out:`? Why couldn't we just write `start -> stop`? The fact is that there can be any number of ports for both input and output (although typically there are no more than three on each side). Input and output ports can sometimes have the same names. To avoid confusion, we specify the direction - `in` is input, and `out` is output.
-
-## Echo
 
 If you've gone through the quick start, you should have already created your first project. In that case, simply update the code in `main.neva` to include the `Echo` component from this example. For everyone else, let's execute the following commands:
 
@@ -146,16 +98,16 @@ Are you still here? It's quite a lot for an introductory lesson, isn't it? But t
 Let's finally take another look at the network of our Main component:
 
 ```
-	net {
-		in:start -> reader:sig
-		reader:data -> printer:data
-		printer:sig -> reader:sig
-	}
+net {
+	in:start -> reader:sig
+	reader:data -> printer:data
+	printer:sig -> out:stop
+}
 ```
 
-Now that we know what "nodes" are, we can understand this syntax a bit deeper. So, the network consists of connections. In this case, three. The order in which connections are declared in the code is absolutely not important. Remember - we do not control the flow of execution, but merely set the direction in which data flows.
+Now that we know what nodes are, we can understand this syntax a bit deeper. So, the network consists of connections. In this case, three. The order in which connections are declared in the code is absolutely not important. Remember - we do not control the flow of execution, but merely set the direction in which data flows.
 
-Each connection consists of a sender and a receiver. Both the sender and the receiver are described by constructs called "port addresses," which in turn consist of a node and a port. For example, in the connection:
+Each connection consists of a _sender_ and a _receiver_. Both are described by constructs called _port addresses_ which in turn consist of a node and a port. For example, in the connection:
 
 ```
 reader:data -> printer:data
@@ -165,7 +117,7 @@ The output port `data` of the `reader` node is directed into the input port `dat
 
 Finally, the curious reader might wonder, aren't `in` and `out` also nodes? After all, they are not instances of some components?
 
-Correct, they are not. The fact is that there are indeed two types of "nodes" - component instances and the so-called IO nodes, of which there are always two in the network of each component - the `in` node and the `out` node.
+Correct, they are not. The fact is that there are indeed two types of nodes - _component instances_ and the so-called _IO nodes_, of which there are always two in the network of each component - the `in` node and the `out` node.
 
 Now, if you don't understand the following paragraph, that's absolutely fine. But for the most demanding readers, it is necessary to clarify that the `in` node contains only output ports, and the `out` node only input ports. This inversion might be confusing, but it is actually quite natural - a component reads data from its input ports as if they are the output ports of some node and correspondingly writes to its output ports as if they are someone else's input ports.
 
@@ -174,7 +126,25 @@ Finally, let's dissect the algorithm our network executes. So, we have 3 connect
 ```
 in:start -> reader:sig
 reader:data -> printer:data
-printer:sig -> reader:sig
+printer:sig -> out:stop
 ```
 
 As we see, the `start` signal goes to the `reader` node into the `sig` port. The `sig` port typically signifies a _signal_ to start performing work. The `Reader` component is designed in such a way that upon receiving this signal, it will _block_, waiting for input from the keyboard. After the user enters text and presses Enter, the program will be unblocked, and the entered data will be sent to the `Printer` component, which, in turn, will print it out and emit a `sig` signal on its output. We use this signal to close our loop, forming a cycle. The program will terminate if "ctrl+c" is pressed, but until then, it will continuously operate, constantly waiting for input and then printing it, ad infinitum.
+
+Before we move on, let's simplify our program just a bit. We'll remove the `import { std/builtin }` line and also eliminate every `builtin.` prefix from our nodes' instantiations.
+
+```neva
+component Main(start any) (stop any) {
+    nodes {
+        reader Reader
+        printer Printer<string>
+    }
+    net {
+        in:start -> reader:sig
+        reader:data -> printer:data
+        printer:sig -> reader:sig
+    }
+}
+```
+
+It still works! In fact, the compiler implicitly injects the `std/builtin` import into every file and checks if the entity we refer to is defined there. However, if we, for example, define our own `Reader` in this package, it will _shadow_ the built-in one.

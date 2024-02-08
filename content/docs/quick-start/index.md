@@ -1,6 +1,7 @@
 ---
 title: Quick Start
 weight: 2
+description: Install Nevalang and create your first project in one minute!
 ---
 
 ## Installing Nevalang

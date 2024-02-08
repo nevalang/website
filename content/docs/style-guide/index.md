@@ -1,13 +1,12 @@
 ---
 title: Style guide
 weight: 4
+description: The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It's recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.
 ---
-
-The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It's recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.
 
 ## Code Organization
 
-- **File Size**: Aim for files to be up to 300 lines. Files longer than 300 lines should be split, indicating a need for better organization.
+- **Lines Count**: Aim for files to be up to 300 lines. Files longer than 300 lines should be split, indicating a need for better organization.
 
 ## Formatting
 
@@ -16,7 +15,7 @@ The Nevalang style guide outlined in this document sets the standards for organi
 - **Entity Blocks**: Group similar entities (like types or components) within `{}` blocks for clarity, but use discretion for cases where separate contexts are needed.
 - **Newlines**: Always insert newlines after imports and between entities.
 
-## Design
+## API Design
 
 - **Generics Usage**: Utilize generics when data type consistency across inports and outports is important.
 - **Flow Separation**: Use outports to differentiate data paths and structs for data that always moves together.

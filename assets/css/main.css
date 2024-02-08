@@ -132,3 +132,32 @@ pre {
   opacity: 1;
   text-decoration: underline;
 }
+
+a.theme-toggle:hover {
+  text-decoration: none;
+}
+
+.docs-card {
+  display: block;
+  box-shadow: none;
+  border: 1px solid var(--color-lightGrey);
+  border-bottom: none;
+  border-radius: 0;
+}
+
+.docs-card:first-child {
+  border-radius: 5px 5px 0 0;
+}
+
+.docs-card:last-child {
+  border-bottom: 1px solid var(--color-lightGrey);
+  border-radius: 0 0 5px 5px;
+}
+
+a.docs-card:hover {
+  /* background-color: var(--color-primary); */
+  /* border-color: var(--bg-color); */
+  text-decoration: none;
+  /* color: var(--bg-color); */
+}
+

@@ -1,6 +1,7 @@
 ---
 title: FAQ
 weight: 6
+description: Answer to questions about language design.
 ---
 
 ## What is this?

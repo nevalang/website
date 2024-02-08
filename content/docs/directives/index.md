@@ -1,11 +1,10 @@
 ---
 title: Compiler directives
 weight: 5
+description: "Compiler directives are special instructions for compiler.
+
+They are not intended to be used on a daily basis by regular user but good nevalang programmer understands how they work because they are base for how many language features operate"
 ---
-
-Compiler directives are special instructions for compiler.
-
-They are not intended to be used on a daily basis by regular user but good nevalang programmer understands how they work because they are base for how many language features operate.
 
 ## `#extern`
 
