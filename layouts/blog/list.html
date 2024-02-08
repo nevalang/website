@@ -1,5 +1,5 @@
 {{ define "main" }}
-  <h1>{{ .Title }}</h1>
+  <h1 class="text-center">{{.Title}}</h1>
   {{ .Content }}
   {{ range .Pages }}
     {{ $dateHuman := .Date | time.Format ":date_long" }}

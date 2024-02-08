@@ -1,10 +1,4 @@
 {{ define "main" }}
-<div class="row">
-  <aside class="col-3">{{ partial "docs-nav.html" . }}</aside>
-  <div class="col-9">
-    <h1>{{ .Title }}</h1>
-    {{ .Description }}
-    {{ .Content }}
-  </div>
-</div>
+<h1 class="text-center">{{ .Title }}</h1>
+<p>{{ .Content }}</p>
 {{ end }}

@@ -119,3 +119,7 @@ Nevalang's compiler can generate human-readable Go code. There are plans to util
 ### No Runtime Exceptions (WIP)
 
 Nevalang plans to achieve high reliability, where programs either fail at startup or run without crashes forever. It will do this by analyzing the program for errors before it runs (static semantic analysis) and checking for problems when the program starts (runtime checks). If a program crashes after starting, it's likely a bug in Nevalang itself. Users might still encounter logical mistakes in their code though.
+
+## Next Steps
+
+Want to learn more? Welcome to the [about the language](/docs/about) section.

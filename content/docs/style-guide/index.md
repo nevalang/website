@@ -1,8 +1,9 @@
 ---
-title: Style guide
+title: Style Guide
 weight: 4
-description: The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It's recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.
 ---
+
+The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It's recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.
 
 ## Code Organization
 

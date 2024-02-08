@@ -3,6 +3,8 @@ title: Echo
 weight: 2
 ---
 
+## Module and Manifest
+
 If you've gone through the quick start, you should have already created your first project. In that case, simply update the code in `main.neva` to include the `Echo` component from this example. For everyone else, let's execute the following commands:
 
 ```bash
@@ -35,6 +37,8 @@ component Main(start any) (stop any) {
 }
 ```
 
+## Packages, Std Module, Builtin Package
+
 Let's pay attention to this line:
 
 ```
@@ -44,6 +48,8 @@ import { std/builtin }
 Previously, it was mentioned that our module has no dependencies, but that's not entirely true. Every module implicitly depends on the _standard library_ module - `std`.
 
 We've already discovered that Nevalang programs consist of modules, but what do modules consist of? Modules consist of _packages_. In this case, we import the `builtin` package from the `std` module to reuse it in our code.
+
+## Nodes, Component Instances
 
 Let's now return to our `Main` component and see how it has changed. As we remember, it previously did nothing. Nevertheless, it had a body. Now, as we can see, its body has grown and consists not only of a `net` but also contains a `nodes` section.
 
@@ -61,6 +67,8 @@ The network of any component that performs some work will inevitably consist of 
 In our example, the Main component creates 2 nodes - `printer`, an instance of the component `builtin.Printer`, and `reader`, an instance of the component `builtin.Reader`.
 
 This `reader builtin.Reader` syntax should be understood as `<node_name> <instantiation_expression>`, where the latter, in turn, is `<package_name>.<component_name>`.
+
+## Type Parameters
 
 Another syntactic construct that we should examine before moving forward is "generics," or, as they are more academically called, type parameters.
 
@@ -95,6 +103,8 @@ Type parameters are a mechanism that allows writing generic code. Without them, 
 
 Are you still here? It's quite a lot for an introductory lesson, isn't it? But there's nothing to be done, our task is to delve into and understand how it works. Either way, we're almost finished, there's just a little bit left.
 
+## Connections, Senders, Receivers and Port Addresses
+
 Let's finally take another look at the network of our Main component:
 
 ```
@@ -115,11 +125,15 @@ reader:data -> printer:data
 
 The output port `data` of the `reader` node is directed into the input port `data` of the `printer` node. Ports to the left of `->` are always output, and ports to the right are always input.
 
+## IO Nodes
+
 Finally, the curious reader might wonder, aren't `in` and `out` also nodes? After all, they are not instances of some components?
 
 Correct, they are not. The fact is that there are indeed two types of nodes - _component instances_ and the so-called _IO nodes_, of which there are always two in the network of each component - the `in` node and the `out` node.
 
 Now, if you don't understand the following paragraph, that's absolutely fine. But for the most demanding readers, it is necessary to clarify that the `in` node contains only output ports, and the `out` node only input ports. This inversion might be confusing, but it is actually quite natural - a component reads data from its input ports as if they are the output ports of some node and correspondingly writes to its output ports as if they are someone else's input ports.
+
+## Reader, Printer and The Algorithm
 
 Finally, let's dissect the algorithm our network executes. So, we have 3 connections:
 
@@ -130,6 +144,8 @@ printer:sig -> out:stop
 ```
 
 As we see, the `start` signal goes to the `reader` node into the `sig` port. The `sig` port typically signifies a _signal_ to start performing work. The `Reader` component is designed in such a way that upon receiving this signal, it will _block_, waiting for input from the keyboard. After the user enters text and presses Enter, the program will be unblocked, and the entered data will be sent to the `Printer` component, which, in turn, will print it out and emit a `sig` signal on its output. We use this signal to close our loop, forming a cycle. The program will terminate if "ctrl+c" is pressed, but until then, it will continuously operate, constantly waiting for input and then printing it, ad infinitum.
+
+## Implicit Builtin
 
 Before we move on, let's simplify our program just a bit. We'll remove the `import { std/builtin }` line and also eliminate every `builtin.` prefix from our nodes' instantiations.
 

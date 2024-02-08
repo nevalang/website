@@ -1,11 +1,17 @@
 {{ define "main" }}
-  <h1 class="text-center">{{.Title}}</h1>
-  <div>
-    {{ range .Pages }}
-      <a href="{{ .RelPermalink }}" class="card docs-card">
-        <h2>{{ .Title }}</h2>
-        <p>{{ .Description }}</p>
-      </a>
-    {{ end }}
+<div class="row">
+  <aside class="col-4">
+    <ul>
+      {{ range .Pages }}
+      <li>
+        <a href="{{ .RelPermalink }}"> {{ .Title }}</a>
+      </li>
+      {{ end }}
+    </ul>
+  </aside>
+  <div class="col-8">
+    <h1>{{.Title}}</h1>
+    <p>{{.Content}}</p>
   </div>
-{{ end }} 
+</div>
+{{ end }}
