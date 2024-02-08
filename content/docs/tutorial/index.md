@@ -47,4 +47,134 @@ in:start -> out:stop
 
 In other words, our Main component does nothing. It just lets data pass through itself without having any impact on the external world. Essentially, it could be called a bypass, but in a Nevalang program, there must always be at least one `Main` component (we'll understand why later).
 
-The curious reader may wonder, what about `in:` and `out:`? Why couldn't we just write `start -> stop`? The fact is that there can be any number of ports for both input and output (although typically there are no more than three on each side). Input and output ports can sometimes have the same names. To avoid confusion, we specify the direction - in is input, and out is output.
+The curious reader may wonder, what about `in:` and `out:`? Why couldn't we just write `start -> stop`? The fact is that there can be any number of ports for both input and output (although typically there are no more than three on each side). Input and output ports can sometimes have the same names. To avoid confusion, we specify the direction - `in` is input, and `out` is output.
+
+## Echo
+
+If you've gone through the quick start, you should have already created your first project. In that case, simply update the code in `main.neva` to include the `Echo` component from this example. For everyone else, let's execute the following commands:
+
+```bash
+mkdir nevalang_test # create directory
+cd nevalang_test # go there
+touch neva.yml # create manifest file
+echo "compiler: 0.0.1" >> neva.yml # insert compiler version
+touch main.neva # create source code file
+```
+
+With these commands, we're creating a _module_. We'll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.
+
+Each module has a `neva.yml` file, which describes its _dependencies_ (modules can depend on other modules, in this case, there are no dependencies) and the required version of the compiler (in this case, 0.0.1). Such a file is called the module's _manifest_.
+
+So, after our module is created, let's make sure that the file `main.neva` contains the following code:
+
+```neva
+import { std/builtin }
+
+component Main(start any) (stop any) {
+	nodes {
+		reader builtin.Reader
+		printer builtin.Printer<string>
+	}
+	net {
+		in:start -> reader:sig
+		reader:data -> printer:data
+		printer:sig -> reader:sig
+	}
+}
+```
+
+Let's pay attention to this line:
+
+```
+import { std/builtin }
+```
+
+Previously, it was mentioned that our module has no dependencies, but that's not entirely true. Every module implicitly depends on the _standard library_ module - `std`.
+
+We've already discovered that Nevalang programs consist of modules, but what do modules consist of? Modules consist of _packages_. In this case, we import the `builtin` package from the `std` module to reuse it in our code.
+
+Let's now return to our `Main` component and see how it has changed. As we remember, it previously did nothing. Nevertheless, it had a body. Now, as we can see, its body has grown and consists not only of a `net` but also contains a `nodes` section.
+
+```neva
+nodes {
+	reader builtin.Reader
+	printer builtin.Printer<string>
+}
+```
+
+Previously, it was mentioned that components send messages to each other. However, in reality, it's not the components that exchange messages but their instances. These instances are called _nodes_ and the components are merely "blueprints" from which such nodes can be created. A component effectively describes a node - its input-output ports and its behavior.
+
+The network of any component that performs some work will inevitably consist of instances of other components. This means that a component typically depends on other components.
+
+In our example, the Main component creates 2 nodes - `printer`, an instance of the component `builtin.Printer`, and `reader`, an instance of the component `builtin.Reader`.
+
+This `reader builtin.Reader` syntax should be understood as `<node_name> <instantiation_expression>`, where the latter, in turn, is `<package_name>.<component_name>`.
+
+Another syntactic construct that we should examine before moving forward is "generics," or, as they are more academically called, type parameters.
+
+Let's look again at the declaration of the `printer` node, specifically at its right part - the component instantiation:
+
+`builtin.Printer<string>`
+
+The construction `<string>` immediately catches the eye. What does it mean? If we take a moment to look at the declaration of the `builtin.Printer` component, we will see the following:
+
+```neva
+#extern(LinePrinter)
+pub Printer<T>(data T) (sig T)
+```
+
+We will not yet touch upon what `#extern` and `pub` mean, as we still have to understand these. Let's focus on the interface. We see that the `Printer` component has an input port `data` with type `T` and an output port `sig` also with type `T`. But what is this type `T`?
+
+It's all about this code `Printer<T>`. Such a syntactic construction, where triangle brackets follow the component's name, and within them are letters (typically uppercase), is called type parameters. In this case, the `Printer` component has one parameter `T`. Essentially, this means that when instantiating this component, that is, when creating a node based on it, we need to provide a type argument.
+
+In our case, we provide `string` and
+
+```
+Printer<T>(data T) (sig T)
+```
+
+Transforms for us into
+
+```
+Printer(data string) (sig string)
+```
+
+Type parameters are a mechanism that allows writing generic code. Without them, we would have to have a multitude of Printer variations for different data types. By specifying that the printer needs to work with strings (about them, and about other data types, we will also talk later), we get a safe way of using this node in our network.
+
+Are you still here? It's quite a lot for an introductory lesson, isn't it? But there's nothing to be done, our task is to delve into and understand how it works. Either way, we're almost finished, there's just a little bit left.
+
+Let's finally take another look at the network of our Main component:
+
+```
+	net {
+		in:start -> reader:sig
+		reader:data -> printer:data
+		printer:sig -> reader:sig
+	}
+```
+
+Now that we know what "nodes" are, we can understand this syntax a bit deeper. So, the network consists of connections. In this case, three. The order in which connections are declared in the code is absolutely not important. Remember - we do not control the flow of execution, but merely set the direction in which data flows.
+
+Each connection consists of a sender and a receiver. Both the sender and the receiver are described by constructs called "port addresses," which in turn consist of a node and a port. For example, in the connection:
+
+```
+reader:data -> printer:data
+```
+
+The output port `data` of the `reader` node is directed into the input port `data` of the `printer` node. Ports to the left of `->` are always output, and ports to the right are always input.
+
+Finally, the curious reader might wonder, aren't `in` and `out` also nodes? After all, they are not instances of some components?
+
+Correct, they are not. The fact is that there are indeed two types of "nodes" - component instances and the so-called IO nodes, of which there are always two in the network of each component - the `in` node and the `out` node.
+
+Now, if you don't understand the following paragraph, that's absolutely fine. But for the most demanding readers, it is necessary to clarify that the `in` node contains only output ports, and the `out` node only input ports. This inversion might be confusing, but it is actually quite natural - a component reads data from its input ports as if they are the output ports of some node and correspondingly writes to its output ports as if they are someone else's input ports.
+
+Finally, let's dissect the algorithm our network executes. So, we have 3 connections:
+
+```
+in:start -> reader:sig
+reader:data -> printer:data
+printer:sig -> reader:sig
+```
+
+As we see, the `start` signal goes to the `reader` node into the `sig` port. The `sig` port typically signifies a _signal_ to start performing work. The `Reader` component is designed in such a way that upon receiving this signal, it will _block_, waiting for input from the keyboard. After the user enters text and presses Enter, the program will be unblocked, and the entered data will be sent to the `Printer` component, which, in turn, will print it out and emit a `sig` signal on its output. We use this signal to close our loop, forming a cycle. The program will terminate if "ctrl+c" is pressed, but until then, it will continuously operate, constantly waiting for input and then printing it, ad infinitum.

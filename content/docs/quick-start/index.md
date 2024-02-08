@@ -13,16 +13,16 @@ curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.s
 
 ## Creating Your First Project
 
-Let's create a new project named `nevalang_test`. This project will include a `neva.yml` manifest file and a `main.neva` source code file, which will contain a simple Nevalang program.
+Let's create a new project named `nevalang_test`. This project will include a `neva.yml` _manifest_ file and a `main.neva` source code file, which will contain a simple Nevalang program.
 
 Execute the following commands to set up your project:
 
 ```bash
-mkdir nevalang_test
-cd nevalang_test
-touch neva.yml
-echo "compiler: 0.0.1" >> neva.yml
-touch main.neva
+mkdir nevalang_test # create directory
+cd nevalang_test # go there
+touch neva.yml # create manifest file
+echo "compiler: 0.0.1" >> neva.yml # insert compiler version
+touch main.neva # create source code file
 ```
 
 Next, open `main.neva` with your preferred text editor and add the following code:
