@@ -32,7 +32,7 @@ component Main(start any) (stop any) {
 	net {
 		in:start -> reader:sig
 		reader:data -> printer:data
-		printer:sig -> reader:sig
+		printer:sig -> out:stop
 	}
 }
 ```
@@ -158,7 +158,7 @@ component Main(start any) (stop any) {
     net {
         in:start -> reader:sig
         reader:data -> printer:data
-        printer:sig -> reader:sig
+        printer:sig -> out:stop
     }
 }
 ```

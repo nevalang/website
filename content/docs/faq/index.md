@@ -194,7 +194,7 @@ Because that's a simple language. Lack of ability to configure bit-size of the n
 1. Frequently used
 2. Used internally by compiler (desugarer)
 
-## Why constants are implemented this way? (Lock-semantic instead of trigger semantic)
+## Why Emitter implemented like an infinite loop?
 
 Const nodes are implemented like infinite loops that constantly sends messags across their receivers. This covers all the usecases but also requires locks because we usually want control when we send constant messages.
 
