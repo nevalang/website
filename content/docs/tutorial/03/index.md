@@ -44,7 +44,7 @@ const <name> <type_expr> = <literal_expr>
 
 So, what exactly is a constant? It's an entity that describes a _static message_ - a message whose value is known at the time of writing the program (at _compile time_) and is directly present in the program's source code. The value of a constant must be explicitly set; it cannot be computed in any way. The values of constants are _immutable_ - if a constant describes the string message `"Hello, world!"` then it will remain so throughout the program. It's impossible for a constant to change in any way. Note that in Nevalang, there are no variables and, consequently, no mutable state.
 
-## Emitter, Compiler Directives, Native Components and Runtime Functions
+## Emitter, Compiler Directives, Native Components, Runtime Functions and Config Messages
 
 The next piece of code that deserves close attention is this block:
 
@@ -81,3 +81,13 @@ Components in Nevalang are divided into two categories - _normal_ and _native_. 
 A mechanism is needed to tell the compiler that a certain bodyless component, like Emitter, needs to be _linked_ with a specific runtime function in the runtime, let's suppose it is also called Emitter. How is this done?
 
 To solve this problem, the `#extern` directive was created. It literally tells the compiler, "look, this component has no implementation in the source code; it is implemented directly in the runtime."
+
+Going back to our `#bind(greeting)`
+
+When the runtime launches a native component, it can pass to it an initialization parameter - a message that can contain absolutely anything. The component can remember this message and use it later in its operation. Such a message is called a _configuration message_.
+
+`Emitter` is a component whose task is to send the same message to its output port in an infinite loop. Since it has no input ports, it has no way to get this message other than from its configuration.
+
+A curious reader might wonder why `Emitter` couldn't be given input ports. The reason is that we need a mechanism for sending static messages, that is, those declared as constants. These messages do not come from the output ports of other components but are declared in the source code. We need to refer the `Emitter` component to "look, here's the message to distribute to everyone".
+
+Finally, let's return to `#bind`. Note that if `#extern` applies to components, then `#bind` applies to nodes. Moreover, it applies only to those nodes instantiated from native components. This is precisely the way to tell the compiler "this runtime function needs to be launched with this configuration message". In `bind`, a _reference_ to a constant is passed, in this case, `greeting`.
