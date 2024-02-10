@@ -45,13 +45,15 @@ component Main(start any) (stop any) {
 }
 ```
 
-And it works just the same. What you're now observing is _syntactic sugar_ called _const senders_. In a component's network, as a sender, you can specify not only a port address but also refer to a constant. This is done using the `$` symbol. Naturally, the constant must be within scope - declared in this package or imported.
+And it works just the same. What you're now observing is *syntactic sugar* called *const senders*. In a component's network, as a sender, you can specify not only a port address but also refer to a constant. This is done using the `$` symbol. Naturally, the constant must be within scope - declared in this package or imported.
 
 Seeing `$greeting`, the compiler understands that it needs to create a node named "greeting", instantiate it with the `builtin.Emitter` component, parameterize it with the type of the corresponding constant (in this case, `string`), and bind the constant through the `#bind` directive. In other words, do everything that we manually did in the previous lesson.
 
+Make sure that everything is correct by running `neva run` in `nevalang_test` directory. You should again see `Hello, World!` output.
+
 ## Then Connections
 
-Alright, we've shortened the code by two lines. But it seems this is still the longest hello world in the world, or at least one of them. It appears that the main complexity stems from the necessity to use blockers. And if there are multiple constants, does that mean a blocker is needed for each? And what if the conditions are nested (X must happen after Y, and Z after both X AND Y)? No worries, we have a solution for this. Introduce another form of syntactic sugar called _then connections_.
+Alright, we've shortened the code by two lines. But it seems this is still the longest hello world in the world, or at least one of them. It appears that the main complexity stems from the necessity to use blockers. And if there are multiple constants, does that mean a blocker is needed for each? And what if the conditions are nested (X must happen after Y, and Z after both X AND Y)? No worries, we have a solution for this. Introduce another form of syntactic sugar called *then connections*.
 
 ```neva
 const greeting string = 'Hello, World!'
@@ -85,7 +87,7 @@ These two variants - with blockers and with then connections - are absolutely id
 
 ## Literal Senders
 
-Indeed, that's much better! Yet, our Hello World can't exactly be called succinct. It seems that in conventional languages, we don't create constants just to pass them once. It would be great to send the string directly to print, without making it a separate entity. Well, specifically for this, Nevalang has another form of syntactic sugar, the last one we'll look at in this lesson, and it's called _literal senders_.
+Indeed, that's much better! Yet, our Hello World can't exactly be called succinct. It seems that in conventional languages, we don't create constants just to pass them once. It would be great to send the string directly to print, without making it a separate entity. Well, specifically for this, Nevalang has another form of syntactic sugar, the last one we'll look at in this lesson, and it's called *literal senders*.
 
 ```neva
 component Main(start any) (stop any) {
@@ -116,6 +118,8 @@ in:start -> ('Hello, World!' -> printer:data)
 ```
 
 For the compiler, this variant is only slightly more complex than the one with const senders. It will unfold this into the verbose primitive form we started with, where we have an emitter and `#bind`. This time, however, it will also create a constant because it needs something to pass in the bind as a configuration message. The name of the constant will be generated automatically.
+
+Finally run `neva run` again and check that our `Hello, World!` is still there.
 
 ## Putting It All Together
 

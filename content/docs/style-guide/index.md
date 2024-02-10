@@ -29,8 +29,9 @@ The Nevalang style guide outlined in this document sets the standards for organi
 A general rule is that an entity's name should inherit context from its parent scope, eliminating the need for redundant context duplication
 
 - **Packages**: Use `lower_snake_case` for package names up to 3 words.
-- **Entities**: Use descriptive (up to 3 words) names `CamelCase` for types, interfaces and components, and for constants use `lowerCamelCase`.
+- **Files**: Exactly the same as for files
+- **Entities**: Use descriptive `CamelCase` names for types, interfaces and components. For constants use `lowerCamelCase`.
 - **Components**: Use actionable noun with "er" ending if possible.
-- **Interfaces**: Use same rules as for components but add `I` prefix.
-- **Ports**: Keep port names short, ideally under five characters, and use intuitive abbreviations.
-- **Nodes**: Name nodes similarly to their components, in lowerCamelCase, and distinguish multiple instances of the same component with specific identifiers.
+- **Interfaces**: Exactly the same as for components but add `I` prefix.
+- **Ports**: Use short `lowerCamelCase` up to 5 letters.
+- **Nodes**: Name nodes similarly to their components/interfaces, but in `lowerCamelCase`. Distinguish multiple instances of the same component with specific identifiers.

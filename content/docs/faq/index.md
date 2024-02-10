@@ -343,3 +343,46 @@ type struct Point {
 ```
 
 So why you define struct/map literals with colons and commas? Well, the answer is that this way it almost valid JSON just like in Python in JS. Except (optional) trailing comma (afterall JSON compatibility is not our goal). This also good to distinguish easily between type and const expressions. Finally this is how we do in JS/TS, Python and Go.
+
+## Can't we have shorter syntax for connections?
+
+There was an idea to have sugar for connections where sender and receiver has same ports
+
+```
+in:sig -> scanner:sig
+scanner:data -> logger:data
+logger:sig -> out:sig
+```
+
+To look like this
+
+```neva
+in -> scanner
+scanner -> logger
+logger -> out
+```
+
+The problem is that this
+
+```neva
+foo:x -> bar:x
+foo:y -> bar:y
+```
+
+becomes this
+
+```neva
+foo -> bar
+foo -> bar
+```
+
+So it's impossible to tell what port we mean. This could make sense only for components with single in/out port but there's not a lot of such components.
+
+We could in theory limit this syntax to a form where you can have only one `foo ->` connection but that would lead to inconsistency
+
+```
+foo -> bar
+foo:y -> bar:y
+```
+
+And the last but not least. How am I suppose to figure out what port `foo -> bar` these two use? I have to look into their interfaces which is not cool.

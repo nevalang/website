@@ -37,6 +37,14 @@ component Main(start any) (stop any) {
 }
 ```
 
+Now make sure that you're in the `nevalang_test` directory and run `neva run`. Terminal should block until you type something. Type anything e.g. "how are you?". If everything is okay you should see this output:
+
+```bash
+> how are you?
+```
+
+The program printer what you've entered and quit. That's all it does.
+
 ## Packages, Std Module, Builtin Package
 
 Let's pay attention to this line:
