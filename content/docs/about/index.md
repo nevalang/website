@@ -35,9 +35,9 @@ Warning: Please note that the **visual editor is still on the roadmap**. Until t
 
 ## What Is Implicit Parallelism?
 
-Nevalang features what we call Effortless Concurrency. This means that writing concurrent code requires no extra effort. The reason is that all code in Nevalang is asynchronous by default - components operate in parallel to each other (if the machine has enough resources). Effort is actually required when you need to ensure a clear sequence of events (you might be surprised how rarely this is actually necessary) - this is a complete paradigm shift.
-
 Just as automatic transmissions replaced manual ones, manual memory management gave way to automatic garbage collection. Languages without garbage collection still exist, but they are inevitably more complex and, as a result, less productive. There are domains where such an inconvenient way of programming is justified, but most programs do not require this. We believe the time has come to take the next step in automation and relieve humans from controlling concurrency. Mutexes, channels, coroutines, and promises - all these synchronization primitives should be made an implementation detail, outsourcing the control of concurrency and parallelism to the machine.
+
+Nevalang features what we call Effortless Concurrency. This means that writing concurrent code requires no extra effort. The reason is that all code in Nevalang is asynchronous by default - components operate in parallel to each other (if the machine has enough resources). Effort is actually required when you need to ensure a clear sequence of events (you might be surprised how rarely this is actually necessary) - this is a complete paradigm shift.
 
 Components exchange messages through buffered queues, and blocking only occurs when the queue is full. But even in this case, parts of the program that are not blocked continue to work.
 
