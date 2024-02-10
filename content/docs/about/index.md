@@ -5,9 +5,9 @@ weight: 1
 
 ![Neva gradient logo](/images/gradient.svg)
 
-## What is this?
+## What Is This?
 
-This is _Neva_ or _Nevalang_ (these two names are interchangeable) - an open-source flow-based general-purpose language with static typing and a focus on visual programming, which compiles into machine code and Go.
+This is _Neva_ or _Nevalang_ (these two names are interchangeable) - an open-source flow-based general-purpose programming language with static typing and a focus on visual programming, which compiles into machine code and Go.
 
 ## Why Yet Another Language?
 
@@ -16,6 +16,10 @@ As cliché and unbelievable as it sounds, Nevalang has no direct analogs. Its co
 The first gives us the ability to reason about programs in a way that is natural for us, similar to how we think when looking at electronic components, analyzing the data flow within them. The second enables us to fully leverage parallelism without making the code significantly more complex.
 
 Add to this strong static typing, compilation into machine code, and open-source availability and you might get a tool that is both simple and powerful enough that even inexperienced programmers can use it to create large and fast programs.
+
+## Why FBP? Why Not OOP or FP?
+
+The reason why Nevalang might succeed is its flow-based paradigm. The stagnation in the problems described above, as we believe, is a consequence of the flow control paradigm established by the von Neumann architecture, where we have a state and a computer that changes this state by sequentially executing instructions. This way of thinking has served us well, but in the era of multi-core processors, we struggle to adapt it to modern realities. However, in the dataflow paradigm, and especially in its most powerful form - Flow-Based Programming (FBP), these problems do not exist.
 
 ## Why Visual Programming?
 
@@ -29,9 +33,11 @@ The argument that visual programming is less maintainable is simply incorrect. I
 
 Warning: Please note that the **visual editor is still on the roadmap**. Until the language stabilizes, we would need to rewrite it repeatedly.
 
-## Why Implicit Parallelism?
+## What Is Implicit Parallelism?
 
 Nevalang features what we call Effortless Concurrency. This means that writing concurrent code requires no extra effort. The reason is that all code in Nevalang is asynchronous by default - components operate in parallel to each other (if the machine has enough resources). Effort is actually required when you need to ensure a clear sequence of events (you might be surprised how rarely this is actually necessary) - this is a complete paradigm shift.
+
+Just as automatic transmissions replaced manual ones, manual memory management gave way to automatic garbage collection. Languages without garbage collection still exist, but they are inevitably more complex and, as a result, less productive. There are domains where such an inconvenient way of programming is justified, but most programs do not require this. We believe the time has come to take the next step in automation and relieve humans from controlling concurrency. Mutexes, channels, coroutines, and promises - all these synchronization primitives should be made an implementation detail, outsourcing the control of concurrency and parallelism to the machine.
 
 Components exchange messages through buffered queues, and blocking only occurs when the queue is full. But even in this case, parts of the program that are not blocked continue to work.
 
