@@ -2,7 +2,7 @@
 title: 🎉 Nevalang Released!
 ---
 
-![Neva gradient logo](gradient.svg)
+![Neva gradient logo](/images/gradient.svg)
 
 After three years of hard work in private, I'm happy to say that Nevalang is ready for everyone to see!
 
