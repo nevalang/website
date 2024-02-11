@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home on Neva Programming Language</title>
+    <link>https://nevalang.org/</link>
+    <description>Recent content in Home on Neva Programming Language</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://nevalang.org/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Program That Does Nothing</title>
+      <link>https://nevalang.org/docs/tutorial/01/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/tutorial/01/</guid>
+      <description>Here is the smallest program in Nevalang that compiles. It absolutely does nothing, but by looking at it, you can learn a lot about Nevalang.&#xA;component Main(start any) (stop any) { net { in:start -&amp;gt; out:stop } } Let&amp;rsquo;s break down what&amp;rsquo;s written here.&#xA;A Nevalang program consists of components that send messages to each other through ports but ports cannot be connected randomly. Each port has its own data type, and when we connect one port to another, the compiler checks if they are compatible.</description>
+    </item>
+    <item>
+      <title>About The Language</title>
+      <link>https://nevalang.org/docs/about/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/about/</guid>
+      <description>What Is This? This is Neva or Nevalang (these two names are interchangeable) - an open-source flow-based general-purpose programming language with static typing and a focus on visual programming, which compiles into machine code and Go.&#xA;Why Yet Another Language? As cliché and unbelievable as it sounds, Nevalang has no direct analogs. Its combination of characteristics makes it a unique language, well-suited for addressing two issues in programming where significant progress has not been felt for many years - visual programming and implicit parallelism.</description>
+    </item>
+    <item>
+      <title>Echo</title>
+      <link>https://nevalang.org/docs/tutorial/02/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/tutorial/02/</guid>
+      <description>Module and Manifest If you&amp;rsquo;ve gone through the quick start, you should have already created your first project. In that case, simply update the code in main.neva to include the Echo component from this example. For everyone else, let&amp;rsquo;s execute the following commands:&#xA;mkdir nevalang_test # create directory cd nevalang_test # go there touch neva.yml # create manifest file echo &amp;#34;compiler: 0.0.1&amp;#34; &amp;gt;&amp;gt; neva.yml # insert compiler version touch main.neva # create source code file With these commands, we&amp;rsquo;re creating a module.</description>
+    </item>
+    <item>
+      <title>Quick Start</title>
+      <link>https://nevalang.org/docs/quick-start/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/quick-start/</guid>
+      <description>Install Nevalang and create your first project in one minute!&#xA;Installing Nevalang To begin, download the Nevalang installation script using the following command:&#xA;curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash Creating Your First Project Let&amp;rsquo;s create a new project named nevalang_test. This project will include a neva.yml manifest file and a main.neva source code file, which will contain a simple Nevalang program.&#xA;Execute the following commands to set up your project:&#xA;mkdir nevalang_test # create directory cd nevalang_test # go there touch neva.</description>
+    </item>
+    <item>
+      <title>Hello World</title>
+      <link>https://nevalang.org/docs/tutorial/03/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/tutorial/03/</guid>
+      <description>Isn&amp;rsquo;t it odd to reach the &amp;ldquo;Hello, World!&amp;rdquo; moment only in the third lesson - the starting point that most tutorials begin with? Well, many peculiarities await us in Nevalang. However, we hope that by the end of this tutorial, they will no longer seem like oddities. Who knows, you might even start thinking, &amp;ldquo;Could it have been any other way?&amp;rdquo;. Of course, we could have started with &amp;ldquo;Hello, World!&amp;rdquo; too, without delving into the intricate details of how every little thing works, but our goal, once again, is to achieve a deep understanding of how Nevalang is structured.</description>
+    </item>
+    <item>
+      <title>Better Hello World</title>
+      <link>https://nevalang.org/docs/tutorial/04/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/tutorial/04/</guid>
+      <description>Const Senders We promised that &amp;ldquo;hello world&amp;rdquo; could be simplified. After all, if writing such a basic program is so complex, what does real programming look like? Fear not, our promise will be fulfilled. Let&amp;rsquo;s start simplifying immediately, beginning with eliminating the explicit mention of the emitter.&#xA;We remove the emitter node along with its directive:&#xA;#bind(greeting) emitter Emitter&amp;lt;string&amp;gt; Then we modify this connection:&#xA;emitter:msg -&amp;gt; blocker:data This way:&#xA;$greeting -&amp;gt; blocker:data Voilà, our program is now two lines shorter:</description>
+    </item>
+    <item>
+      <title>Style Guide</title>
+      <link>https://nevalang.org/docs/style-guide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/style-guide/</guid>
+      <description>The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It&amp;rsquo;s recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.&#xA;Code Organization Lines Count: Aim for files to be up to 300 lines. Files longer than 300 lines should be split, indicating a need for better organization. Formatting Tabs Over Spaces: Tabs are preferred for their flexibility in displaying indentation and for being more data-efficient.</description>
+    </item>
+    <item>
+      <title>Compiler directives</title>
+      <link>https://nevalang.org/docs/directives/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/directives/</guid>
+      <description>Compiler directives are special instructions for compiler.&#xA;They are not intended to be used on a daily basis by regular user but good nevalang programmer understands how they work because they are base for how many language features operate.&#xA;#extern Directive for component that tells the compiler that given component does not have implementation in source code and instead a runtime function call must be created.&#xA;#bind Directive for node that tells the compiler to insert given message to corresponding runtime function call.</description>
+    </item>
+    <item>
+      <title>To be continued...</title>
+      <link>https://nevalang.org/docs/tutorial/05/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/tutorial/05/</guid>
+      <description>&amp;hellip;</description>
+    </item>
+    <item>
+      <title>FAQ</title>
+      <link>https://nevalang.org/docs/faq/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/faq/</guid>
+      <description>Welcome to the FAQ page! Here, we&amp;rsquo;ve compiled all the questions that you might not find answers to on other documentation pages. This section was primarily created as a reference for ourselves - when developing something as complex as a programming language, it&amp;rsquo;s easy to forget the reasons behind certain decisions. So, we thought, why not document at least those related to the language&amp;rsquo;s external aspects, right here on the website!</description>
+    </item>
+    <item>
+      <title>🎉 Nevalang Released!</title>
+      <link>https://nevalang.org/blog/001_release/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/blog/001_release/</guid>
+      <description>After three years of hard work in private, I&amp;rsquo;m happy to say that Nevalang is ready for everyone to see!&#xA;The Journey Since starting in June 2021, I&amp;rsquo;ve often worried if I could finish this project. I wondered if my idea would ever be ready to show to the world. Solving each problem was like fighting a monster that grows back its heads - as soon as I solved one thing, new problems appeared.</description>
+    </item>
+  </channel>
+</rss>

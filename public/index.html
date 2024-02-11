@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html
+  lang="en-us"
+  dir="ltr"
+>
+  <head>
+	<meta name="generator" content="Hugo 0.122.0">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>
+    
+        Neva Programming Language
+    
+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/chota@latest">
+      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+
+
+      <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="container is-full-screen">
+    <header>
+      <nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="logo is-paddingless"></a>
+  </div>
+  <div class="nav-right">
+    <div class="tabs">
+      <a href="/docs">Docs </a>
+      <a href="/blog">Blog </a>
+      <a href="/community">Community </a>
+      <a href="https://github.com/nevalang/neva">GitHub </a>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main>
+      
+  <section class="banner">
+    <img class="light" src="/images/banner_light.svg" />
+    <img class="dark" src="/images/banner_dark.svg" />
+  </section>
+  <p>Welcome to Nevalang, a programming language designed to transform the way you think about software development. Crafted for both efficiency and ease of use, Nevalang offers a refreshing and intuitive paradigm that focuses on the flow of data rather than on traditional control flow, making it a powerful tool for modern programming challenges.</p>
+<script>
+
+
+function switchTab(groupId, name) {
+  const id = groupId + name;
+
+  const tabs = document.querySelectorAll("[data-tab-id]");
+  const tabContents = document.querySelectorAll("[data-tab-content-id]");
+  [...tabs, ...tabContents].forEach(function (element) {
+    element.classList.remove("active");
+  });
+
+  const activeTab = document.querySelector(`[data-tab-id="${id}"]`);
+  activeTab.classList.add("active");
+
+  const activeTabContent = document.querySelector(
+    `[data-tab-content-id="${id}"]`
+  );
+  activeTabContent.classList.add("active");
+}
+</script>
+
+
+
+<div class="tab-panel">
+    <div class="tabs">
+    
+        <a
+            href="javascript:void(0)"
+            data-tab-id="defaultHello world"
+            class="active"
+            onclick="switchTab('default','Hello world')"
+        >
+            Hello world
+        </a>
+    
+        <a
+            href="javascript:void(0)"
+            data-tab-id="defaultDependency injection"
+            class=""
+            onclick="switchTab('default','Dependency injection')"
+        >
+            Dependency injection
+        </a>
+    
+        <a
+            href="javascript:void(0)"
+            data-tab-id="defaultStruct builder"
+            class=""
+            onclick="switchTab('default','Struct builder')"
+        >
+            Struct builder
+        </a>
+    
+    </div>
+    <div class="tab-content">
+        
+        <section
+            data-tab-content-id="defaultHello world"
+            class="active"
+        >
+            <pre tabindex="0"><code class="language-neva" data-lang="neva">component Main(start any) (stop any) {
+	nodes { printer Printer&lt;string&gt; }
+	net {
+		in:start -&gt; (&#39;Hello, World!&#39; -&gt; printer:data)
+		printer:sig -&gt; out:stop
+	}
+}
+</code></pre>
+        </section>
+        
+        <section
+            data-tab-content-id="defaultDependency injection"
+            class=""
+        >
+            <pre tabindex="0"><code class="language-neva" data-lang="neva">component Main(start any) (stop any) {
+    nodes {
+        subNode SecondComponent { depNode Printer&lt;any&gt; }
+    }
+    net {
+        in:start -&gt; subNode:msg
+        subNode:msg -&gt; out:stop
+    }
+}
+
+interface IPrinter&lt;T&gt;(data T) (sig T)
+
+component SecondComponent (msg any) (msg any) {
+    nodes { depNode IPrinter&lt;any&gt; }
+    net {
+        in:msg -&gt; depNode:data
+        depNode:sig -&gt; out:msg
+    }
+}
+</code></pre>
+        </section>
+        
+        <section
+            data-tab-content-id="defaultStruct builder"
+            class=""
+        >
+            <pre tabindex="0"><code class="language-neva" data-lang="neva">type User struct {
+    age int
+    name string
+}
+
+component Main(start any) (stop any) {
+    nodes {
+        builder StructBuilder&lt;User&gt;
+        print Print&lt;User&gt;
+    }
+    net {
+        32 -&gt; builder:age
+        &#39;John&#39; -&gt; builder:name
+        builder:msg -&gt; print:data
+        print:sig -&gt; out:stop
+    }
+}
+</code></pre>
+        </section>
+        
+    </div>
+</div>
+<h2 id="features">Features</h2>
+<h3 id="flow-based-programming">Flow-Based Programming</h3>
+<p>Nevalang operates on a flow-based programming model, where components are connected through inputs and outputs. This eliminates the need for low-level instructions like &ldquo;call/return&rdquo; and state manipulations, empowering you to reason about programs in a more natural way.</p>
+<h3 id="effortless-concurrency">Effortless Concurrency</h3>
+<p>FBP allows messages to flow concurrently across connections. This fundamental shift from synchronous to asynchronous operations by default enables seamless parallel computation, without the complexities of mutexes, channels, or promises, and avoids common pitfalls like deadlocks and race conditions. First-class support for streaming data processing allows the system to operate at maximum speed.</p>
+<h3 id="static-type-system">Static Type System</h3>
+<p>With static typing, Nevalang catches a significant number of bugs at compile time, enhancing code safety and reliability. Structural sub-typing further refines this approach by allowing components to receive more detailed data than required, intelligently ignoring unnecessary information. This reduces the need for boilerplate adapter code, streamlining the development process.</p>
+<h3 id="multi-target-compilation">Multi-Target Compilation</h3>
+<p>Nevalang provides the ability to compile into either machine code for deployment as a single executable binary, or into Go, using it as its intermediate representation. This functionality generates human-readable Go code that developers can compile themselves using the official Go compiler or its alternatives. This includes the ability to produce WebAssembly, thereby extending Nevalang&rsquo;s utility for web-based applications.</p>
+<h3 id="simple-and-clean-c-like-syntax">Simple and Clean C-like Syntax</h3>
+<p>Nevalang offers a syntax that is not only simple and easy to understand but also clean and minimalistic without the clutter and noise. Despite its powerful capabilities, Nevalang boasts very few syntax constructs and language abstractions compared to most popular programming languages, maintaining a small core.</p>
+<h3 id="interpreter-mode">Interpreter Mode</h3>
+<p>To support rapid development and debugging, Nevalang includes an interpreter mode. This means the compiler doesn&rsquo;t have to rush, allowing it to create more optimized code for final use.</p>
+<h3 id="first-class-dependency-injection">First-Class Dependency Injection</h3>
+<p>With first-class support for dependency injection and interfaces, Nevalang encourages a modular design that’s easy to test, enhancing code quality and maintainability.</p>
+<h3 id="builtin-observability">Builtin Observability</h3>
+<p>Nevalang’s built-in observability feature traces every message path throughout execution at runtime, offering superior debugging capabilities.</p>
+<h3 id="garbage-collection">Garbage Collection</h3>
+<p>Leveraging Go&rsquo;s garbage collector, Nevalang frees you from manual memory management, allowing you to concentrate on developing your application.</p>
+<h3 id="visual-programming-wip">Visual Programming (WIP)</h3>
+<p>Nevalang started as a visual programming language but has evolved into a hybrid, offering a clean, C-like syntax alongside a visual editor. This approach addresses common drawbacks of visual programming by supporting standard development practices like version control and code reviews, while also making complex projects manageable through its package system and component abstractions.</p>
+<h3 id="go-interop-wip">Go Interop (WIP)</h3>
+<p>Nevalang&rsquo;s compiler can generate human-readable Go code. There are plans to utilize this feature for interoperability with existing Go codebases, allowing you to use existing Go code inside your Nevalang programs and, vice versa, to integrate Nevalang modules into your Go programs.</p>
+<h3 id="no-runtime-exceptions-wip">No Runtime Exceptions (WIP)</h3>
+<p>Nevalang plans to achieve high reliability, where programs either fail at startup or run without crashes forever. It will do this by analyzing the program for errors before it runs (static semantic analysis) and checking for problems when the program starts (runtime checks). If a program crashes after starting, it&rsquo;s likely a bug in Nevalang itself. Users might still encounter logical mistakes in their code though.</p>
+<h2 id="next-steps">Next Steps</h2>
+<p>Want to learn more? Welcome to the <a href="/docs/about">about the language</a> section.</p>
+
+
+    </main>
+    <footer>
+      <script>
+  function toggleDarkMode() {
+    const got = localStorage.getItem("dark");
+    localStorage.setItem("dark", got === "true" ? "false" : "true");
+    location.reload();
+  }
+</script>
+
+<div>
+  <span class="pull-left">© 2024 Emil Valeev</span>
+  <a class="pull-right theme-toggle" href="javascript:void(0)" onclick="toggleDarkMode(this)"
+    >🌙</a
+  >
+</div>
+
+    </footer>
+  </body>
+</html>

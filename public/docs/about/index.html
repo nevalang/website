@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html
+  lang="en-us"
+  dir="ltr"
+>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>
+    
+        About The Language | Neva Programming Language
+    
+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/chota@latest">
+      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+
+
+      <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="container is-full-screen">
+    <header>
+      <nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="logo is-paddingless"></a>
+  </div>
+  <div class="nav-right">
+    <div class="tabs">
+      <a href="/docs">Docs </a>
+      <a href="/blog">Blog </a>
+      <a href="/community">Community </a>
+      <a href="https://github.com/nevalang/neva">GitHub </a>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main>
+      
+<div class="row">
+  <aside class="col-4">
+    <ul>
+      
+      <li>
+        <a href="/docs/about/">About The Language</a>
+      </li>
+      
+      <li>
+        <a href="/docs/quick-start/">Quick Start</a>
+      </li>
+      
+      <li>
+        <a href="/docs/tutorial/">Tutorial</a>
+      </li>
+      
+      <li>
+        <a href="/docs/style-guide/">Style Guide</a>
+      </li>
+      
+      <li>
+        <a href="/docs/directives/">Compiler directives</a>
+      </li>
+      
+      <li>
+        <a href="/docs/faq/">FAQ</a>
+      </li>
+      
+    </ul>
+  </aside>
+  <div class="col-8">
+    <h1>About The Language</h1>
+    <p><p><img src="/images/gradient.svg" alt="Neva gradient logo"></p>
+<h2 id="what-is-this">What Is This?</h2>
+<p>This is <em>Neva</em> or <em>Nevalang</em> (these two names are interchangeable) - an open-source flow-based general-purpose programming language with static typing and a focus on visual programming, which compiles into machine code and Go.</p>
+<h2 id="why-yet-another-language">Why Yet Another Language?</h2>
+<p>As cliché and unbelievable as it sounds, Nevalang has no direct analogs. Its combination of characteristics makes it a unique language, well-suited for addressing two issues in programming where significant progress has not been felt for many years - visual programming and implicit parallelism.</p>
+<p>The first gives us the ability to reason about programs in a way that is natural for us, similar to how we think when looking at electronic components, analyzing the data flow within them. The second enables us to fully leverage parallelism without making the code significantly more complex.</p>
+<p>Add to this strong static typing, compilation into machine code, and open-source availability and you might get a tool that is both simple and powerful enough that even inexperienced programmers can use it to create large and fast programs.</p>
+<h2 id="why-fbp-why-not-oop-or-fp">Why FBP? Why Not OOP or FP?</h2>
+<p>The reason why Nevalang might succeed is its flow-based paradigm. The stagnation in the problems described above, as we believe, is a consequence of the flow control paradigm established by the von Neumann architecture, where we have a state and a computer that changes this state by sequentially executing instructions. This way of thinking has served us well, but in the era of multi-core processors, we struggle to adapt it to modern realities. However, in the dataflow paradigm, and especially in its most powerful form - Flow-Based Programming (FBP), these problems do not exist.</p>
+<h2 id="what-is-implicit-parallelism">What Is Implicit Parallelism?</h2>
+<p>Just as automatic transmissions replaced manual ones, manual memory management gave way to automatic garbage collection. Languages without garbage collection still exist, but they are inevitably more complex and, as a result, less productive. There are domains where such an inconvenient way of programming is justified, but most programs do not require this. We believe the time has come to take the next step in automation and relieve humans from controlling concurrency. Mutexes, channels, coroutines, and promises - all these synchronization primitives should be made an implementation detail, outsourcing the control of concurrency and parallelism to the machine.</p>
+<p>Nevalang features what we call <em>effortless concurrency</em>. This means that writing concurrent code requires no extra effort. The reason is that all code in Nevalang is asynchronous by default - components operate in parallel to each other (if the machine has enough resources). Effort is actually required when you need to ensure a clear sequence of events (you might be surprised how rarely this is actually necessary) - this is a complete paradigm shift.</p>
+<p>Components exchange messages through buffered queues, and blocking only occurs when the queue is full. But even in this case, parts of the program that are not blocked continue to work.</p>
+<p>The icing on the cake is the fact that Nevalang naturally supports stream computing right out of the box. It doesn&rsquo;t just support it - it&rsquo;s a native form for it. Where in conventional programming we process a batch of data and then pass it on, in Nevalang, we process and pass on data as it becomes ready. An entire page wouldn&rsquo;t be enough to describe how much this can speed up computations.</p>
+<h2 id="why-visual-programming">Why Visual Programming?</h2>
+<p>For over 50 years, we&rsquo;ve been writing and editing text, even though it&rsquo;s well-known that humans better understand visual information. We need a good general-purpose visual programming language. Yes, visual languages exist, but they are mostly specialized. None of them comes close to the popularity of Python or Java. If we look at the top 20 most popular languages, we won&rsquo;t find any visual ones.</p>
+<p>If it&rsquo;s not obvious why we need a visual programming language, consider the number of visual diagrams we use when designing software. Some might argue that text is also a form of visual language because it consists of glyphs, but we&rsquo;re specifically talking about node editor-based tools. It&rsquo;s natural for people to think of processes as boxes connected by arrows. Countless examples support this, not only drawings on boards and notebooks but also the popularity of visual software like Miro and Figma, as well as numerous note-taking apps with graph and canvas views like Obsidian.</p>
+<p>The problem with these diagrams is that they are static. Today, they may reflect the current state of things (and that&rsquo;s if we&rsquo;re lucky), but tomorrow they might not. No matter how hard we try to keep documentation updated, it will never fully capture reality. Code is the only thing that can be truly trusted. Oh, if only these diagrams could be the actual code&hellip;</p>
+<p>The argument that visual programming is less maintainable is simply incorrect. It&rsquo;s just a different form of data representation. The flow-based approach allows for abstraction in the same way we do with text-based programming. Nevalang has components, packages and modules for that.</p>
+<p><strong>Warning</strong>: Please note that the visual editor is still on the roadmap. Until the language stabilizes, we would need to rewrite it repeatedly.</p>
+<h2 id="static-structural-type-system">Static Structural Type System</h2>
+<p>The Nevalang compiler includes a built-in static analyzer whose task is to find as many errors in the code as possible. Specifically, errors - things that would lead to the program crashing or behaving nonsensically. We don&rsquo;t want the language to get in your way or for you to struggle against the compiler. We aim to make it an additional pair of observant eyes - a co-pilot who kindly points out flaws immediately, so they don&rsquo;t have to be fixed later, confusedly digging through the code.</p>
+<p>To achieve this, Nevalang provides strong static typing with structural subtyping. &ldquo;Strong&rdquo; means there is no implicit type casting in the language, &ldquo;static&rdquo; indicates that type checking occurs at compile time rather than runtime, and &ldquo;structural&rdquo; means that compatibility of types is checked based on their structure, not their name, as is done in systems with nominative subtyping.</p>
+<p>For a better understanding, let&rsquo;s examine an example from traditional programming with nominative subtyping, like Go. Imagine you have a function <code>readBook</code> that takes a <code>Book</code> structure with two fields <code>{ title, author string }</code>, but you have a <code>Magazine</code> structure with all the <code>Book</code> fields plus an additional <code>number int</code>. In Go, we cannot pass <code>Magazine</code> to <code>getBook</code>, despite the magazine having all the necessary information for reading.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">magazine</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Magazine</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">title</span>: <span style="color:#e6db74">&#34;FBP time&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">author</span>: <span style="color:#e6db74">&#34;Emil Valeev&#34;</span>,
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">readBook</span>(<span style="color:#a6e22e">magazine</span>) <span style="color:#75715e">// compile error!
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Magazine</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">number</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">title</span>, <span style="color:#a6e22e">author</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Book</span> <span style="color:#66d9ef">struct</span> { <span style="color:#a6e22e">title</span>, <span style="color:#a6e22e">author</span> <span style="color:#66d9ef">string</span> }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">readBook</span>(<span style="color:#a6e22e">book</span> <span style="color:#a6e22e">Book</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>Even from a practical standpoint, it seems logical that an entity capable of reading books should also be able to read magazines. But we need to perform an explicit cast</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">readBook</span>(<span style="color:#a6e22e">Book</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">title</span>: <span style="color:#a6e22e">magazine</span>.<span style="color:#a6e22e">title</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">author</span>: <span style="color:#a6e22e">magazine</span>.<span style="color:#a6e22e">author</span>,
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre></div><p>It might not be a big deal, but imagine now dealing with <code>func readBooks(books []Book)</code>, and you have to write a loop to convert a list of magazines into a list of books. This kind of nesting can increase indefinitely (imagine, for example, just a list of objects with a list of objects inside), leading to the need to write dozens, sometimes hundreds of lines of code for mapping. In a language with structural typing, we simply don&rsquo;t need to think about this - the compiler sees that the types are structurally compatible and allows the program to compile.</p>
+<p>This mechanism also allows for implementing scope for structure fields without additional functionality, and not just at the package level, but even at the level of an individual component. Simply use a more detailed type internally and provide a less detailed type externally. No mappings required.</p>
+<h2 id="where-do-i-start">Where do I start?</h2>
+<p>Intrigued? Then welcome to the <a href="/docs/quick-start">Quick Start</a> extravaganza!</p>
+</p>
+  </div>
+</div>
+
+    </main>
+    <footer>
+      <script>
+  function toggleDarkMode() {
+    const got = localStorage.getItem("dark");
+    localStorage.setItem("dark", got === "true" ? "false" : "true");
+    location.reload();
+  }
+</script>
+
+<div>
+  <span class="pull-left">© 2024 Emil Valeev</span>
+  <a class="pull-right theme-toggle" href="javascript:void(0)" onclick="toggleDarkMode(this)"
+    >🌙</a
+  >
+</div>
+
+    </footer>
+  </body>
+</html>

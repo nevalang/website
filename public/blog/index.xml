@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Blog on Neva Programming Language</title>
+    <link>https://nevalang.org/blog/</link>
+    <description>Recent content in Blog on Neva Programming Language</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://nevalang.org/blog/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>🎉 Nevalang Released!</title>
+      <link>https://nevalang.org/blog/001_release/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/blog/001_release/</guid>
+      <description>After three years of hard work in private, I&amp;rsquo;m happy to say that Nevalang is ready for everyone to see!&#xA;The Journey Since starting in June 2021, I&amp;rsquo;ve often worried if I could finish this project. I wondered if my idea would ever be ready to show to the world. Solving each problem was like fighting a monster that grows back its heads - as soon as I solved one thing, new problems appeared.</description>
+    </item>
+  </channel>
+</rss>

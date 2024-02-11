@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html
+  lang="en-us"
+  dir="ltr"
+>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>
+    
+        Compiler directives | Neva Programming Language
+    
+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/chota@latest">
+      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+
+
+      <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="container is-full-screen">
+    <header>
+      <nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="logo is-paddingless"></a>
+  </div>
+  <div class="nav-right">
+    <div class="tabs">
+      <a href="/docs">Docs </a>
+      <a href="/blog">Blog </a>
+      <a href="/community">Community </a>
+      <a href="https://github.com/nevalang/neva">GitHub </a>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main>
+      
+<div class="row">
+  <aside class="col-4">
+    <ul>
+      
+      <li>
+        <a href="/docs/about/">About The Language</a>
+      </li>
+      
+      <li>
+        <a href="/docs/quick-start/">Quick Start</a>
+      </li>
+      
+      <li>
+        <a href="/docs/tutorial/">Tutorial</a>
+      </li>
+      
+      <li>
+        <a href="/docs/style-guide/">Style Guide</a>
+      </li>
+      
+      <li>
+        <a href="/docs/directives/">Compiler directives</a>
+      </li>
+      
+      <li>
+        <a href="/docs/faq/">FAQ</a>
+      </li>
+      
+    </ul>
+  </aside>
+  <div class="col-8">
+    <h1>Compiler directives</h1>
+    <p><p>Compiler directives are special instructions for compiler.</p>
+<p>They are not intended to be used on a daily basis by regular user but good nevalang programmer understands how they work because they are base for how many language features operate.</p>
+<h2 id="extern"><code>#extern</code></h2>
+<p>Directive for <em>component</em> that tells the compiler that given component does not have implementation in source code and instead a runtime function call must be created.</p>
+<h2 id="bind"><code>#bind</code></h2>
+<p>Directive for <em>node</em> that tells the compiler to insert given message to corresponding runtime function call. Can only be used with nodes that are instantiated with components with <code>extern</code> directive.</p>
+<h2 id="autoports"><code>#autoports</code></h2>
+<p>Tells the compiler that inports for this component are not defined in nevalang source code but instead must be derived from it&rsquo;s type-argument which is the structure. Inports will correspond to structure fields.</p>
+</p>
+  </div>
+</div>
+
+    </main>
+    <footer>
+      <script>
+  function toggleDarkMode() {
+    const got = localStorage.getItem("dark");
+    localStorage.setItem("dark", got === "true" ? "false" : "true");
+    location.reload();
+  }
+</script>
+
+<div>
+  <span class="pull-left">© 2024 Emil Valeev</span>
+  <a class="pull-right theme-toggle" href="javascript:void(0)" onclick="toggleDarkMode(this)"
+    >🌙</a
+  >
+</div>
+
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html
+  lang="en-us"
+  dir="ltr"
+>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>
+    
+        A Program That Does Nothing | Neva Programming Language
+    
+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/chota@latest">
+      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+
+
+      <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="container is-full-screen">
+    <header>
+      <nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="logo is-paddingless"></a>
+  </div>
+  <div class="nav-right">
+    <div class="tabs">
+      <a href="/docs">Docs </a>
+      <a href="/blog">Blog </a>
+      <a href="/community">Community </a>
+      <a href="https://github.com/nevalang/neva">GitHub </a>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main>
+      
+<div class="row">
+  <aside class="col-4">
+    <ul>
+      
+      <li>
+        <a href="/docs/tutorial/01/">A Program That Does Nothing</a>
+      </li>
+      
+      <li>
+        <a href="/docs/tutorial/02/">Echo</a>
+      </li>
+      
+      <li>
+        <a href="/docs/tutorial/03/">Hello World</a>
+      </li>
+      
+      <li>
+        <a href="/docs/tutorial/04/">Better Hello World</a>
+      </li>
+      
+      <li>
+        <a href="/docs/tutorial/05/">To be continued...</a>
+      </li>
+      
+    </ul>
+  </aside>
+  <div class="col-8">
+    <h1>A Program That Does Nothing</h1>
+    <p><p>Here is the smallest program in Nevalang that compiles. It absolutely does nothing, but by looking at it, you can learn a lot about Nevalang.</p>
+<pre tabindex="0"><code class="language-neva" data-lang="neva">component Main(start any) (stop any) {
+    net { in:start -&gt; out:stop }
+}
+</code></pre><p>Let&rsquo;s break down what&rsquo;s written here.</p>
+<p>A Nevalang program consists of <em>components</em> that send <em>messages</em> to each other through <em>ports</em> but ports cannot be connected randomly. Each port has its own <em>data type</em>, and when we connect one port to another, the compiler checks if they are <em>compatible</em>. Otherwise, it throws an error.</p>
+<p>It states that there is a &ldquo;Main&rdquo; component (every component has a name), with two ports - one for input - <code>start</code> - and one for output - <code>stop</code>. The data type of both ports is <code>any</code> - a universal data type, saying &ldquo;I am compatible with any types of data.&rdquo;</p>
+<pre tabindex="0"><code class="language-neva" data-lang="neva">Main (start any) (stop any)
+</code></pre><p>Next, we see a block of curly braces <code>{}</code> and inside another one with the keyword <code>net</code>.</p>
+<pre tabindex="0"><code class="language-neva" data-lang="neva">{
+    net { in:start -&gt; out:stop }
+}
+</code></pre><p>Ports are the <em>interface</em> of a component, but in addition to the interface, a component also needs a <em>body</em> - code that describes what exactly the component does, what work it performs. In this case, the curly braces are the body, and <code>net</code> is the <em>network</em> - the computational scheme of the component.</p>
+<p>In Nevalang, programming is <em>flow-based</em>, and instead of controlling the flow of execution, as in conventional languages, we control the flow of data. We don&rsquo;t call functions, don&rsquo;t execute instructions; we just route messages from one place to another, thus creating a graph that describes how data flows through the program. That&rsquo;s why such programming is called flow-based.</p>
+<p>In this case, we see that data flows directly from the input port <code>start</code> to the output port <code>stop</code>.</p>
+<pre tabindex="0"><code>in:start -&gt; out:stop
+</code></pre><p>In other words, our Main component does nothing. It just lets data pass through itself without having any impact on the external world. Essentially, it could be called a bypass, but in a Nevalang program, there must always be at least one <code>Main</code> component (we&rsquo;ll understand why later).</p>
+<p>The curious reader may wonder, what about <code>in:</code> and <code>out:</code>? Why couldn&rsquo;t we just write <code>start -&gt; stop</code>? The fact is that there can be any number of ports for both input and output (although typically there are no more than three on each side). Input and output ports can sometimes have the same names. To avoid confusion, we specify the direction - <code>in</code> is input, and <code>out</code> is output.</p>
+<h2 id="whats-next">What&rsquo;s Next?</h2>
+<p>What, think this program isn&rsquo;t useful enough? Then let&rsquo;s move on to the <a href="/docs/tutorial/02">next chapter</a>!</p>
+</p>
+  </div>
+</div>
+
+    </main>
+    <footer>
+      <script>
+  function toggleDarkMode() {
+    const got = localStorage.getItem("dark");
+    localStorage.setItem("dark", got === "true" ? "false" : "true");
+    location.reload();
+  }
+</script>
+
+<div>
+  <span class="pull-left">© 2024 Emil Valeev</span>
+  <a class="pull-right theme-toggle" href="javascript:void(0)" onclick="toggleDarkMode(this)"
+    >🌙</a
+  >
+</div>
+
+    </footer>
+  </body>
+</html>
