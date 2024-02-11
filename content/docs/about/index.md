@@ -47,10 +47,9 @@ The argument that visual programming is less maintainable is simply incorrect. I
 
 The Nevalang compiler includes a built-in static analyzer whose task is to find as many errors in the code as possible. Specifically, errors - things that would lead to the program crashing or behaving nonsensically. We don't want the language to get in your way or for you to struggle against the compiler. We aim to make it an additional pair of observant eyes - a co-pilot who kindly points out flaws immediately, so they don't have to be fixed later, confusedly digging through the code.
 
-To achieve this, Nevalang provides strict static typing with structural subtyping. "Strict" means there is no implicit type casting in the language, "static" indicates that type checking occurs at compile time rather than runtime, and "structural" means that compatibility of types is checked based on their structure, not their name, as is done in systems with nominative subtyping.
+To achieve this, Nevalang provides strong static typing with structural subtyping. "Strong" means there is no implicit type casting in the language, "static" indicates that type checking occurs at compile time rather than runtime, and "structural" means that compatibility of types is checked based on their structure, not their name, as is done in systems with nominative subtyping.
 
 For a better understanding, let's examine an example from traditional programming with nominative subtyping, like Go. Imagine you have a function `readBook` that takes a `Book` structure with two fields `{ title, author string }`, but you have a `Magazine` structure with all the `Book` fields plus an additional `number int`. In Go, we cannot pass `Magazine` to `getBook`, despite the magazine having all the necessary information for reading.
-
 
 ```go
 func main() {
@@ -74,7 +73,7 @@ func readBook(book Book) {
 }
 ```
 
-Even from a practical standpoint, it seems logical that an entity capable of reading books should also be able to read magazines. But we need to perform an explicit cast 
+Even from a practical standpoint, it seems logical that an entity capable of reading books should also be able to read magazines. But we need to perform an explicit cast
 
 ```go
 readBook(Book{
@@ -86,3 +85,7 @@ readBook(Book{
 It might not be a big deal, but imagine now dealing with `func readBooks(books []Book)`, and you have to write a loop to convert a list of magazines into a list of books. This kind of nesting can increase indefinitely (imagine, for example, just a list of objects with a list of objects inside), leading to the need to write dozens, sometimes hundreds of lines of code for mapping. In a language with structural typing, we simply don't need to think about this - the compiler sees that the types are structurally compatible and allows the program to compile.
 
 This mechanism also allows for implementing scope for structure fields without additional functionality, and not just at the package level, but even at the level of an individual component. Simply use a more detailed type internally and provide a less detailed type externally. No mappings required.
+
+## Where do I start?
+
+Intrigued? Then welcome to the [Quick Start](/docs/quick-start) extravaganza!

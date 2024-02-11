@@ -172,3 +172,7 @@ component Main(start any) (stop any) {
 ```
 
 It still works! In fact, the compiler implicitly injects the `std/builtin` import into every file and checks if the entity we refer to is defined there. However, if we, for example, define our own `Reader` in this package, it will _shadow_ the built-in one.
+
+## What's Next?
+
+Well then, the Nevalang programmer is almost ready! Perhaps it's time to tackle a real problem. In the next chapter, we'll write a [hello world](/docs/tutorial/03)!

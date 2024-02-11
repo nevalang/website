@@ -42,3 +42,7 @@ in:start -> out:stop
 In other words, our Main component does nothing. It just lets data pass through itself without having any impact on the external world. Essentially, it could be called a bypass, but in a Nevalang program, there must always be at least one `Main` component (we'll understand why later).
 
 The curious reader may wonder, what about `in:` and `out:`? Why couldn't we just write `start -> stop`? The fact is that there can be any number of ports for both input and output (although typically there are no more than three on each side). Input and output ports can sometimes have the same names. To avoid confusion, we specify the direction - `in` is input, and `out` is output.
+
+## What's Next?
+
+What, think this program isn't useful enough? Then let's move on to the [next chapter](/docs/tutorial/02)!
