@@ -7,7 +7,7 @@ Here is the smallest program in Nevalang that compiles. It absolutely does nothi
 
 ```neva
 component Main(start any) (stop any) {
-    net { in:start -> out:stop }
+    net { :start -> :stop }
 }
 ```
 
@@ -25,7 +25,7 @@ Next, we see a block of curly braces `{}` and inside another one with the keywor
 
 ```neva
 {
-    net { in:start -> out:stop }
+    net { :start -> :stop }
 }
 ```
 
@@ -36,12 +36,10 @@ In Nevalang, programming is _flow-based_, and instead of controlling the flow of
 In this case, we see that data flows directly from the input port `start` to the output port `stop`.
 
 ```
-in:start -> out:stop
+:start -> :stop
 ```
 
 In other words, our Main component does nothing. It just lets data pass through itself without having any impact on the external world. Essentially, it could be called a bypass, but in a Nevalang program, there must always be at least one `Main` component (we'll understand why later).
-
-The curious reader may wonder, what about `in:` and `out:`? Why couldn't we just write `start -> stop`? The fact is that there can be any number of ports for both input and output (although typically there are no more than three on each side). Input and output ports can sometimes have the same names. To avoid confusion, we specify the direction - `in` is input, and `out` is output.
 
 ## What's Next?
 

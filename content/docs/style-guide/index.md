@@ -11,6 +11,7 @@ The Nevalang style guide outlined in this document sets the standards for organi
 
 ## Formatting
 
+- **Comments**: Comments must be avoided in general. Strive to easy to understand API with your naming. However, when annavoidable, they must start with lowercase and end without a dot. Keep comments short and simple.
 - **Tabs Over Spaces**: Tabs are preferred for their flexibility in displaying indentation and for being more data-efficient.
 - **Line Length**: Keep lines under 80 characters to enhance readability, accommodate split-screen setups, and avoid horizontal scrolling, especially for those who prefer large text for eye care.
 - **Entity Blocks**: Group similar entities (like types or components) within `{}` blocks for clarity, but use discretion for cases where separate contexts are needed.
@@ -26,7 +27,9 @@ The Nevalang style guide outlined in this document sets the standards for organi
 
 ## Naming Conventions
 
-A general rule is that an entity's name should inherit context from its parent scope, eliminating the need for redundant context duplication
+A general rule is that an entity's name should inherit context from its parent scope, eliminating the need for redundant context duplication.
+
+Good naming arrives naturally from the development process rather than artificial creation. It eliminates the need for comments.
 
 - **Packages**: Use `lower_snake_case` for package names up to 3 words.
 - **Files**: Exactly the same as for files

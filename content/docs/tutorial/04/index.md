@@ -37,10 +37,10 @@ component Main(start any) (stop any) {
         blocker Blocker<string>
     }
     net {
-        in:start -> blocker:sig
+        :start -> blocker:sig
         $greeting -> blocker:data
         blocker:data -> printer:msg
-        printer:msg -> out:stop
+        printer:msg -> :stop
     }
 }
 ```
@@ -61,8 +61,8 @@ const greeting string = 'Hello, World!'
 component Main(start any) (stop any) {
 	nodes { printer Printer<string> }
 	net {
-		in:start -> ($greeting -> printer:msg)
-		printer:msg -> out:stop
+		:start -> ($greeting -> printer:msg)
+		printer:msg -> :stop
 	}
 }
 ```
@@ -70,7 +70,7 @@ component Main(start any) (stop any) {
 First, the `blocker Blocker<string>` node has disappeared, and second, three connections were replaced by one. It used to be:
 
 ```neva
-in:start -> blocker:sig
+:start -> blocker:sig
 $greeting -> blocker:data
 blocker:data -> printer:msg
 ```
@@ -78,10 +78,10 @@ blocker:data -> printer:msg
 Now, it's just:
 
 ```neva
-in:start -> ($greeting -> printer:msg)
+:start -> ($greeting -> printer:msg)
 ```
 
-This "then connection" syntax `... -> (...)` indicates that the `$greeting` can reach `printer:msg` only after the `in:start` signal is sent, ensuring that the sequence of events is maintained without the need for explicit blockers.
+This "then connection" syntax `... -> (...)` indicates that the `$greeting` can reach `printer:msg` only after the `:start` signal is sent, ensuring that the sequence of events is maintained without the need for explicit blockers.
 
 These two variants - with blockers and with then connections - are absolutely identical in function. The "then connections" variant actually unfolds into the blocker variant during compilation.
 
@@ -93,8 +93,8 @@ Indeed, that's much better! Yet, our Hello World can't exactly be called succinc
 component Main(start any) (stop any) {
 	nodes { printer Printer<string> }
 	net {
-		in:start -> ('Hello, World!' -> printer:data)
-		printer:sig -> out:stop
+		:start -> ('Hello, World!' -> printer:data)
+		printer:sig -> :stop
 	}
 }
 ```
@@ -108,13 +108,13 @@ const greeting string = 'Hello, World!'
 And changed:
 
 ```neva
-in:start -> ($greeting -> printer:msg)
+:start -> ($greeting -> printer:msg)
 ```
 
 to:
 
 ```neva
-in:start -> ('Hello, World!' -> printer:data)
+:start -> ('Hello, World!' -> printer:data)
 ```
 
 For the compiler, this variant is only slightly more complex than the one with const senders. It will unfold this into the verbose primitive form we started with, where we have an emitter and `#bind`. This time, however, it will also create a constant because it needs something to pass in the bind as a configuration message. The name of the constant will be generated automatically.
@@ -136,10 +136,10 @@ component Main(start any) (stop any) {
         printer Printer<string>
     }
     net {
-        in:start -> blocker:sig
+        :start -> blocker:sig
         emitter:msg -> blocker:data
         blocker:data -> printer:msg
-        printer:msg -> out:stop
+        printer:msg -> :stop
     }
 }
 ```
@@ -150,8 +150,8 @@ To this:
 component Main(start any) (stop any) {
     nodes { printer Printer<string> }
     net {
-        in:start -> ('Hello, World!' -> printer:data)
-        printer:sig -> out:stop
+        :start -> ('Hello, World!' -> printer:data)
+        printer:sig -> :stop
     }
 }
 ```

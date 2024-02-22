@@ -95,10 +95,10 @@ component Main(start any) (stop any) {
         print Print
     }
     net {
-        in:start -> b:sig
+        :start -> b:sig
         b:err -> destructor:msg // ignore the `err` outport, only handle happy path
         b:v -> print:v
-        print:v -> out:exit
+        print:v -> :exit
     }
 }
 ```
@@ -232,9 +232,9 @@ If you need to continue sub-stream you simply send `SubStreamItem<T>` from you w
 
 It's either you continue sub-stream or you do not. Depending on what your're doing (maybe you're counting sub-stream items so you just sends `int` eachtime sub-stream ends).
 
-## Why `out:stop` of the `Main` is't `int`?
+## Why `:stop` of the `Main` is't `int`?
 
-This is the question about why `out:stop` isn't interpreted as exit code.
+This is the question about why `:stop` isn't interpreted as exit code.
 
 The things is - you don't always have `int` as your exit condition. That's why it's `any`.
 
@@ -242,7 +242,7 @@ Ok, but why then we don't check if that `any` is actually `int` under the hood a
 
 Well, we can do that. But that would lead to situations where you accidentally have `int` like your exit condition but don't actually want it to be your exit code. Such cases are non obvious and will require you to somehow check that you send exit code you want.
 
-This problem gets bigger when you have `any` or _union_ `... | int` outport that is directed to `out:stop` - you'll have to check whether value isn't an `int`. Otherwise you're at risk of terminating with wrong code.
+This problem gets bigger when you have `any` or _union_ `... | int` outport that is directed to `:stop` - you'll have to check whether value isn't an `int`. Otherwise you're at risk of terminating with wrong code.
 
 **Exit codes are important**. Shell scripts and CI/CD depends on that. Most of the time you want your exit code to be `zero`. Non-zero exit code is not happypath, it's more rare. Having corner case like a base design decision is not what we want.
 
@@ -305,9 +305,9 @@ So why you define struct/map literals with colons and commas? Well, the answer i
 There was an idea to have sugar for connections where sender and receiver has same ports
 
 ```
-in:sig -> scanner:sig
+:sig -> scanner:sig
 scanner:data -> logger:data
-logger:sig -> out:sig
+logger:sig -> :sig
 ```
 
 To look like this

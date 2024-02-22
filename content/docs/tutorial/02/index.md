@@ -30,9 +30,9 @@ component Main(start any) (stop any) {
 		printer builtin.Printer<string>
 	}
 	net {
-		in:start -> reader:sig
+		:start -> reader:sig
 		reader:data -> printer:data
-		printer:sig -> out:stop
+		printer:sig -> :stop
 	}
 }
 ```
@@ -117,9 +117,9 @@ Let's finally take another look at the network of our Main component:
 
 ```
 net {
-	in:start -> reader:sig
+	:start -> reader:sig
 	reader:data -> printer:data
-	printer:sig -> out:stop
+	printer:sig -> :stop
 }
 ```
 
@@ -135,20 +135,22 @@ The output port `data` of the `reader` node is directed into the input port `dat
 
 ## IO Nodes
 
-Finally, the curious reader might wonder, aren't `in` and `out` also nodes? After all, they are not instances of some components?
+Finally, the curious reader might wonder, what about port addresses without specified nodes like `:start` and `:stop`?
 
-Correct, they are not. The fact is that there are indeed two types of nodes - _component instances_ and the so-called _IO nodes_, of which there are always two in the network of each component - the `in` node and the `out` node.
+The fact is that there are indeed two types of nodes - _component instance nodes_ and the so-called _IO nodes_, of which there are always two in the network of each component - the `in` node and the `out` node.
 
-Now, if you don't understand the following paragraph, that's absolutely fine. But for the most demanding readers, it is necessary to clarify that the `in` node contains only output ports, and the `out` node only input ports. This inversion might be confusing, but it is actually quite natural - a component reads data from its input ports as if they are the output ports of some node and correspondingly writes to its output ports as if they are someone else's input ports.
+Now, the `in` node contains only output ports, and the `out` node only input ports. This inversion might be confusing, but it is actually quite natural - a component reads data from its input ports as if they are the output ports of some node and correspondingly writes to its output ports as if they are someone else's input ports.
+
+Because you don’t have to think about it most of the time, Nevalang offers a shorter syntax for connections with IO nodes - `:<port>` instead of `<io_node>:<port>`. For example, `in:start` is the same as `:start`. One might ask, 'But what if an input port and an output port have the same name?' Well, you always have senders on the left and receivers on the right, so `:x -> :x` means `in:x -> out:x`.
 
 ## Reader, Printer and The Algorithm
 
 Finally, let's dissect the algorithm our network executes. So, we have 3 connections:
 
 ```
-in:start -> reader:sig
+:start -> reader:sig
 reader:data -> printer:data
-printer:sig -> out:stop
+printer:sig -> :stop
 ```
 
 As we see, the `start` signal goes to the `reader` node into the `sig` port. The `sig` port typically signifies a _signal_ to start performing work. The `Reader` component is designed in such a way that upon receiving this signal, it will _block_, waiting for input from the keyboard. After the user enters text and presses Enter, the program will be unblocked, and the entered data will be sent to the `Printer` component, which, in turn, will print it out and emit a `sig` signal on its output. We use this signal to close our loop, forming a cycle. The program will terminate if "ctrl+c" is pressed, but until then, it will continuously operate, constantly waiting for input and then printing it, ad infinitum.
@@ -164,9 +166,9 @@ component Main(start any) (stop any) {
         printer Printer<string>
     }
     net {
-        in:start -> reader:sig
+        :start -> reader:sig
         reader:data -> printer:data
-        printer:sig -> out:stop
+        printer:sig -> :stop
     }
 }
 ```

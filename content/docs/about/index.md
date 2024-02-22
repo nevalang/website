@@ -19,7 +19,7 @@ Add to this strong static typing, compilation into machine code, and open-source
 
 ## Why FBP? Why Not OOP or FP?
 
-The reason why Nevalang might succeed is its flow-based paradigm. The stagnation in the problems described above, as we believe, is a consequence of the flow control paradigm established by the von Neumann architecture, where we have a state and a computer that changes this state by sequentially executing instructions. This way of thinking has served us well, but in the era of multi-core processors, we struggle to adapt it to modern realities. However, in the dataflow paradigm, and especially in its most powerful form - Flow-Based Programming (FBP), these problems do not exist.
+The reason why Nevalang might succeed is its flow-based paradigm. The stagnation in the problems described above, as we believe, is a consequence of the control-flow paradigm established by the von Neumann architecture, where we have a state and a computer that changes this state by sequentially executing instructions. This way of thinking has served us well, but in the era of multi-core processors, we struggle to adapt it to modern realities. However, in the dataflow paradigm, and especially in its most powerful form - Flow-Based Programming (FBP), these problems do not exist.
 
 ## What Is Implicit Parallelism?
 
@@ -29,7 +29,7 @@ Nevalang features what we call _effortless concurrency_. This means that writing
 
 Components exchange messages through buffered queues, and blocking only occurs when the queue is full. But even in this case, parts of the program that are not blocked continue to work.
 
-The icing on the cake is the fact that Nevalang naturally supports stream computing right out of the box. It doesn't just support it - it's a native form for it. Where in conventional programming we process a batch of data and then pass it on, in Nevalang, we process and pass on data as it becomes ready. An entire page wouldn't be enough to describe how much this can speed up computations.
+The icing on the cake is the fact that Nevalang naturally supports stream processing right out of the box. It doesn't just support it - it's a native form for it. Where in conventional programming we process a batch of data and then pass it on, in Nevalang, we process and pass on data as it becomes ready, piece by piece. An entire page wouldn't be enough to describe how much this can speed up computations.
 
 ## Why Visual Programming?
 

@@ -1,5 +1,5 @@
 .PHONY: prod
-dev:
+prod:
 	@hugo
 
 .PHONY: dev

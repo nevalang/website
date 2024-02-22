@@ -1,6 +1,7 @@
 <script>
   function toggleDarkMode() {
     const got = localStorage.getItem("dark");
+    // FIXME toggle works only after second click if dark theme is system
     localStorage.setItem("dark", got === "true" ? "false" : "true");
     location.reload();
   }

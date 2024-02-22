@@ -1,8 +1,6 @@
 ---
-
 title: Hello World
 weight: 3
-
 ---
 
 Isn't it odd to reach the "Hello, World!" moment only in the third lesson - the starting point that most tutorials begin with? Well, many peculiarities await us in Nevalang. However, we hope that by the end of this tutorial, they will no longer seem like oddities. Who knows, you might even start thinking, "Could it have been any other way?". Of course, we could have started with "Hello, World!" too, without delving into the intricate details of how every little thing works, but our goal, once again, is to achieve a deep understanding of how Nevalang is structured. And, actually, "Hello, World!" is not as straightforward as it seems.
@@ -20,10 +18,10 @@ component Main(start any) (stop any) {
 		printer Printer<string>
 	}
 	net {
-		in:start -> blocker:sig
+		:start -> blocker:sig
 		emitter:msg -> blocker:data
 		blocker:data -> printer:msg
-		printer:msg -> out:stop
+		printer:msg -> :stop
 	}
 }
 ```
@@ -110,7 +108,7 @@ Syntactically, the rest of the program should be clear - the nodes `emitter`, `b
 
 The key lies in how `Emitter` works. As mentioned, it sends the same message out in an infinite loop. If you're curious about why it functions this way, you can find the answer on the [FAQ](/docs/faq) page. We won't delve into it here, as it would take too much time. For now, just take it on faith that Emitter cannot operate differently.
 
-The thing is, we need to send a string to the `printer` exactly once, and strictly after a signal comes from `in:start`. A mandatory condition for successful compilation is that a component uses all its input and output ports. Moreover, the `in:start` and `in:stop` ports have special significance for the program - they should control when the program starts and ends its computations.
+The thing is, we need to send a string to the `printer` exactly once, and strictly after a signal comes from `:start`. A mandatory condition for successful compilation is that a component uses all its input and output ports. Moreover, the `:start` and `:stop` ports have special significance for the program - they should control when the program starts and ends its computations.
 
 Thus, we need to program our network so that something happens exactly once and at a specific moment. In a way, we need to _control the execution flow_, but how do you do that in a language where you only _control the data flow_? We've just encountered a situation for the first time where what is easily done in control-flow programming requires extra effort in dataflow. But don't worry, Nevalang has the tools to tackle such tasks. In the remainder, we'll look at the most primitive and flexible of them - the `Blocker` component. Then, we'll explore a simpler way.
 
@@ -152,15 +150,15 @@ If a message first arrives at the `sig` port, it waits for a message at the `dat
 Let's take another look at our network and verbalize what it does:
 
 ```neva
-in:start -> blocker:sig
+:start -> blocker:sig
 emitter:msg -> blocker:data
 blocker:data -> printer:msg
-printer:msg -> out:stop
+printer:msg -> :stop
 ```
 
-When the input signal `in:start` arrives at the `blocker:sig` inport (this happens exactly once at the program's start), the `blocker` locks the flow, awaiting data. The message from `emitter:msg` (our "Hello, World!" constant) goes into the blocker but doesn't pass further until the `blocker:sig` signal arrives. If the signal arrives first, then the data immediately moves on; if not, it waits for the signal. We don't know which will happen faster - whether the data or the signal reaches the `blocker` first, but we do know that the flow won't proceed until these two messages meet in the `blocker`. Once this happens, we send the data to be printed. If by this time the emitter has already sent another message (with the same "Hello, World!" text), there's no need to worry - it will be forever blocked by the `blocker` - a new signal to `block:sig` won't arrive, because there won't be a new signal from `in:start`. Finally, when the printing is finished, we terminate the program by sending a signal to `out:stop`.
+When the input signal `:start` arrives at the `blocker:sig` inport (this happens exactly once at the program's start), the `blocker` locks the flow, awaiting data. The message from `emitter:msg` (our "Hello, World!" constant) goes into the blocker but doesn't pass further until the `blocker:sig` signal arrives. If the signal arrives first, then the data immediately moves on; if not, it waits for the signal. We don't know which will happen faster - whether the data or the signal reaches the `blocker` first, but we do know that the flow won't proceed until these two messages meet in the `blocker`. Once this happens, we send the data to be printed. If by this time the emitter has already sent another message (with the same "Hello, World!" text), there's no need to worry - it will be forever blocked by the `blocker` - a new signal to `block:sig` won't arrive, because there won't be a new signal from `:start`. Finally, when the printing is finished, we terminate the program by sending a signal to `:stop`.
 
-Assuming the program could compile without using `in:start`, or if `in:start` wasn't used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from `printer:msg` was moving to `out:stop`, the printer would continue to work in parallel, if the machine has enough resources.
+Assuming the program could compile without using `:start`, or if `:start` wasn't used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from `printer:msg` was moving to `:stop`, the printer would continue to work in parallel, if the machine has enough resources.
 
 This feature of the language - maximum asynchrony, allows for easily writing concurrent programs and achieving, theoretically, high performance, but it comes with the overhead of needing to block the flow where the sequence of events is important.
 

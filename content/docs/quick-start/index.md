@@ -13,6 +13,18 @@ To begin, download the Nevalang installation script using the following command:
 curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash
 ```
 
+If everything is ok you should be able to execute
+
+```bash
+neva version
+```
+
+And see output like this (version could differ):
+
+```
+0.4.0
+```
+
 ## Creating Your First Project
 
 Let's create a new project named `nevalang_test`. This project will include a `neva.yml` _manifest_ file and a `main.neva` source code file, which will contain a simple Nevalang program.
@@ -33,8 +45,8 @@ Next, open `main.neva` with your preferred text editor and add the following cod
 component Main(start any) (stop any) {
     nodes { printer Printer<string> }
     net {
-        in:start -> ('Hello, World!' -> printer:data)
-        printer:sig -> out:stop
+        :start -> ('Hello, World!' -> printer:data)
+        printer:sig -> :stop
     }
 }
 ```

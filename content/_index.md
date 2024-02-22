@@ -11,8 +11,8 @@ Welcome to Nevalang, a programming language designed to transform the way you th
 component Main(start any) (stop any) {
 	nodes { printer Printer<string> }
 	net {
-		in:start -> ('Hello, World!' -> printer:data)
-		printer:sig -> out:stop
+		:start -> ('Hello, World!' -> printer:data)
+		printer:sig -> :stop
 	}
 }
 ```
@@ -27,8 +27,8 @@ component Main(start any) (stop any) {
         subNode SecondComponent { depNode Printer<any> }
     }
     net {
-        in:start -> subNode:msg
-        subNode:msg -> out:stop
+        :start -> subNode:msg
+        subNode:msg -> :stop
     }
 }
 
@@ -37,8 +37,8 @@ interface IPrinter<T>(data T) (sig T)
 component SecondComponent (msg any) (msg any) {
     nodes { depNode IPrinter<any> }
     net {
-        in:msg -> depNode:data
-        depNode:sig -> out:msg
+        :msg -> depNode:data
+        depNode:sig -> :msg
     }
 }
 ```
@@ -62,7 +62,7 @@ component Main(start any) (stop any) {
         32 -> builder:age
         'John' -> builder:name
         builder:msg -> print:data
-        print:sig -> out:stop
+        print:sig -> :stop
     }
 }
 ```
