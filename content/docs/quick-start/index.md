@@ -22,7 +22,7 @@ neva version
 And see output like this (version could differ):
 
 ```
-0.4.0
+0.5.1
 ```
 
 ## Creating Your First Project
