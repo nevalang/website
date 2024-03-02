@@ -4,4 +4,4 @@ prod:
 
 .PHONY: dev
 dev:
-	@hugo server --logLevel info
+	@hugo server clean --disableFastRender --logLevel info

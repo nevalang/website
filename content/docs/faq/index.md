@@ -1,6 +1,6 @@
 ---
 title: FAQ
-weight: 6
+weight: 7
 ---
 
 Welcome to the FAQ page! Here, we've compiled all the questions that you might not find answers to on other documentation pages. This section was primarily created as a reference for ourselves - when developing something as complex as a programming language, it's easy to forget the reasons behind certain decisions. So, we thought, why not document at least those related to the language's external aspects, right here on the website!

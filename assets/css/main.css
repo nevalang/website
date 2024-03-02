@@ -161,3 +161,9 @@ a.docs-card:hover {
   /* color: var(--bg-color); */
 }
 
+
+.docs-ul {
+  margin-top: 20px;
+  padding-left: 0;
+  list-style: none;
+}
