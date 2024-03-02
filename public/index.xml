@@ -43,11 +43,11 @@
       <description>Install Nevalang and create your first project in one minute!&#xA;Installing Nevalang To begin, download the Nevalang installation script using the following command:&#xA;curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash If everything is ok you should be able to execute&#xA;neva version And see output like this (version could differ):&#xA;0.8.0 Creating Your First Project Let&amp;rsquo;s create a new project named test. Execute the following commands to set up your project:&#xA;neva new test This command will create test directory with neva.</description>
     </item>
     <item>
-      <title>Type System</title>
+      <title>Type System (WIP)</title>
       <link>https://nevalang.org/docs/spec/type-system/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/spec/type-system/</guid>
-      <description>WIP</description>
+      <description>Nevalang has strong static structural type-system&#xA;Strong means that there&amp;rsquo;s no implicit type convertions Static means that semantic analysis for type-safety happens at compile time, not run-time Structural means that types are compatible if their structure is compatible. Unlike nominative sub-typing, names of the types does not matter. This also means that type can carry more information than needed and still be compatible. Base Types These are types that doesn&amp;rsquo;t have definition in neva source code.</description>
     </item>
     <item>
       <title>Hello World</title>

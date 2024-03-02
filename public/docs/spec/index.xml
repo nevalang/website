@@ -15,11 +15,11 @@
       <description>This section provides an overview of Nevalang, focusing on its user and compiler perspectives, excluding the type-system which is covered separately. It doesn&amp;rsquo;t delve into the execution details of Nevalang programs, but rather explores the abstractions present in the source code and their governing principles.&#xA;Build Build is set of Nevalang modules. Every module has unique module reference. One of the modules is entry module.&#xA;Module Module is a set of packages.</description>
     </item>
     <item>
-      <title>Type System</title>
+      <title>Type System (WIP)</title>
       <link>https://nevalang.org/docs/spec/type-system/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/spec/type-system/</guid>
-      <description>WIP</description>
+      <description>Nevalang has strong static structural type-system&#xA;Strong means that there&amp;rsquo;s no implicit type convertions Static means that semantic analysis for type-safety happens at compile time, not run-time Structural means that types are compatible if their structure is compatible. Unlike nominative sub-typing, names of the types does not matter. This also means that type can carry more information than needed and still be compatible. Base Types These are types that doesn&amp;rsquo;t have definition in neva source code.</description>
     </item>
     <item>
       <title>Runtime</title>
