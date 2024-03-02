@@ -8,7 +8,7 @@ Welcome to Nevalang, a programming language designed to transform the way you th
 {{% tab name="Hello world" %}}
 
 ```neva
-component Main(start any) (stop any) {
+component Main(start) (stop) {
 	nodes { Printer<string> }
 	net {
 		:start -> ('Hello, World!' -> printer:data)
@@ -22,11 +22,9 @@ component Main(start any) (stop any) {
 {{% tab name="Dependency injection" %}}
 
 ```neva
-component Main(start any) (stop any) {
+component Main(start) (stop) {
     nodes {
-        subNode SecondComponent {
-            depNode Printer<any>
-        }
+        subNode SecondComponent { depNode Printer<any> }
     }
     net {
         :start -> subNode:msg
@@ -36,7 +34,7 @@ component Main(start any) (stop any) {
 
 interface IPrinter<T>(data T) (sig T)
 
-component SecondComponent (msg any) (msg any) {
+component SecondComponent (msg) (msg) {
     nodes { depNode IPrinter<any> }
     net {
         :msg -> depNode:data
@@ -55,18 +53,18 @@ type User struct {
     name string
 }
 
-component Main(start any) (stop any) {
+component Main(start) (stop) {
     nodes {
+        Printer<User>
         builder StructBuilder<User>
-        print Printer<User>
     }
     net {
         :start -> (
             'John' -> builder:name,
             32 -> builder:age
         )
-        builder:msg -> print:data
-        print:sig -> :stop
+        builder:msg -> printer:data
+        printer:sig -> :stop
     }
 }
 ```
