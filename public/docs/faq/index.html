@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
@@ -32,6 +32,7 @@
     <div class="tabs">
       <a href="/docs">Docs </a>
       <a href="/blog">Blog </a>
+      <a href="/roadmap">Roadmap </a>
       <a href="/community">Community </a>
       <a href="https://github.com/nevalang/neva">GitHub </a>
     </div>
@@ -67,6 +68,10 @@
       
       <li>
         <a href="/docs/faq/">FAQ</a>
+      </li>
+      
+      <li>
+        <a href="/docs/spec/">Specification (WIP)</a>
       </li>
       
     </ul>
@@ -134,10 +139,10 @@ net {
         print Print
     }
     net {
-        in:start -&gt; b:sig
+        :start -&gt; b:sig
         b:err -&gt; destructor:msg // ignore the `err` outport, only handle happy path
         b:v -&gt; print:v
-        print:v -&gt; out:exit
+        print:v -&gt; :exit
     }
 }
 </code></pre><p>We print the success result and then terminate. If there is no success result and only error we well&hellip; do nothing. And that&rsquo;s bad. What we should do instead is this:</p>
@@ -233,12 +238,12 @@ net {
 <p>If you have a component <code>C1</code> that takes <code>T</code> and you want to operate on <code>SubStreamItem&lt;T&gt;</code> all you need is to create a wrapper. That wrapper will receive <code>SubStreamItem&lt;T&gt;</code> and use <code>C1</code> inside of it with <code>.v</code> struct selection.</p>
 <p>If you need to continue sub-stream you simply send <code>SubStreamItem&lt;T&gt;</code> from you wrapper component downstream. Or <code>SubStreamItem&lt;WhateverYouWant&gt;</code> (probably preserving <code>isLast</code> value).</p>
 <p>It&rsquo;s either you continue sub-stream or you do not. Depending on what your&rsquo;re doing (maybe you&rsquo;re counting sub-stream items so you just sends <code>int</code> eachtime sub-stream ends).</p>
-<h2 id="why-outstop-of-the-main-ist-int">Why <code>out:stop</code> of the <code>Main</code> is&rsquo;t <code>int</code>?</h2>
-<p>This is the question about why <code>out:stop</code> isn&rsquo;t interpreted as exit code.</p>
+<h2 id="why-stop-of-the-main-ist-int">Why <code>:stop</code> of the <code>Main</code> is&rsquo;t <code>int</code>?</h2>
+<p>This is the question about why <code>:stop</code> isn&rsquo;t interpreted as exit code.</p>
 <p>The things is - you don&rsquo;t always have <code>int</code> as your exit condition. That&rsquo;s why it&rsquo;s <code>any</code>.</p>
 <p>Ok, but why then we don&rsquo;t check if that <code>any</code> is actually <code>int</code> under the hood and then interpret it as an exit code?</p>
 <p>Well, we can do that. But that would lead to situations where you accidentally have <code>int</code> like your exit condition but don&rsquo;t actually want it to be your exit code. Such cases are non obvious and will require you to somehow check that you send exit code you want.</p>
-<p>This problem gets bigger when you have <code>any</code> or <em>union</em> <code>... | int</code> outport that is directed to <code>out:stop</code> - you&rsquo;ll have to check whether value isn&rsquo;t an <code>int</code>. Otherwise you&rsquo;re at risk of terminating with wrong code.</p>
+<p>This problem gets bigger when you have <code>any</code> or <em>union</em> <code>... | int</code> outport that is directed to <code>:stop</code> - you&rsquo;ll have to check whether value isn&rsquo;t an <code>int</code>. Otherwise you&rsquo;re at risk of terminating with wrong code.</p>
 <p><strong>Exit codes are important</strong>. Shell scripts and CI/CD depends on that. Most of the time you want your exit code to be <code>zero</code>. Non-zero exit code is not happypath, it&rsquo;s more rare. Having corner case like a base design decision is not what we want.</p>
 <h2 id="why-structural-subtyping">Why structural subtyping?</h2>
 <ol>
@@ -275,9 +280,9 @@ net {
 </code></pre><p>So why you define struct/map literals with colons and commas? Well, the answer is that this way it almost valid JSON just like in Python in JS. Except (optional) trailing comma (afterall JSON compatibility is not our goal). This also good to distinguish easily between type and const expressions. Finally this is how we do in JS/TS, Python and Go.</p>
 <h2 id="cant-we-have-shorter-syntax-for-connections">Can&rsquo;t we have shorter syntax for connections?</h2>
 <p>There was an idea to have sugar for connections where sender and receiver has same ports</p>
-<pre tabindex="0"><code>in:sig -&gt; scanner:sig
+<pre tabindex="0"><code>:sig -&gt; scanner:sig
 scanner:data -&gt; logger:data
-logger:sig -&gt; out:sig
+logger:sig -&gt; :sig
 </code></pre><p>To look like this</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">in -&gt; scanner
 scanner -&gt; logger
@@ -302,6 +307,7 @@ foo:y -&gt; bar:y
       <script>
   function toggleDarkMode() {
     const got = localStorage.getItem("dark");
+    
     localStorage.setItem("dark", got === "true" ? "false" : "true");
     location.reload();
   }

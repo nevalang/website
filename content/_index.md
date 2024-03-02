@@ -9,7 +9,7 @@ Welcome to Nevalang, a programming language designed to transform the way you th
 
 ```neva
 component Main(start any) (stop any) {
-	nodes { printer Printer<string> }
+	nodes { Printer<string> }
 	net {
 		:start -> ('Hello, World!' -> printer:data)
 		printer:sig -> :stop
@@ -24,7 +24,9 @@ component Main(start any) (stop any) {
 ```neva
 component Main(start any) (stop any) {
     nodes {
-        subNode SecondComponent { depNode Printer<any> }
+        subNode SecondComponent {
+            depNode Printer<any>
+        }
     }
     net {
         :start -> subNode:msg
@@ -56,11 +58,13 @@ type User struct {
 component Main(start any) (stop any) {
     nodes {
         builder StructBuilder<User>
-        print Print<User>
+        print Printer<User>
     }
     net {
-        32 -> builder:age
-        'John' -> builder:name
+        :start -> (
+            'John' -> builder:name,
+            32 -> builder:age
+        )
         builder:msg -> print:data
         print:sig -> :stop
     }
@@ -104,21 +108,15 @@ With first-class support for dependency injection and interfaces, Nevalang encou
 
 Nevalang’s built-in observability feature traces every message path throughout execution at runtime, offering superior debugging capabilities.
 
+### Package Management
+
+Nevalang comes with a built-in package manager that leverages Git. Releasing your package is as simple as pushing a tag to your repository. Installing a dependency is just as easy with a single command `neva get`.
+
 ### Garbage Collection
 
 Leveraging Go's garbage collector, Nevalang frees you from manual memory management, allowing you to concentrate on developing your application.
 
-### Visual Programming (WIP)
 
-Nevalang started as a visual programming language but has evolved into a hybrid, offering a clean, C-like syntax alongside a visual editor. This approach addresses common drawbacks of visual programming by supporting standard development practices like version control and code reviews, while also making complex projects manageable through its package system and component abstractions.
-
-### Go Interop (WIP)
-
-Nevalang's compiler can generate human-readable Go code. There are plans to utilize this feature for interoperability with existing Go codebases, allowing you to use existing Go code inside your Nevalang programs and, vice versa, to integrate Nevalang modules into your Go programs.
-
-### No Runtime Exceptions (WIP)
-
-Nevalang plans to achieve high reliability, where programs either fail at startup or run without crashes forever. It will do this by analyzing the program for errors before it runs (static semantic analysis) and checking for problems when the program starts (runtime checks). If a program crashes after starting, it's likely a bug in Nevalang itself. Users might still encounter logical mistakes in their code though.
 
 ## Next Steps
 

@@ -5,7 +5,7 @@ weight: 3
 
 Isn't it odd to reach the "Hello, World!" moment only in the third lesson - the starting point that most tutorials begin with? Well, many peculiarities await us in Nevalang. However, we hope that by the end of this tutorial, they will no longer seem like oddities. Who knows, you might even start thinking, "Could it have been any other way?". Of course, we could have started with "Hello, World!" too, without delving into the intricate details of how every little thing works, but our goal, once again, is to achieve a deep understanding of how Nevalang is structured. And, actually, "Hello, World!" is not as straightforward as it seems.
 
-Go to your `nevalang_test` directory and replace content of the `main.neva` with this:
+Go to your `test/src` directory and replace content of the `main.neva` with this:
 
 ```neva
 const greeting string = 'Hello, World!'
@@ -20,8 +20,8 @@ component Main(start any) (stop any) {
 	net {
 		:start -> blocker:sig
 		emitter:msg -> blocker:data
-		blocker:data -> printer:msg
-		printer:msg -> :stop
+		blocker:data -> printer:data
+		printer:sig -> :stop
 	}
 }
 ```
@@ -42,7 +42,9 @@ Let's take a step back and ask ourselves, what exactly are packages? Well, they 
 
 Declaring a constant begins with the keyword `const`, followed by an arbitrary name. Incidentally, an entity's name must be unique within its package. This means, for example, that a constant could not be named `Main` in our case, because there is already a component with that name. After the name comes the type expression; in this case, we simply refer to the familiar type `string`. Then comes the `=` symbol, and finally, the value of the constant - a so-called _literal_, in our case the string `'Hello, World!'`
 
-    const <name> <type_expr> = <literal_expr>
+```neva
+const <name> <type_expr> = <literal_expr>
+```
 
 So, what exactly is a constant? It's an entity that describes a _static message_ - a message whose value is known at the time of writing the program (at _compile time_) and is directly present in the program's source code. The value of a constant must be explicitly set; it cannot be computed in any way. The values of constants are _immutable_ - if a constant describes the string message `"Hello, world!"` then it will remain so throughout the program. It's impossible for a constant to change in any way. Note that in Nevalang, there are no variables and, consequently, no mutable state.
 
@@ -57,7 +59,9 @@ emitter Emitter<string>
 
 The second line should be clear to us - a `greeting` node that is an instance of the `Emitter` component _parameterized_ with `string`. But what about the first line?
 
-    #bind(greeting)
+```neva
+#bind(greeting)
+```
 
 This is what's known as a _directive_ - a special instruction for the compiler. There are several directives, and each tells the compiler some information on how to correctly compile the program. The syntax for any directive is as follows:
 
@@ -69,8 +73,10 @@ This is what's known as a _directive_ - a special instruction for the compiler. 
 
 To understand what the `#bind` directive does, let's look into the standard library's code, at the definition of the Emitter component (let's ignore `pub` keyword once again):
 
-    #extern(Emitter)
-    pub Emitter<T>() (msg T)
+```neva
+#extern(Emitter)
+pub Emitter<T>() (msg T)
+```
 
 Firstly, the Emitter has no input ports! This is only possible in the standard library. The compiler will not allow us to do this ourselves - any component outside the standard library must have at least one input and one output port. Anyway, the Emitter is the only component without input ports. We need at least one such component, and soon we'll understand why. Let's move on to the `#extern` directive:
 
@@ -152,13 +158,13 @@ Let's take another look at our network and verbalize what it does:
 ```neva
 :start -> blocker:sig
 emitter:msg -> blocker:data
-blocker:data -> printer:msg
-printer:msg -> :stop
+blocker:data -> printer:data
+printer:sig -> :stop
 ```
 
 When the input signal `:start` arrives at the `blocker:sig` inport (this happens exactly once at the program's start), the `blocker` locks the flow, awaiting data. The message from `emitter:msg` (our "Hello, World!" constant) goes into the blocker but doesn't pass further until the `blocker:sig` signal arrives. If the signal arrives first, then the data immediately moves on; if not, it waits for the signal. We don't know which will happen faster - whether the data or the signal reaches the `blocker` first, but we do know that the flow won't proceed until these two messages meet in the `blocker`. Once this happens, we send the data to be printed. If by this time the emitter has already sent another message (with the same "Hello, World!" text), there's no need to worry - it will be forever blocked by the `blocker` - a new signal to `block:sig` won't arrive, because there won't be a new signal from `:start`. Finally, when the printing is finished, we terminate the program by sending a signal to `:stop`.
 
-Assuming the program could compile without using `:start`, or if `:start` wasn't used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from `printer:msg` was moving to `:stop`, the printer would continue to work in parallel, if the machine has enough resources.
+Assuming the program could compile without using `:start`, or if `:start` wasn't used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from `printer:sig` was moving to `:stop`, the printer would continue to work in parallel, if the machine has enough resources.
 
 This feature of the language - maximum asynchrony, allows for easily writing concurrent programs and achieving, theoretically, high performance, but it comes with the overhead of needing to block the flow where the sequence of events is important.
 

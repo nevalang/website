@@ -13,14 +13,19 @@ url = '/blog'
 weight = 20
 
 [[menus.main]]
+name = 'Roadmap'
+url = '/roadmap'
+weight = 30
+
+[[menus.main]]
 name = 'Community'
 url = "/community"
-weight = 30
+weight = 40
 
 [[menus.main]]
 name = 'GitHub'
 url = "https://github.com/nevalang/neva"
-weight = 40
+weight = 50
 
 [module]
 [module.hugoVersion]

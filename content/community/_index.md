@@ -1,5 +1,6 @@
 ---
 title: Community
+weight: 4
 ---
 
 - [Discord](https://discord.gg/8fhETxQR)

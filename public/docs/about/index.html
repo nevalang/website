@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
@@ -32,6 +32,7 @@
     <div class="tabs">
       <a href="/docs">Docs </a>
       <a href="/blog">Blog </a>
+      <a href="/roadmap">Roadmap </a>
       <a href="/community">Community </a>
       <a href="https://github.com/nevalang/neva">GitHub </a>
     </div>
@@ -69,6 +70,10 @@
         <a href="/docs/faq/">FAQ</a>
       </li>
       
+      <li>
+        <a href="/docs/spec/">Specification (WIP)</a>
+      </li>
+      
     </ul>
   </aside>
   <div class="col-8">
@@ -81,12 +86,12 @@
 <p>The first gives us the ability to reason about programs in a way that is natural for us, similar to how we think when looking at electronic components, analyzing the data flow within them. The second enables us to fully leverage parallelism without making the code significantly more complex.</p>
 <p>Add to this strong static typing, compilation into machine code, and open-source availability and you might get a tool that is both simple and powerful enough that even inexperienced programmers can use it to create large and fast programs.</p>
 <h2 id="why-fbp-why-not-oop-or-fp">Why FBP? Why Not OOP or FP?</h2>
-<p>The reason why Nevalang might succeed is its flow-based paradigm. The stagnation in the problems described above, as we believe, is a consequence of the flow control paradigm established by the von Neumann architecture, where we have a state and a computer that changes this state by sequentially executing instructions. This way of thinking has served us well, but in the era of multi-core processors, we struggle to adapt it to modern realities. However, in the dataflow paradigm, and especially in its most powerful form - Flow-Based Programming (FBP), these problems do not exist.</p>
+<p>The reason why Nevalang might succeed is its flow-based paradigm. The stagnation in the problems described above, as we believe, is a consequence of the control-flow paradigm established by the von Neumann architecture, where we have a state and a computer that changes this state by sequentially executing instructions. This way of thinking has served us well, but in the era of multi-core processors, we struggle to adapt it to modern realities. However, in the dataflow paradigm, and especially in its most powerful form - Flow-Based Programming (FBP), these problems do not exist.</p>
 <h2 id="what-is-implicit-parallelism">What Is Implicit Parallelism?</h2>
 <p>Just as automatic transmissions replaced manual ones, manual memory management gave way to automatic garbage collection. Languages without garbage collection still exist, but they are inevitably more complex and, as a result, less productive. There are domains where such an inconvenient way of programming is justified, but most programs do not require this. We believe the time has come to take the next step in automation and relieve humans from controlling concurrency. Mutexes, channels, coroutines, and promises - all these synchronization primitives should be made an implementation detail, outsourcing the control of concurrency and parallelism to the machine.</p>
 <p>Nevalang features what we call <em>effortless concurrency</em>. This means that writing concurrent code requires no extra effort. The reason is that all code in Nevalang is asynchronous by default - components operate in parallel to each other (if the machine has enough resources). Effort is actually required when you need to ensure a clear sequence of events (you might be surprised how rarely this is actually necessary) - this is a complete paradigm shift.</p>
 <p>Components exchange messages through buffered queues, and blocking only occurs when the queue is full. But even in this case, parts of the program that are not blocked continue to work.</p>
-<p>The icing on the cake is the fact that Nevalang naturally supports stream computing right out of the box. It doesn&rsquo;t just support it - it&rsquo;s a native form for it. Where in conventional programming we process a batch of data and then pass it on, in Nevalang, we process and pass on data as it becomes ready. An entire page wouldn&rsquo;t be enough to describe how much this can speed up computations.</p>
+<p>The icing on the cake is the fact that Nevalang naturally supports stream processing right out of the box. It doesn&rsquo;t just support it - it&rsquo;s a native form for it. Where in conventional programming we process a batch of data and then pass it on, in Nevalang, we process and pass on data as it becomes ready, piece by piece. An entire page wouldn&rsquo;t be enough to describe how much this can speed up computations.</p>
 <h2 id="why-visual-programming">Why Visual Programming?</h2>
 <p>For over 50 years, we&rsquo;ve been writing and editing text, even though it&rsquo;s well-known that humans better understand visual information. We need a good general-purpose visual programming language. Yes, visual languages exist, but they are mostly specialized. None of them comes close to the popularity of Python or Java. If we look at the top 20 most popular languages, we won&rsquo;t find any visual ones.</p>
 <p>If it&rsquo;s not obvious why we need a visual programming language, consider the number of visual diagrams we use when designing software. Some might argue that text is also a form of visual language because it consists of glyphs, but we&rsquo;re specifically talking about node editor-based tools. It&rsquo;s natural for people to think of processes as boxes connected by arrows. Countless examples support this, not only drawings on boards and notebooks but also the popularity of visual software like Miro and Figma, as well as numerous note-taking apps with graph and canvas views like Obsidian.</p>
@@ -134,6 +139,7 @@
       <script>
   function toggleDarkMode() {
     const got = localStorage.getItem("dark");
+    
     localStorage.setItem("dark", got === "true" ? "false" : "true");
     location.reload();
   }

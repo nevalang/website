@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
@@ -32,6 +32,7 @@
     <div class="tabs">
       <a href="/docs">Docs </a>
       <a href="/blog">Blog </a>
+      <a href="/roadmap">Roadmap </a>
       <a href="/community">Community </a>
       <a href="https://github.com/nevalang/neva">GitHub </a>
     </div>
@@ -87,10 +88,10 @@ component Main(start any) (stop any) {
         blocker Blocker&lt;string&gt;
     }
     net {
-        in:start -&gt; blocker:sig
+        :start -&gt; blocker:sig
         $greeting -&gt; blocker:data
         blocker:data -&gt; printer:msg
-        printer:msg -&gt; out:stop
+        printer:msg -&gt; :stop
     }
 }
 </code></pre><p>And it works just the same. What you&rsquo;re now observing is <em>syntactic sugar</em> called <em>const senders</em>. In a component&rsquo;s network, as a sender, you can specify not only a port address but also refer to a constant. This is done using the <code>$</code> symbol. Naturally, the constant must be within scope - declared in this package or imported.</p>
@@ -103,33 +104,33 @@ component Main(start any) (stop any) {
 component Main(start any) (stop any) {
 	nodes { printer Printer&lt;string&gt; }
 	net {
-		in:start -&gt; ($greeting -&gt; printer:msg)
-		printer:msg -&gt; out:stop
+		:start -&gt; ($greeting -&gt; printer:msg)
+		printer:msg -&gt; :stop
 	}
 }
 </code></pre><p>First, the <code>blocker Blocker&lt;string&gt;</code> node has disappeared, and second, three connections were replaced by one. It used to be:</p>
-<pre tabindex="0"><code class="language-neva" data-lang="neva">in:start -&gt; blocker:sig
+<pre tabindex="0"><code class="language-neva" data-lang="neva">:start -&gt; blocker:sig
 $greeting -&gt; blocker:data
 blocker:data -&gt; printer:msg
 </code></pre><p>Now, it&rsquo;s just:</p>
-<pre tabindex="0"><code class="language-neva" data-lang="neva">in:start -&gt; ($greeting -&gt; printer:msg)
-</code></pre><p>This &ldquo;then connection&rdquo; syntax <code>... -&gt; (...)</code> indicates that the <code>$greeting</code> can reach <code>printer:msg</code> only after the <code>in:start</code> signal is sent, ensuring that the sequence of events is maintained without the need for explicit blockers.</p>
+<pre tabindex="0"><code class="language-neva" data-lang="neva">:start -&gt; ($greeting -&gt; printer:msg)
+</code></pre><p>This &ldquo;then connection&rdquo; syntax <code>... -&gt; (...)</code> indicates that the <code>$greeting</code> can reach <code>printer:msg</code> only after the <code>:start</code> signal is sent, ensuring that the sequence of events is maintained without the need for explicit blockers.</p>
 <p>These two variants - with blockers and with then connections - are absolutely identical in function. The &ldquo;then connections&rdquo; variant actually unfolds into the blocker variant during compilation.</p>
 <h2 id="literal-senders">Literal Senders</h2>
 <p>Indeed, that&rsquo;s much better! Yet, our Hello World can&rsquo;t exactly be called succinct. It seems that in conventional languages, we don&rsquo;t create constants just to pass them once. It would be great to send the string directly to print, without making it a separate entity. Well, specifically for this, Nevalang has another form of syntactic sugar, the last one we&rsquo;ll look at in this lesson, and it&rsquo;s called <em>literal senders</em>.</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">component Main(start any) (stop any) {
 	nodes { printer Printer&lt;string&gt; }
 	net {
-		in:start -&gt; (&#39;Hello, World!&#39; -&gt; printer:data)
-		printer:sig -&gt; out:stop
+		:start -&gt; (&#39;Hello, World!&#39; -&gt; printer:data)
+		printer:sig -&gt; :stop
 	}
 }
 </code></pre><p>We&rsquo;ve removed the line:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">const greeting string = &#39;Hello, World!&#39;
 </code></pre><p>And changed:</p>
-<pre tabindex="0"><code class="language-neva" data-lang="neva">in:start -&gt; ($greeting -&gt; printer:msg)
+<pre tabindex="0"><code class="language-neva" data-lang="neva">:start -&gt; ($greeting -&gt; printer:msg)
 </code></pre><p>to:</p>
-<pre tabindex="0"><code class="language-neva" data-lang="neva">in:start -&gt; (&#39;Hello, World!&#39; -&gt; printer:data)
+<pre tabindex="0"><code class="language-neva" data-lang="neva">:start -&gt; (&#39;Hello, World!&#39; -&gt; printer:data)
 </code></pre><p>For the compiler, this variant is only slightly more complex than the one with const senders. It will unfold this into the verbose primitive form we started with, where we have an emitter and <code>#bind</code>. This time, however, it will also create a constant because it needs something to pass in the bind as a configuration message. The name of the constant will be generated automatically.</p>
 <p>Finally run <code>neva run</code> again and check that our <code>Hello, World!</code> is still there.</p>
 <h2 id="putting-it-all-together">Putting It All Together</h2>
@@ -144,18 +145,18 @@ component Main(start any) (stop any) {
         printer Printer&lt;string&gt;
     }
     net {
-        in:start -&gt; blocker:sig
+        :start -&gt; blocker:sig
         emitter:msg -&gt; blocker:data
         blocker:data -&gt; printer:msg
-        printer:msg -&gt; out:stop
+        printer:msg -&gt; :stop
     }
 }
 </code></pre><p>To this:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">component Main(start any) (stop any) {
     nodes { printer Printer&lt;string&gt; }
     net {
-        in:start -&gt; (&#39;Hello, World!&#39; -&gt; printer:data)
-        printer:sig -&gt; out:stop
+        :start -&gt; (&#39;Hello, World!&#39; -&gt; printer:data)
+        printer:sig -&gt; :stop
     }
 }
 </code></pre><p>Cutting down the amount of code by more than half - not bad!</p>
@@ -171,6 +172,7 @@ component Main(start any) (stop any) {
       <script>
   function toggleDarkMode() {
     const got = localStorage.getItem("dark");
+    
     localStorage.setItem("dark", got === "true" ? "false" : "true");
     location.reload();
   }

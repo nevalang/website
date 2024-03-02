@@ -5,21 +5,17 @@ weight: 2
 
 ## Module and Manifest
 
-If you've gone through the quick start, you should have already created your first project. In that case, simply update the code in `main.neva` to include the `Echo` component from this example. For everyone else, let's execute the following commands:
+If you've gone through the quick start, you should have already created your first project. In that case, simply update the code in `main.neva` to include the `Echo` component from this example. For everyone else, let's execute the following command:
 
 ```bash
-mkdir nevalang_test # create directory
-cd nevalang_test # go there
-touch neva.yml # create manifest file
-echo "compiler: 0.0.1" >> neva.yml # insert compiler version
-touch main.neva # create source code file
+neva new test
 ```
 
-With these commands, we're creating a _module_. We'll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.
+With these command, we're creating a _module_. We'll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.
 
 Each module has a `neva.yml` file, which describes its _dependencies_ (modules can depend on other modules, in this case, there are no dependencies) and the required version of the compiler (in this case, 0.0.1). Such a file is called the module's _manifest_.
 
-So, after our module is created, let's make sure that the file `main.neva` contains the following code:
+So, after our module is created, replace the content of the `test/src/main.neva` file with the following code:
 
 ```neva
 import { std/builtin }
@@ -37,7 +33,7 @@ component Main(start any) (stop any) {
 }
 ```
 
-Now make sure that you're in the `nevalang_test` directory and run `neva run`. Terminal should block until you type something. Type anything e.g. "how are you?". If everything is okay you should see this output:
+Now make sure that you're in the `test` directory and run `neva run src`. Terminal should block until you type something. Type anything e.g. "how are you?". If everything is okay you should see this output:
 
 ```bash
 > how are you?

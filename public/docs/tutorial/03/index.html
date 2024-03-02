@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-      <link rel="stylesheet" href="/css/main.min.581ea9ce3e89ca2e9388c29f5fe7f40108b4da8462b67fda50703cdae307ff6e.css" integrity="sha256-WB6pzj6Jyi6TiMKfX&#43;f0AQi02oRitn/aUHA82uMH/24=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
 
 
       <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
@@ -32,6 +32,7 @@
     <div class="tabs">
       <a href="/docs">Docs </a>
       <a href="/blog">Blog </a>
+      <a href="/roadmap">Roadmap </a>
       <a href="/community">Community </a>
       <a href="https://github.com/nevalang/neva">GitHub </a>
     </div>
@@ -81,10 +82,10 @@ component Main(start any) (stop any) {
 		printer Printer&lt;string&gt;
 	}
 	net {
-		in:start -&gt; blocker:sig
+		:start -&gt; blocker:sig
 		emitter:msg -&gt; blocker:data
 		blocker:data -&gt; printer:msg
-		printer:msg -&gt; out:stop
+		printer:msg -&gt; :stop
 	}
 }
 </code></pre><p>You might be thinking right now - &ldquo;This is the most verbose &lsquo;Hello, World!&rsquo; I&rsquo;ve ever seen!&rdquo; And, quite likely, you are correct. But don&rsquo;t rush to close the page; by dissecting this example, we&rsquo;ll learn how to write code more concisely. Without going through this example and jumping straight to the shorter version, we would never understand how the short version actually works.</p>
@@ -128,7 +129,7 @@ pub Emitter&lt;T&gt;() (msg T)
 <h2 id="how-to-control-execution-flow-in-a-dataflow-language">How to Control Execution Flow in a DataFlow Language</h2>
 <p>Syntactically, the rest of the program should be clear - the nodes <code>emitter</code>, <code>blocker</code>, and <code>printer</code> are instantiated with corresponding components from <code>builtin</code> and parameterized with <code>string</code>. Then comes a network of 4 connections. But what&rsquo;s really happening here, and why do we need the <code>blocker</code> node? Remember, this is a hello world program that&rsquo;s supposed to simply print a string to stdout.</p>
 <p>The key lies in how <code>Emitter</code> works. As mentioned, it sends the same message out in an infinite loop. If you&rsquo;re curious about why it functions this way, you can find the answer on the <a href="/docs/faq">FAQ</a> page. We won&rsquo;t delve into it here, as it would take too much time. For now, just take it on faith that Emitter cannot operate differently.</p>
-<p>The thing is, we need to send a string to the <code>printer</code> exactly once, and strictly after a signal comes from <code>in:start</code>. A mandatory condition for successful compilation is that a component uses all its input and output ports. Moreover, the <code>in:start</code> and <code>in:stop</code> ports have special significance for the program - they should control when the program starts and ends its computations.</p>
+<p>The thing is, we need to send a string to the <code>printer</code> exactly once, and strictly after a signal comes from <code>:start</code>. A mandatory condition for successful compilation is that a component uses all its input and output ports. Moreover, the <code>:start</code> and <code>:stop</code> ports have special significance for the program - they should control when the program starts and ends its computations.</p>
 <p>Thus, we need to program our network so that something happens exactly once and at a specific moment. In a way, we need to <em>control the execution flow</em>, but how do you do that in a language where you only <em>control the data flow</em>? We&rsquo;ve just encountered a situation for the first time where what is easily done in control-flow programming requires extra effort in dataflow. But don&rsquo;t worry, Nevalang has the tools to tackle such tasks. In the remainder, we&rsquo;ll look at the most primitive and flexible of them - the <code>Blocker</code> component. Then, we&rsquo;ll explore a simpler way.</p>
 <h2 id="public-and-private-entities">Public and Private Entities</h2>
 <p>Let&rsquo;s look, as we&rsquo;ve become accustomed, into the code of the <code>builtin</code> package:</p>
@@ -146,12 +147,12 @@ pub Blocker&lt;T&gt;(sig any, data T) (data T)
 <p>If a message first arrives at the <code>sig</code> port, it waits for a message at the <code>data</code> port, and vice versa; if it first arrives at <code>data</code>, it waits for a message in the <code>sig</code> port. Once messages have arrived at both inports, it <em>unlocks</em>, and the data is sent further from the outport named <code>data</code>.</p>
 <h2 id="understanding-asynchronism">Understanding Asynchronism</h2>
 <p>Let&rsquo;s take another look at our network and verbalize what it does:</p>
-<pre tabindex="0"><code class="language-neva" data-lang="neva">in:start -&gt; blocker:sig
+<pre tabindex="0"><code class="language-neva" data-lang="neva">:start -&gt; blocker:sig
 emitter:msg -&gt; blocker:data
 blocker:data -&gt; printer:msg
-printer:msg -&gt; out:stop
-</code></pre><p>When the input signal <code>in:start</code> arrives at the <code>blocker:sig</code> inport (this happens exactly once at the program&rsquo;s start), the <code>blocker</code> locks the flow, awaiting data. The message from <code>emitter:msg</code> (our &ldquo;Hello, World!&rdquo; constant) goes into the blocker but doesn&rsquo;t pass further until the <code>blocker:sig</code> signal arrives. If the signal arrives first, then the data immediately moves on; if not, it waits for the signal. We don&rsquo;t know which will happen faster - whether the data or the signal reaches the <code>blocker</code> first, but we do know that the flow won&rsquo;t proceed until these two messages meet in the <code>blocker</code>. Once this happens, we send the data to be printed. If by this time the emitter has already sent another message (with the same &ldquo;Hello, World!&rdquo; text), there&rsquo;s no need to worry - it will be forever blocked by the <code>blocker</code> - a new signal to <code>block:sig</code> won&rsquo;t arrive, because there won&rsquo;t be a new signal from <code>in:start</code>. Finally, when the printing is finished, we terminate the program by sending a signal to <code>out:stop</code>.</p>
-<p>Assuming the program could compile without using <code>in:start</code>, or if <code>in:start</code> wasn&rsquo;t used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from <code>printer:msg</code> was moving to <code>out:stop</code>, the printer would continue to work in parallel, if the machine has enough resources.</p>
+printer:msg -&gt; :stop
+</code></pre><p>When the input signal <code>:start</code> arrives at the <code>blocker:sig</code> inport (this happens exactly once at the program&rsquo;s start), the <code>blocker</code> locks the flow, awaiting data. The message from <code>emitter:msg</code> (our &ldquo;Hello, World!&rdquo; constant) goes into the blocker but doesn&rsquo;t pass further until the <code>blocker:sig</code> signal arrives. If the signal arrives first, then the data immediately moves on; if not, it waits for the signal. We don&rsquo;t know which will happen faster - whether the data or the signal reaches the <code>blocker</code> first, but we do know that the flow won&rsquo;t proceed until these two messages meet in the <code>blocker</code>. Once this happens, we send the data to be printed. If by this time the emitter has already sent another message (with the same &ldquo;Hello, World!&rdquo; text), there&rsquo;s no need to worry - it will be forever blocked by the <code>blocker</code> - a new signal to <code>block:sig</code> won&rsquo;t arrive, because there won&rsquo;t be a new signal from <code>:start</code>. Finally, when the printing is finished, we terminate the program by sending a signal to <code>:stop</code>.</p>
+<p>Assuming the program could compile without using <code>:start</code>, or if <code>:start</code> wasn&rsquo;t used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from <code>printer:msg</code> was moving to <code>:stop</code>, the printer would continue to work in parallel, if the machine has enough resources.</p>
 <p>This feature of the language - maximum asynchrony, allows for easily writing concurrent programs and achieving, theoretically, high performance, but it comes with the overhead of needing to block the flow where the sequence of events is important.</p>
 <h2 id="whats-next">What&rsquo;s Next?</h2>
 <p>Wow, bet you&rsquo;ve never written a hello world like this before. How about we <a href="/docs/tutorial/04">simplify</a> things a bit here?</p>
@@ -164,6 +165,7 @@ printer:msg -&gt; out:stop
       <script>
   function toggleDarkMode() {
     const got = localStorage.getItem("dark");
+    
     localStorage.setItem("dark", got === "true" ? "false" : "true");
     location.reload();
   }

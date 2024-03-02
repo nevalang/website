@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html
+  lang="en-us"
+  dir="ltr"
+>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>
+    
+        Specification (WIP) | Neva Programming Language
+    
+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/chota@latest">
+      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
+
+
+      <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="container is-full-screen">
+    <header>
+      <nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="logo is-paddingless"></a>
+  </div>
+  <div class="nav-right">
+    <div class="tabs">
+      <a href="/docs">Docs </a>
+      <a href="/blog">Blog </a>
+      <a href="/roadmap">Roadmap </a>
+      <a href="/community">Community </a>
+      <a href="https://github.com/nevalang/neva">GitHub </a>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main>
+      
+<div class="row">
+  <aside class="col-4">
+    <ul>
+      
+      <li>
+        <a href="/docs/about/">About The Language</a>
+      </li>
+      
+      <li>
+        <a href="/docs/quick-start/">Quick Start</a>
+      </li>
+      
+      <li>
+        <a href="/docs/tutorial/">Tutorial</a>
+      </li>
+      
+      <li>
+        <a href="/docs/style-guide/">Style Guide</a>
+      </li>
+      
+      <li>
+        <a href="/docs/directives/">Compiler directives</a>
+      </li>
+      
+      <li>
+        <a href="/docs/faq/">FAQ</a>
+      </li>
+      
+      <li>
+        <a href="/docs/spec/">Specification (WIP)</a>
+      </li>
+      
+    </ul>
+  </aside>
+  <div class="col-8">
+    <h1>Specification (WIP)</h1>
+    <p><h2 id="build">Build</h2>
+<p>Build is set of Nevalang <em>modules</em>. Every module has unique <em>module reference</em>. One of the modules is <em>entry</em> module.</p>
+<h2 id="module">Module</h2>
+<p>Module is a set of <em>packages</em>. Every module has its own <em>manifest file</em>.</p>
+<h2 id="entry-module">Entry Module</h2>
+<p>Entry is a root module for compilation algorithm. Every entry module must have <em>executable</em> package.</p>
+<h2 id="module-reference">Module Reference</h2>
+<p>Entity that refers to a module via <em>path</em> and <em>version</em>.</p>
+<h2 id="module-manifest">Module Manifest</h2>
+<p>File that describes which version of language this package supports and list of its <em>dependencies</em>.</p>
+<h2 id="module-dependencies">Module Dependencies</h2>
+<p>Every module except <code>std</code> has dependencies. At least <code>std</code>. Dependency is a key-value pair where key is local <em>alias</em> for module and value is a <em>reference</em>.</p>
+<h2 id="package">Package</h2>
+<p>Package is a set of <em>files</em> located in the same directory. Name of the package is the path to its directory from module&rsquo;s root. All <em>entities</em> that exist in a single package must have unique names.</p>
+<h2 id="file">File</h2>
+<p>File is a set of <em>import declarations</em> and <em>entity definitions</em>.</p>
+<h2 id="import-declarations">Import Declarations</h2>
+<p>Imports are a map where key is file-level alias and value is an Import Declaration. Import Declaration consist of module and package names. Module name matches existing alias in current module&rsquo;s manifest&rsquo;s dependencies section.</p>
+<h2 id="entity-definitions">Entity Definitions</h2>
+<p>Entity is language abstraction for writing programs. Entities are either <em>private</em> or <em>public</em>. There are four <em>kinds</em> of entities (from simple to complex):</p>
+<ol>
+<li><em>Type Definition</em></li>
+<li><em>Interface Definition</em></li>
+<li><em>Constant Definition</em></li>
+<li><em>Component Definition</em></li>
+</ol>
+<h2 id="visibility-scope">Visibility Scope</h2>
+<p>Entities that are <em>private</em> cannot be imported from other packages. <em>Public</em> on the other hand can be imported. Entities are private by default unless special modificator is explicitly used.</p>
+<h2 id="type-definition">Type Definition</h2>
+<p>Type definition consist of an optional list of <em>type parameters</em> followed by optional <em>type expression</em> that is called <em>body</em>. Type definition without body means <em>base</em> type.</p>
+<h2 id="base-type">Base Type</h2>
+<p>Type definition without a body. Such type definition assumes that compiler is aware of existing this type and knows how to handle it. Such types are only allowed inside <code>std/builtin</code> package. These are base types in official Nevalang implementation:</p>
+<h2 id="type-parameters">Type Parameters</h2>
+<p>Type paremeter consist of its name that must be unique across all other type parameters in definition and constrant. Constraint is a type expression that is used as <em>supertype</em> to ensure <em>type compatibility</em> between <em>type argument</em> and type parameter.</p>
+<h2 id="type-parameters-and-arguments-compatibility">Type Parameters and Arguments Compatibility</h2>
+<p>Argument <code>A</code> compatible with parameter <code>P</code> if there&rsquo;s subtyping relation of form <code>A &lt;: C</code> where<code>C</code> is a constraint of <code>P</code>. If there&rsquo;s several parameters/arguments, every one of them must be compatible. Count of arguments must always be equal to the count of parameters.</p>
+<h2 id="type-expression">Type Expression</h2>
+<p>There is 2 <em>kinds</em> of type expressions:</p>
+<ol>
+<li>Instantiation expressions</li>
+<li>Literals expressions</li>
+</ol>
+<p>Type expressions can be infinitely nested. Process of reducing the type expression called <em>type resolving</em>. Resolved type expression is an expression that cannot be reduced to more simple form.</p>
+<h2 id="type-instantiation-expression">Type Instantiation Expression</h2>
+<p>Such expression consist of <em>entity reference</em> (that must refer to existing type definition or type parameter) and optional list of <em>type arguments</em>. Type arguments themselves are arbitrary type expressions (they follows the same rules described above).</p>
+<h2 id="literal-type-expression">Literal Type Expression</h2>
+<p>Special cases that cannot be described in a instantiation form. Their list depends on implementation but examples from official Nevalang are <code>struct</code>, <code>enum</code> and <code>union</code>.</p>
+<h2 id="interface-definition">Interface Definition</h2>
+<p>Interface is a <em>component</em> signature, describing it&rsquo;s input and output format. Interface could be though of as a component without <em>body</em> i.e. without implementation. Interface compatibility is implicit. One should not explicitly spell &ldquo;implements&rdquo; and instead just pass dependency into <em>DI</em>. Interface as an entity consists of two things: <em>type parameters</em> and an <em>IO definition</em>.</p>
+<h2 id="io-definition">IO Definition</h2>
+<p>IO means Input-Output. IO Object describes input and output port of a (possibly abstract) component. Both inports and outports are maps where key is a name of the port (should be unique across all other ports on the same side) and the value is <em>port definition</em>.</p>
+<h2 id="port-definition">Port Definition</h2>
+<p>Port definition consist of a <em>type expression</em> describing the data-type port expects and is-array flag that describes whether the port is an <em>array</em> or <em>single</em> port. Type expression can refer to interface&rsquo;s type parameters.</p>
+<h2 id="single-ports">Single Ports</h2>
+<p>Single port is port with one slot. Reference to such ports should not include slot index.</p>
+<h2 id="array-ports">Array Ports</h2>
+<p>Array port is port with multiple (up to 255) slots. They serve for situations when one need to aggregate data of the same type from several (arbitrary count) sources.</p>
+<h2 id="constant-definition">Constant Definition</h2>
+<p>Constant is an entity that consist of either <em>message</em> or <em>entity reference</em> to other constant. Message can include references to other constants. Constant messages can be infinitely nested. Constants may refer imported constants from other packages. <em>Components</em> are only entities that can refer constants, that are not constants themselves - they can refer to constants via <em>compiler directives</em> and from their <em>networks</em>.</p>
+<h2 id="component-definition">Component Definition</h2>
+<p>Component always has <em>interface</em> and optional <em>compiler directives</em>, <em>nodes</em> and <em>network</em>. There are two kinds of components: <em>normal</em> and <em>native</em> ones.</p>
+<h2 id="native-components">Native Components</h2>
+<p>Component without implementation (without nodes and network) must use <code>#extern</code> directive to refer to <em>runtime function</em>. Such component called <em>native component</em>. Native components normally only exist inside <code>std</code> module, but there should be no forced restriction for that.</p>
+<h2 id="normal-component">Normal Component</h2>
+<p>Normal component is implemented in source code i.e. it has not only interface but also nodes and network, or at least just network. Normal components must never use <code>#extern</code> directive.</p>
+<h3 id="nodes">Nodes</h3>
+<p>Normal component uses other components and interfaces to create nodes for its network. Those <em>entities</em> are <em>dependencies</em> of a component. Nodes that are instantiated from components are <em>concrete nodes</em> and those that instantiated from interfaces are <em>abstract nodes</em>.</p>
+<h4 id="dependency-injection-di">Dependency Injection (DI)</h4>
+<p>Normal component can have abstract node that is instantiated from an interface instead of a concrete component. Such components needs what&rsquo;s called dependency injection at the instantiation time in order to get them work. I.e. if a component has dependency node <code>n</code> instantiated with interface <code>I</code> one must provide concrete component that <em>implements</em> this interface. Dependency Injection can be infinitely nested. Component <code>Main</code> cannot use dependency injection.</p>
+<h3 id="network">Network</h3>
+<p>Network is a set of connections. There is 2 types of connections: normal and array-bypass</p>
+<h3 id="normal-connection">Normal Connection</h3>
+<p>Normal connection connects one (in) <em>port-slot</em> to another (out).</p>
+<h3 id="array-bypass-connection">Array Bypass Connection</h3>
+</p>
+  </div>
+</div>
+
+    </main>
+    <footer>
+      <script>
+  function toggleDarkMode() {
+    const got = localStorage.getItem("dark");
+    
+    localStorage.setItem("dark", got === "true" ? "false" : "true");
+    location.reload();
+  }
+</script>
+
+<div>
+  <span class="pull-left">© 2024 Emil Valeev</span>
+  <a class="pull-right theme-toggle" href="javascript:void(0)" onclick="toggleDarkMode(this)"
+    >🌙</a
+  >
+</div>
+
+    </footer>
+  </body>
+</html>

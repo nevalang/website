@@ -19,14 +19,14 @@
       <link>https://nevalang.org/docs/quick-start/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/quick-start/</guid>
-      <description>Install Nevalang and create your first project in one minute!&#xA;Installing Nevalang To begin, download the Nevalang installation script using the following command:&#xA;curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash Creating Your First Project Let&amp;rsquo;s create a new project named nevalang_test. This project will include a neva.yml manifest file and a main.neva source code file, which will contain a simple Nevalang program.&#xA;Execute the following commands to set up your project:&#xA;mkdir nevalang_test # create directory cd nevalang_test # go there touch neva.</description>
+      <description>Install Nevalang and create your first project in one minute!&#xA;Installing Nevalang To begin, download the Nevalang installation script using the following command:&#xA;curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash If everything is ok you should be able to execute&#xA;neva version And see output like this (version could differ):&#xA;0.8.0 Creating Your First Project Let&amp;rsquo;s create a new project named test. Execute the following commands to set up your project:&#xA;neva new test This command will create test directory with neva.</description>
     </item>
     <item>
       <title>Style Guide</title>
       <link>https://nevalang.org/docs/style-guide/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/style-guide/</guid>
-      <description>The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It&amp;rsquo;s recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.&#xA;Code Organization Lines Count: Aim for files to be up to 300 lines. Files longer than 300 lines should be split, indicating a need for better organization. Formatting Tabs Over Spaces: Tabs are preferred for their flexibility in displaying indentation and for being more data-efficient.</description>
+      <description>The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It&amp;rsquo;s recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.&#xA;Code Organization Lines Count: Aim for files to be up to 300 lines. Files longer than 300 lines should be split, indicating a need for better organization. Formatting Short Lines: Keep lines under 80 characters to enhance readability, accommodate split-screen setups, and avoid horizontal scrolling, especially for those who prefer large text for eye care.</description>
     </item>
     <item>
       <title>Compiler directives</title>
@@ -41,6 +41,13 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/faq/</guid>
       <description>Welcome to the FAQ page! Here, we&amp;rsquo;ve compiled all the questions that you might not find answers to on other documentation pages. This section was primarily created as a reference for ourselves - when developing something as complex as a programming language, it&amp;rsquo;s easy to forget the reasons behind certain decisions. So, we thought, why not document at least those related to the language&amp;rsquo;s external aspects, right here on the website!</description>
+    </item>
+    <item>
+      <title>Specification (WIP)</title>
+      <link>https://nevalang.org/docs/spec/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/spec/</guid>
+      <description>Build Build is set of Nevalang modules. Every module has unique module reference. One of the modules is entry module.&#xA;Module Module is a set of packages. Every module has its own manifest file.&#xA;Entry Module Entry is a root module for compilation algorithm. Every entry module must have executable package.&#xA;Module Reference Entity that refers to a module via path and version.&#xA;Module Manifest File that describes which version of language this package supports and list of its dependencies.</description>
     </item>
   </channel>
 </rss>

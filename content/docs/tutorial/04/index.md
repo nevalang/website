@@ -39,8 +39,8 @@ component Main(start any) (stop any) {
     net {
         :start -> blocker:sig
         $greeting -> blocker:data
-        blocker:data -> printer:msg
-        printer:msg -> :stop
+        blocker:data -> printer:data
+        printer:sig -> :stop
     }
 }
 ```
@@ -49,11 +49,11 @@ And it works just the same. What you're now observing is _syntactic sugar_ calle
 
 Seeing `$greeting`, the compiler understands that it needs to create a node named "greeting", instantiate it with the `builtin.Emitter` component, parameterize it with the type of the corresponding constant (in this case, `string`), and bind the constant through the `#bind` directive. In other words, do everything that we manually did in the previous lesson.
 
-Make sure that everything is correct by running `neva run` in `nevalang_test` directory. You should again see `Hello, World!` output.
+Make sure that everything is correct by running `neva run` in `test` directory. You should again see `Hello, World!` output.
 
-## Then Connections
+## Deferred Connections
 
-Alright, we've shortened the code by two lines. But it seems this is still the longest hello world in the world, or at least one of them. It appears that the main complexity stems from the necessity to use blockers. And if there are multiple constants, does that mean a blocker is needed for each? And what if the conditions are nested (X must happen after Y, and Z after both X AND Y)? No worries, we have a solution for this. Introduce another form of syntactic sugar called _then connections_.
+Alright, we've shortened the code by two lines. But it seems this is still the longest hello world in the world, or at least one of them. It appears that the main complexity stems from the necessity to use blockers. And if there are multiple constants, does that mean a blocker is needed for each? And what if the conditions are nested (X must happen after Y, and Z after both X AND Y)? No worries, we have a solution for this. Introduce another form of syntactic sugar called _deferred connections_.
 
 ```neva
 const greeting string = 'Hello, World!'
@@ -61,8 +61,8 @@ const greeting string = 'Hello, World!'
 component Main(start any) (stop any) {
 	nodes { printer Printer<string> }
 	net {
-		:start -> ($greeting -> printer:msg)
-		printer:msg -> :stop
+		:start -> ($greeting -> printer:data)
+		printer:sig -> :stop
 	}
 }
 ```
@@ -72,13 +72,13 @@ First, the `blocker Blocker<string>` node has disappeared, and second, three con
 ```neva
 :start -> blocker:sig
 $greeting -> blocker:data
-blocker:data -> printer:msg
+blocker:data -> printer:data
 ```
 
 Now, it's just:
 
 ```neva
-:start -> ($greeting -> printer:msg)
+:start -> ($greeting -> printer:data)
 ```
 
 This "then connection" syntax `... -> (...)` indicates that the `$greeting` can reach `printer:msg` only after the `:start` signal is sent, ensuring that the sequence of events is maintained without the need for explicit blockers.
@@ -108,7 +108,7 @@ const greeting string = 'Hello, World!'
 And changed:
 
 ```neva
-:start -> ($greeting -> printer:msg)
+:start -> ($greeting -> printer:data)
 ```
 
 to:
@@ -119,7 +119,25 @@ to:
 
 For the compiler, this variant is only slightly more complex than the one with const senders. It will unfold this into the verbose primitive form we started with, where we have an emitter and `#bind`. This time, however, it will also create a constant because it needs something to pass in the bind as a configuration message. The name of the constant will be generated automatically.
 
-Finally run `neva run` again and check that our `Hello, World!` is still there.
+## Unnamed Nodes and Implicit `any`
+
+We're almost there. Now change `printer Printer<string>` to `Printer<string>` in `nodes`. Nevalang compiler will automatically assume that the name of the node is the same as it's instantiation entity but starting with the lowercase.
+
+Another thing we can omit is `any` in Main's interface. So our `(start any) (stop any)` should become simply `(start) (stop)`.
+
+Finally, you are allowed to replace `Printer<string>` with `Printer<any>` because we actually don't care what printer returns, because all we want from it is just a signal to send further to `:stop`.
+
+```neva
+component Main(start) (stop) {
+    nodes { Printer<any> }
+    net {
+        :start -> ('Hello, World!' -> printer:data)
+        printer:sig -> :stop
+    }
+}
+```
+
+Finally run `neva run src` again and check that our `Hello, World!` is still printer as the output.
 
 ## Putting It All Together
 
@@ -138,8 +156,8 @@ component Main(start any) (stop any) {
     net {
         :start -> blocker:sig
         emitter:msg -> blocker:data
-        blocker:data -> printer:msg
-        printer:msg -> :stop
+        blocker:data -> printer:data
+        printer:sig -> :stop
     }
 }
 ```
@@ -147,8 +165,8 @@ component Main(start any) (stop any) {
 To this:
 
 ```neva
-component Main(start any) (stop any) {
-    nodes { printer Printer<string> }
+component Main(start) (stop) {
+    nodes { Printer<any> }
     net {
         :start -> ('Hello, World!' -> printer:data)
         printer:sig -> :stop

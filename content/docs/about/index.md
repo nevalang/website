@@ -31,19 +31,7 @@ Components exchange messages through buffered queues, and blocking only occurs w
 
 The icing on the cake is the fact that Nevalang naturally supports stream processing right out of the box. It doesn't just support it - it's a native form for it. Where in conventional programming we process a batch of data and then pass it on, in Nevalang, we process and pass on data as it becomes ready, piece by piece. An entire page wouldn't be enough to describe how much this can speed up computations.
 
-## Why Visual Programming?
-
-For over 50 years, we've been writing and editing text, even though it's well-known that humans better understand visual information. We need a good general-purpose visual programming language. Yes, visual languages exist, but they are mostly specialized. None of them comes close to the popularity of Python or Java. If we look at the top 20 most popular languages, we won't find any visual ones.
-
-If it's not obvious why we need a visual programming language, consider the number of visual diagrams we use when designing software. Some might argue that text is also a form of visual language because it consists of glyphs, but we're specifically talking about node editor-based tools. It's natural for people to think of processes as boxes connected by arrows. Countless examples support this, not only drawings on boards and notebooks but also the popularity of visual software like Miro and Figma, as well as numerous note-taking apps with graph and canvas views like Obsidian.
-
-The problem with these diagrams is that they are static. Today, they may reflect the current state of things (and that's if we're lucky), but tomorrow they might not. No matter how hard we try to keep documentation updated, it will never fully capture reality. Code is the only thing that can be truly trusted. Oh, if only these diagrams could be the actual code...
-
-The argument that visual programming is less maintainable is simply incorrect. It's just a different form of data representation. The flow-based approach allows for abstraction in the same way we do with text-based programming. Nevalang has components, packages and modules for that.
-
-**Warning**: Please note that the visual editor is still on the roadmap. Until the language stabilizes, we would need to rewrite it repeatedly.
-
-## Static Structural Type System
+## What's Strong Static Structural Type System?
 
 The Nevalang compiler includes a built-in static analyzer whose task is to find as many errors in the code as possible. Specifically, errors - things that would lead to the program crashing or behaving nonsensically. We don't want the language to get in your way or for you to struggle against the compiler. We aim to make it an additional pair of observant eyes - a co-pilot who kindly points out flaws immediately, so they don't have to be fixed later, confusedly digging through the code.
 
@@ -86,6 +74,18 @@ It might not be a big deal, but imagine now dealing with `func readBooks(books [
 
 This mechanism also allows for implementing scope for structure fields without additional functionality, and not just at the package level, but even at the level of an individual component. Simply use a more detailed type internally and provide a less detailed type externally. No mappings required.
 
-## Where do I start?
+## What's Up With Visual Programming?
+
+**Warning**: Please note that the visual editor is still on the roadmap.
+
+For over 50 years, we've been writing and editing text, even though it's well-known that humans better understand visual information. We need a good general-purpose visual programming language. Yes, visual languages exist, but they are mostly specialized. None of them comes close to the popularity of Python or Java. If we look at the top 20 most popular languages, we won't find any visual ones.
+
+If it's not obvious why we need a visual programming language, consider the number of visual diagrams we use when designing software. Some might argue that text is also a form of visual language because it consists of glyphs, but we're specifically talking about node editor-based tools. It's natural for people to think of processes as boxes connected by arrows. Countless examples support this, not only drawings on boards and notebooks but also the popularity of visual software like Miro and Figma, as well as numerous note-taking apps with graph and canvas views like Obsidian.
+
+The problem with these diagrams is that they are static. Today, they may reflect the current state of things (and that's if we're lucky), but tomorrow they might not. No matter how hard we try to keep documentation updated, it will never fully capture reality. Code is the only thing that can be truly trusted. Oh, if only these diagrams could be the actual code...
+
+The argument that visual programming is less maintainable is simply incorrect. It's just a different form of data representation. The flow-based approach allows for abstraction in the same way we do with text-based programming. Nevalang has components, packages and modules for that.
+
+## Okay! Where do I start?
 
 Intrigued? Then welcome to the [Quick Start](/docs/quick-start) extravaganza!

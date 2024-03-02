@@ -12,7 +12,7 @@
       <link>https://nevalang.org/docs/tutorial/01/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/tutorial/01/</guid>
-      <description>Here is the smallest program in Nevalang that compiles. It absolutely does nothing, but by looking at it, you can learn a lot about Nevalang.&#xA;component Main(start any) (stop any) { net { in:start -&amp;gt; out:stop } } Let&amp;rsquo;s break down what&amp;rsquo;s written here.&#xA;A Nevalang program consists of components that send messages to each other through ports but ports cannot be connected randomly. Each port has its own data type, and when we connect one port to another, the compiler checks if they are compatible.</description>
+      <description>Here is the smallest program in Nevalang that compiles. It absolutely does nothing, but by looking at it, you can learn a lot about Nevalang.&#xA;component Main(start any) (stop any) { net { :start -&amp;gt; :stop } } Let&amp;rsquo;s break down what&amp;rsquo;s written here.&#xA;A Nevalang program consists of components that send messages to each other through ports but ports cannot be connected randomly. Each port has its own data type, and when we connect one port to another, the compiler checks if they are compatible.</description>
     </item>
     <item>
       <title>Echo</title>

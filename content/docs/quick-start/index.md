@@ -22,24 +22,33 @@ neva version
 And see output like this (version could differ):
 
 ```
-0.5.1
+0.8.0
 ```
 
 ## Creating Your First Project
 
-Let's create a new project named `nevalang_test`. This project will include a `neva.yml` _manifest_ file and a `main.neva` source code file, which will contain a simple Nevalang program.
-
-Execute the following commands to set up your project:
+Let's create a new project named `test`. Execute the following commands to set up your project:
 
 ```bash
-mkdir nevalang_test # create directory
-cd nevalang_test # go there
-touch neva.yml # create manifest file
-echo "compiler: 0.0.1" >> neva.yml # insert compiler version
-touch main.neva # create source code file
+neva new test
 ```
 
-Next, open `main.neva` with your preferred text editor and add the following code:
+This command will create `test` directory with `neva.yml` _manifest_ file with `src/main.neva` _source code_ file.
+
+Let's open `src/main.neva` with your preferred text editor. You should see this:
+
+```neva
+component Main(start any) (stop any) {
+    nodes {
+
+    }
+    net {
+        :start -> :stop
+    }
+}
+```
+
+This program does nothing. Let's replace this code with the following:
 
 ```neva
 component Main(start any) (stop any) {
@@ -55,24 +64,26 @@ Congratulations! You have just written your first Nevalang program. Now, let's r
 
 ## Running Your First Program
 
-Open a terminal and execute the following command:
+Open a terminal and execute the following command. Make sure you are in the root of the project (where you have `neva.yml`):
 
 ```bash
-neva run
+neva run src
 ```
 
-If `Hello, World!` is displayed in the terminal, congratulations—your setup is correct!
+If `Hello, World!` is displayed in the terminal, congratulations — your setup is correct!
 
 Next, let's compile the program into an executable:
 
 ```bash
-neva build
+neva build src
 ```
 
-You should find a `main` executable in the current directory. Execute it with:
+You should find an `output` executable in the current directory. 
+
+Execute it with:
 
 ```
-./main
+./output
 ```
 
 You should see the `Hello, World!` message again, just like before.
