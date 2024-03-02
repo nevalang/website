@@ -19,7 +19,7 @@
       <link>https://nevalang.org/docs/tutorial/02/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/tutorial/02/</guid>
-      <description>Module and Manifest If you&amp;rsquo;ve gone through the quick start, you should have already created your first project. In that case, simply update the code in main.neva to include the Echo component from this example. For everyone else, let&amp;rsquo;s execute the following commands:&#xA;mkdir nevalang_test # create directory cd nevalang_test # go there touch neva.yml # create manifest file echo &amp;#34;compiler: 0.0.1&amp;#34; &amp;gt;&amp;gt; neva.yml # insert compiler version touch main.neva # create source code file With these commands, we&amp;rsquo;re creating a module.</description>
+      <description>Module and Manifest If you&amp;rsquo;ve gone through the quick start, you should have already created your first project. In that case, simply update the code in main.neva to include the Echo component from this example. For everyone else, let&amp;rsquo;s execute the following command:&#xA;neva new test With these command, we&amp;rsquo;re creating a module. We&amp;rsquo;ll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.</description>
     </item>
     <item>
       <title>Hello World</title>
@@ -40,7 +40,7 @@
       <link>https://nevalang.org/docs/tutorial/05/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/tutorial/05/</guid>
-      <description>&amp;hellip;</description>
+      <description>Unfortunately documentation isn&amp;rsquo;t finished. We haven&amp;rsquo;t cover a lot of stuff including interfaces and dependency injection, array ports and streams, error handling, working with structures and enums and a lot more.&#xA;Please refer to examples in the Nevalang&amp;rsquo;s git repository. Meanwile we will continue to improve documentation.&#xA;As always, PRs are welcome. Also feel free to ask questions in the community.</description>
     </item>
   </channel>
 </rss>

@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.05dc3ab0df5dcbd9902a9767c9b663aa25e522674856032060a0f615fe7c1baf.css" integrity="sha256-Bdw6sN9dy9mQKpdnybZjqiXlImdIVgMgYKD2Ff58G68=" crossorigin="anonymous">
 
 
       <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
@@ -44,7 +44,7 @@
       
 <div class="row">
   <aside class="col-4">
-    <ul>
+    <ul class="docs-ul">
       
       <li>
         <a href="/docs/about/">About The Language</a>
@@ -59,19 +59,19 @@
       </li>
       
       <li>
-        <a href="/docs/style-guide/">Style Guide</a>
-      </li>
-      
-      <li>
         <a href="/docs/directives/">Compiler directives</a>
       </li>
       
       <li>
-        <a href="/docs/faq/">FAQ</a>
+        <a href="/docs/spec/">Language Specification</a>
       </li>
       
       <li>
-        <a href="/docs/spec/">Specification (WIP)</a>
+        <a href="/docs/style-guide/">Style Guide</a>
+      </li>
+      
+      <li>
+        <a href="/docs/faq/">FAQ</a>
       </li>
       
     </ul>
@@ -92,13 +92,7 @@
 <p>Nevalang features what we call <em>effortless concurrency</em>. This means that writing concurrent code requires no extra effort. The reason is that all code in Nevalang is asynchronous by default - components operate in parallel to each other (if the machine has enough resources). Effort is actually required when you need to ensure a clear sequence of events (you might be surprised how rarely this is actually necessary) - this is a complete paradigm shift.</p>
 <p>Components exchange messages through buffered queues, and blocking only occurs when the queue is full. But even in this case, parts of the program that are not blocked continue to work.</p>
 <p>The icing on the cake is the fact that Nevalang naturally supports stream processing right out of the box. It doesn&rsquo;t just support it - it&rsquo;s a native form for it. Where in conventional programming we process a batch of data and then pass it on, in Nevalang, we process and pass on data as it becomes ready, piece by piece. An entire page wouldn&rsquo;t be enough to describe how much this can speed up computations.</p>
-<h2 id="why-visual-programming">Why Visual Programming?</h2>
-<p>For over 50 years, we&rsquo;ve been writing and editing text, even though it&rsquo;s well-known that humans better understand visual information. We need a good general-purpose visual programming language. Yes, visual languages exist, but they are mostly specialized. None of them comes close to the popularity of Python or Java. If we look at the top 20 most popular languages, we won&rsquo;t find any visual ones.</p>
-<p>If it&rsquo;s not obvious why we need a visual programming language, consider the number of visual diagrams we use when designing software. Some might argue that text is also a form of visual language because it consists of glyphs, but we&rsquo;re specifically talking about node editor-based tools. It&rsquo;s natural for people to think of processes as boxes connected by arrows. Countless examples support this, not only drawings on boards and notebooks but also the popularity of visual software like Miro and Figma, as well as numerous note-taking apps with graph and canvas views like Obsidian.</p>
-<p>The problem with these diagrams is that they are static. Today, they may reflect the current state of things (and that&rsquo;s if we&rsquo;re lucky), but tomorrow they might not. No matter how hard we try to keep documentation updated, it will never fully capture reality. Code is the only thing that can be truly trusted. Oh, if only these diagrams could be the actual code&hellip;</p>
-<p>The argument that visual programming is less maintainable is simply incorrect. It&rsquo;s just a different form of data representation. The flow-based approach allows for abstraction in the same way we do with text-based programming. Nevalang has components, packages and modules for that.</p>
-<p><strong>Warning</strong>: Please note that the visual editor is still on the roadmap. Until the language stabilizes, we would need to rewrite it repeatedly.</p>
-<h2 id="static-structural-type-system">Static Structural Type System</h2>
+<h2 id="whats-strong-static-structural-type-system">What&rsquo;s Strong Static Structural Type System?</h2>
 <p>The Nevalang compiler includes a built-in static analyzer whose task is to find as many errors in the code as possible. Specifically, errors - things that would lead to the program crashing or behaving nonsensically. We don&rsquo;t want the language to get in your way or for you to struggle against the compiler. We aim to make it an additional pair of observant eyes - a co-pilot who kindly points out flaws immediately, so they don&rsquo;t have to be fixed later, confusedly digging through the code.</p>
 <p>To achieve this, Nevalang provides strong static typing with structural subtyping. &ldquo;Strong&rdquo; means there is no implicit type casting in the language, &ldquo;static&rdquo; indicates that type checking occurs at compile time rather than runtime, and &ldquo;structural&rdquo; means that compatibility of types is checked based on their structure, not their name, as is done in systems with nominative subtyping.</p>
 <p>For a better understanding, let&rsquo;s examine an example from traditional programming with nominative subtyping, like Go. Imagine you have a function <code>readBook</code> that takes a <code>Book</code> structure with two fields <code>{ title, author string }</code>, but you have a <code>Magazine</code> structure with all the <code>Book</code> fields plus an additional <code>number int</code>. In Go, we cannot pass <code>Magazine</code> to <code>getBook</code>, despite the magazine having all the necessary information for reading.</p>
@@ -128,7 +122,13 @@
 </span></span><span style="display:flex;"><span>})
 </span></span></code></pre></div><p>It might not be a big deal, but imagine now dealing with <code>func readBooks(books []Book)</code>, and you have to write a loop to convert a list of magazines into a list of books. This kind of nesting can increase indefinitely (imagine, for example, just a list of objects with a list of objects inside), leading to the need to write dozens, sometimes hundreds of lines of code for mapping. In a language with structural typing, we simply don&rsquo;t need to think about this - the compiler sees that the types are structurally compatible and allows the program to compile.</p>
 <p>This mechanism also allows for implementing scope for structure fields without additional functionality, and not just at the package level, but even at the level of an individual component. Simply use a more detailed type internally and provide a less detailed type externally. No mappings required.</p>
-<h2 id="where-do-i-start">Where do I start?</h2>
+<h2 id="whats-up-with-visual-programming">What&rsquo;s Up With Visual Programming?</h2>
+<p><strong>Warning</strong>: Please note that the visual editor is still on the roadmap.</p>
+<p>For over 50 years, we&rsquo;ve been writing and editing text, even though it&rsquo;s well-known that humans better understand visual information. We need a good general-purpose visual programming language. Yes, visual languages exist, but they are mostly specialized. None of them comes close to the popularity of Python or Java. If we look at the top 20 most popular languages, we won&rsquo;t find any visual ones.</p>
+<p>If it&rsquo;s not obvious why we need a visual programming language, consider the number of visual diagrams we use when designing software. Some might argue that text is also a form of visual language because it consists of glyphs, but we&rsquo;re specifically talking about node editor-based tools. It&rsquo;s natural for people to think of processes as boxes connected by arrows. Countless examples support this, not only drawings on boards and notebooks but also the popularity of visual software like Miro and Figma, as well as numerous note-taking apps with graph and canvas views like Obsidian.</p>
+<p>The problem with these diagrams is that they are static. Today, they may reflect the current state of things (and that&rsquo;s if we&rsquo;re lucky), but tomorrow they might not. No matter how hard we try to keep documentation updated, it will never fully capture reality. Code is the only thing that can be truly trusted. Oh, if only these diagrams could be the actual code&hellip;</p>
+<p>The argument that visual programming is less maintainable is simply incorrect. It&rsquo;s just a different form of data representation. The flow-based approach allows for abstraction in the same way we do with text-based programming. Nevalang has components, packages and modules for that.</p>
+<h2 id="okay-where-do-i-start">Okay! Where do I start?</h2>
 <p>Intrigued? Then welcome to the <a href="/docs/quick-start">Quick Start</a> extravaganza!</p>
 </p>
   </div>

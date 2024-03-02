@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width">
 <title>
     
-        Tutorial | Neva Programming Language
+        Roadmap | Neva Programming Language
     
 </title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,40 +42,15 @@
     </header>
     <main>
       
-<div class="row">
-  <aside class="col-4">
-    <ul class="docs-ul">
-      
-      <li>
-        <a href="/docs/tutorial/01/"> A Program That Does Nothing</a>
-      </li>
-      
-      <li>
-        <a href="/docs/tutorial/02/"> Echo</a>
-      </li>
-      
-      <li>
-        <a href="/docs/tutorial/03/"> Hello World</a>
-      </li>
-      
-      <li>
-        <a href="/docs/tutorial/04/"> Better Hello World</a>
-      </li>
-      
-      <li>
-        <a href="/docs/tutorial/05/"> To be continued...</a>
-      </li>
-      
-    </ul>
-  </aside>
-  <div class="col-8">
-    <h1>Tutorial</h1>
-    <p><p>Welcome to the &lsquo;Learn Nevalang the Hard Way&rsquo; tutorial! This comprehensive guide is designed to teach you the Nevalang programming language through detailed examples, covering everything you need to grasp the full scope of the language.</p>
-<p>In this tutorial, you&rsquo;ll explore and simplify many small programs, moving from complex and wordy to simple and clear. By breaking these down step by step, you&rsquo;ll fully understand how things work in Nevalang, ensuring that nothing feels like magic. Let&rsquo;s dive in!</p>
-<p>Start from <a href="/docs/tutorial/01">program that does nothing</a>.</p>
-</p>
-  </div>
-</div>
+  <h1>Roadmap</h1>
+  <p>These features were envisioned from the very beginning of the project. The ultimate goal of Nevalang is to fully realize these features, providing a robust, efficient, and user-friendly programming language.</p>
+<h2 id="visual-programming">Visual Programming</h2>
+<p>Nevalang started as a visual programming language but has evolved into a hybrid, offering a clean, C-like syntax alongside a visual editor. This approach addresses common drawbacks of visual programming by supporting standard development practices like version control and code reviews, while also making complex projects manageable through its package system and component abstractions.</p>
+<h2 id="go-interop">Go Interop</h2>
+<p>Nevalang&rsquo;s compiler can generate human-readable Go code. There are plans to utilize this feature for interoperability with existing Go codebases, allowing you to use existing Go code inside your Nevalang programs and, vice versa, to integrate Nevalang modules into your Go programs.</p>
+<h2 id="no-runtime-exceptions">No Runtime Exceptions</h2>
+<p>Nevalang plans to achieve high reliability, where programs either fail at startup or run without crashes forever. It will do this by analyzing the program for errors before it runs (static semantic analysis) and checking for problems when the program starts (runtime checks). If a program crashes after starting, it&rsquo;s likely a bug in Nevalang itself. Users might still encounter logical mistakes in their code though.</p>
+
 
     </main>
     <footer>

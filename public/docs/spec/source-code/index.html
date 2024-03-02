@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html
+  lang="en-us"
+  dir="ltr"
+>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>
+    
+        Source Code | Neva Programming Language
+    
+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/chota@latest">
+      <link rel="stylesheet" href="/css/main.min.05dc3ab0df5dcbd9902a9767c9b663aa25e522674856032060a0f615fe7c1baf.css" integrity="sha256-Bdw6sN9dy9mQKpdnybZjqiXlImdIVgMgYKD2Ff58G68=" crossorigin="anonymous">
+
+
+      <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body class="container is-full-screen">
+    <header>
+      <nav class="nav">
+  <div class="nav-left">
+    <a href="/" class="logo is-paddingless"></a>
+  </div>
+  <div class="nav-right">
+    <div class="tabs">
+      <a href="/docs">Docs </a>
+      <a href="/blog">Blog </a>
+      <a href="/roadmap">Roadmap </a>
+      <a href="/community">Community </a>
+      <a href="https://github.com/nevalang/neva">GitHub </a>
+    </div>
+  </div>
+</nav>
+
+    </header>
+    <main>
+      
+<div class="row">
+  <aside class="col-4">
+    <ul class="docs-ul">
+      
+      <li>
+        <a href="/docs/spec/source-code/">Source Code</a>
+      </li>
+      
+      <li>
+        <a href="/docs/spec/type-system/">Type System</a>
+      </li>
+      
+      <li>
+        <a href="/docs/spec/runtime/">Runtime</a>
+      </li>
+      
+    </ul>
+  </aside>
+  <div class="col-8">
+    <h1>Source Code</h1>
+    <p><p>This section provides an overview of Nevalang, focusing on its user and compiler perspectives, excluding the type-system which is covered separately. It doesn&rsquo;t delve into the execution details of Nevalang programs, but rather explores the abstractions present in the source code and their governing principles.</p>
+<h2 id="build">Build</h2>
+<p>Build is set of Nevalang <em>modules</em>. Every module has unique <em>module reference</em>. One of the modules is <em>entry</em> module.</p>
+<h2 id="module">Module</h2>
+<p>Module is a set of <em>packages</em>. Every module has its own <em>manifest file</em>.</p>
+<h2 id="entry-module">Entry Module</h2>
+<p>Entry module is a root module for compilation. Every entry module must have at least one <em>executable</em> package.</p>
+<h2 id="module-manifest">Module Manifest</h2>
+<p>File that describes which version of language this module supports and list of its <em>dependencies</em>.</p>
+<h2 id="module-dependencies">Module Dependencies</h2>
+<p>Every module except <code>std</code> has dependencies, at least <code>std</code>. Module defines dependencies by specifing dependend module&rsquo;s path and version. Every dependency module can have local alias.</p>
+<h2 id="package">Package</h2>
+<p>Package is a set of <em>files</em> located in the same directory. Name of the package is the path to its directory from module&rsquo;s root. All <em>entities</em> in a package forms single namespace so they must have unique names across package. An entity can refer to entities described in other files in the same package without <em>imports</em>.</p>
+<h2 id="executable-package">Executable Package</h2>
+<p>Package without <em>public</em> entities and with <em>main</em> component</p>
+<h2 id="file">File</h2>
+<p>File is a set of <em>imports</em> and <em>entities</em>. Unlike package file is not a namespace itself, but imports declared inside one file are not visible inside another. There&rsquo;s no restriction on how one should group entities in files inside a package.</p>
+<h2 id="imports">Imports</h2>
+<p>Imports allow to use entities defined in other packages. Imports declared in one file are not visible inside another. Import consist of <em>module reference</em> and <em>package name</em>. E.g. <code>std:http/net</code> is an import of package <code>http/net</code> from module <code>std</code>. Only <em>public</em> entities can be imported.</p>
+<h2 id="entities">Entities</h2>
+<p>Entities are abstractions for creating programs. They are either <em>private</em> or <em>public</em>. They are private by default and can be made public by using <code>pub</code> keyword. Every entity has name that is unique across the package. Entities are <em>referenced</em> by <em>entity references</em>.</p>
+<p>There are four <em>kinds</em> of entities (from simple to complex):</p>
+<ol>
+<li><em>Type</em></li>
+<li><em>Interface</em></li>
+<li><em>Constant</em></li>
+<li><em>Component</em></li>
+</ol>
+<h2 id="entity-reference">Entity Reference</h2>
+<p>Entity reference consist of an optional package name and name of the referenced entity. Package name can be omitted if entity that we reference either exist in the same package or in <code>std/builtin</code>. If entity in current package has the same name as the one in the builtin, then it <em>shadows</em> it.</p>
+<h2 id="type-entity">Type Entity</h2>
+<p>Type entity (type definition) consist of an optional list of <em>type parameters</em> followed by optional <em>type expression</em> that is called <em>body</em>.</p>
+<h2 id="base-type">Base Type</h2>
+<p>Type definition without body means <em>base</em> type. Compiler is aware of base types and will throw error if non-base type has no body. Base types are only allowed inside <code>std/builtin</code> package. Some base types can be used inside <em>recursive type definitions</em>.</p>
+<h2 id="recursive-type-definition">Recursive Type Definition</h2>
+<p>If type refers to itself inside its own definition, then it&rsquo;s recursive definition. Example: <code>type l list&lt;l&gt;</code>. In this case <code>list</code> must be base type that supports recursive definitions. Compiler knows which types supports recursion and which do not.</p>
+<h2 id="type-parameters-generics">Type Parameters (Generics)</h2>
+<p>Every type paremeter has name that must be unique across all other type parameters in this definition and constrant.</p>
+<h2 id="type-parameter-constraint">Type Parameter Constraint</h2>
+<p>Constraint is a type expression that is used as <em>supertype</em> to ensure <em>type compatibility</em> between <em>type argument</em> and type corresponding parameter. If no constrained explicitly defined then <code>any</code> is implicitly used.</p>
+<h2 id="type-parameters-and-arguments-compatibility">Type Parameters and Arguments Compatibility</h2>
+<p>Argument <code>A</code> compatible with parameter <code>P</code> if there&rsquo;s subtyping relation of form <code>A &lt;: C</code> where<code>C</code> is a constraint of <code>P</code>. If there&rsquo;s several parameters/arguments, every one of them must be compatible. Count of arguments must always be equal to the count of parameters.</p>
+<h2 id="type-expression">Type Expression</h2>
+<p>There is 2 <em>kinds</em> of type expressions:</p>
+<ol>
+<li>Instantiation expressions</li>
+<li>Literals expressions</li>
+</ol>
+<p>Type expressions can be infinitely nested. Process of reducing the type expression called <em>type resolving</em>. Resolved type expression is an expression that cannot be reduced to a more simple form.</p>
+<h2 id="type-instantiation-expression">Type Instantiation Expression</h2>
+<p>Such expression consist of <em>entity reference</em> (that must refer to existing type definition or type parameter) and optional list of <em>type arguments</em>. Type arguments themselves are arbitrary type expressions (they follows the same rules described above).</p>
+<h2 id="literal-type-expression">Literal Type Expression</h2>
+<p>Type expressions that cannot be described in a instantiation form.</p>
+<h2 id="interface-definition">Interface Definition</h2>
+<p>Interface is a <em>component signature</em> that describes <em>abstract component</em> - its input and output <em>ports</em> and optional type parameters. Interfaces are used with <em>dependency injection</em> and <em>abstract components</em>.</p>
+<h2 id="ports">Ports</h2>
+<p>Port definition consist of a <em>type expression</em> describing the data-type port expects and a flag that describes whether the port is an <em>array</em> or <em>single</em> port. Type expression can refer to interface&rsquo;s type parameters. If no type paremeter given then <code>any</code> is implicitly used.</p>
+<h2 id="single-ports">Single Ports</h2>
+<p>Single port is port with one <em>slot</em>. Reference to such ports should not include slot index.</p>
+<h2 id="array-ports">Array Ports</h2>
+<p>Array port is port with multiple (up to 255) <em>slots</em>. Such ports must be referenced either via slot indexes or in <em>array-bypass connection</em> expressions.</p>
+<h2 id="constant">Constant</h2>
+<p>Constant is an entity that consist of either <em>message</em> or <em>entity reference</em> to other constant. Message can include references to other constants. Constant messages can be infinitely nested. Constants may refer imported constants from other packages. <em>Components</em> are only entities that can refer constants, that are not constants themselves - they can refer to constants via <em>compiler directives</em> and from their <em>networks</em>.</p>
+<h2 id="component">Component</h2>
+<p>Component always has <em>interface</em> and optional <em>compiler directives</em>, <em>nodes</em> and <em>network</em>. There are two kinds of components: <em>normal</em> and <em>native</em> ones.</p>
+<h2 id="main-component">Main Component</h2>
+<p>Executable package must have <em>component</em> called <code>Main</code>. This component must follow specific set of rules:</p>
+<ul>
+<li>Must be <em>normal</em></li>
+<li>Must be <em>private</em></li>
+<li>Must have exactly 1 inport <code>start</code></li>
+<li>Must have exactly one outport <code>stop</code></li>
+<li>Both ports must have type <code>any</code></li>
+<li>Must have no <em>abstract nodes</em></li>
+</ul>
+<p>Main component doesn&rsquo;t have to have <em>network</em> but it is usually the case because it&rsquo;s the <em>root</em> component in the program.</p>
+<h2 id="native-components">Native Components</h2>
+<p>Component without implementation (without nodes and network) must use <code>#extern</code> directive to refer to <em>runtime function</em>. Such component called <em>native component</em>. Native components normally only exist inside <code>std</code> module, but there should be no forced restriction for that.</p>
+<h2 id="normal-component">Normal Component</h2>
+<p>Normal component is implemented in source code i.e. it has not only interface but also nodes and network, or at least just network. Normal components must never use <code>#extern</code> directive.</p>
+<h2 id="nodes">Nodes</h2>
+<p>Nodes are things that have inports and outports that can be connected in network. There&rsquo;s two kinds of nodes:</p>
+<ol>
+<li>IO Nodes</li>
+<li>Computational nodes</li>
+</ol>
+<p>IO nodes are created implicitly. Every component have one <code>in</code> and one <code>out</code> node. Node <code>in</code> has outports corresponding to component&rsquo;s interface&rsquo;s inports. And vice versa - <code>out</code> node has inports corresponding to component interface&rsquo;s inports.</p>
+<p>Computational nodes are nodes that are instantiated from entities - components or interfaces. There&rsquo;s 2 types of computational nodes: concrete and abstract. Nodes that are instantiated from components are <em>concrete nodes</em> and those that instantiated from interfaces are <em>abstract nodes</em>.</p>
+<p>Interfaces and component&rsquo;s interfaces can have type parameters. In this case node must specify type arguments in instantiation expression.</p>
+<h2 id="dependency-injection-di">Dependency Injection (DI)</h2>
+<p>Normal component can have <em>abstract node</em> that is instantiated from an interface instead of a component. Such components with abstract nodes needs what&rsquo;s called dependency injection.</p>
+<p>I.e. if a component has dependency node <code>n</code> instantiated with interface <code>I</code> one must provide concrete component that <em>implements</em> this interface.</p>
+<p>Dependency Injection can be infinitely nested. Component <code>Main</code> cannot use dependency injection.</p>
+<h2 id="component-and-interface-compatability-implementation">Component and Interface Compatability (Implementation)</h2>
+<p>Component <em>implements</em> interface (is <em>compatible</em> with it) if type paremeters, inports and outports are compatible.</p>
+<p>Type parameters are compatible if their count, order and names are equal. Constraints of component&rsquo;s type parameters must be compatible with the constraints of the corresponding interface&rsquo;s type parameter&rsquo;s constraints.</p>
+<p>Component&rsquo;s inports are compatible with the interface&rsquo;s if:</p>
+<ol>
+<li>Amount is exactly equal</li>
+<li>They have exactly the same names and <em>kind</em> (array or single)</li>
+<li>Their types are <em>compatible</em> (are <em>subtypes</em> of) with the corresponding interface&rsquo;s inports</li>
+</ol>
+<p>Outports of a component are compatible with the interface&rsquo;s if:</p>
+<ol>
+<li>Amount is equal or more (this is only difference with inports)</li>
+<li>Exactly the same names and <em>kind</em></li>
+<li>Their types are <em>compatible</em></li>
+</ol>
+<h2 id="network">Network</h2>
+<p>Network is a set of connections. Every connection consist of sender-side and receiver-side. Sender and receiver must be <em>compatible</em>. There is 2 types of connections: normal and array-bypass.</p>
+<h2 id="normal-connection">Normal Connection</h2>
+<p>Normal connection can have several types of sender-side and receiver-side.</p>
+<p>Sender-side:</p>
+<ol>
+<li><em>Port address</em> (traditional)</li>
+<li><em>Constant reference</em></li>
+<li><em>Primitive message literal</em></li>
+</ol>
+<p>Receiver-side:</p>
+<ol>
+<li>List of inport-addresses</li>
+<li>List of <em>deferred connections</em></li>
+</ol>
+<p>Sender-side in of a normal connection can also have optional <em>struct selectors</em>.</p>
+<h2 id="sender-side-struct-selectors">Sender-Side Struct Selectors</h2>
+<p>If (<em>resolved</em>) type of sender-side is <em>structure</em>, then it&rsquo;s possible to have selectors in it. Selectors are list of strings, where each element means field in a struct. More than one selector means that there is a structure inside structure. Selectors must be type safe. I.e. it must be possible to &ldquo;unwrap&rdquo; structure each time we process next selector.</p>
+<h2 id="port-address">Port Address</h2>
+<p>Port Address consist of name of the node, name of the port and optional index of the slot. Slot index must be present only if port address refers to array-port.</p>
+<h2 id="constant-reference-sender">Constant Reference Sender</h2>
+<p>In normal connection not just port address but also reference to constant entity (that must be available in the scope) could be a sender. This works exactly like if there&rsquo;s <em>emitter</em> sender with <em>bound</em> constant.</p>
+<h2 id="primitive-message-literal-sender">Primitive Message Literal Sender</h2>
+<p>This works almost like constant reference sender except instead of referencing some constant we simply use message literal. Only primitive data-types are supported: booleans, numbers, strings and enum members.</p>
+<h2 id="array-bypass-connection">Array-Bypass Connection</h2>
+<p>Connection that connects all slots of some sender with all slots of some receiver. Sender and receiver must both be array-ports. Component is only allowed to bypass it&rsquo;s own inports. Such connection always consist of two port addresses without slot indexes.</p>
+<h2 id="bound-constant">Bound Constant</h2>
+<p>Constant that is referenced inside <code>bind</code> compiler directive</p>
+<h2 id="compiler-directive">Compiler Directive</h2>
+<p>Special instructions for compiler. Directives that must be supported by the compiler are <code>#extern</code>, <code>#autoports</code> and <code>#bind</code>.</p>
+<h2 id="runtime-function-overloading">Runtime Function Overloading</h2>
+<p>Native components pass several arguments to <code>#extern</code> directive to utilize overloading. In this case arguments are pairs separated by whitespace, they have form <code>#extern(t1 f1, t2 f2, ... tN fN)</code> where <code>t</code> is a type and <code>f</code> is the name of a <em>runtime function</em>.</p>
+<p>Component that uses overloading must have exactly one type parameter (it&rsquo;s name doesn&rsquo;t matter) of type <code>union</code>. Types that are referenced inside directive must be members of that union.</p>
+</p>
+  </div>
+</div>
+
+    </main>
+    <footer>
+      <script>
+  function toggleDarkMode() {
+    const got = localStorage.getItem("dark");
+    
+    localStorage.setItem("dark", got === "true" ? "false" : "true");
+    location.reload();
+  }
+</script>
+
+<div>
+  <span class="pull-left">© 2024 Emil Valeev</span>
+  <a class="pull-right theme-toggle" href="javascript:void(0)" onclick="toggleDarkMode(this)"
+    >🌙</a
+  >
+</div>
+
+    </footer>
+  </body>
+</html>

@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.05dc3ab0df5dcbd9902a9767c9b663aa25e522674856032060a0f615fe7c1baf.css" integrity="sha256-Bdw6sN9dy9mQKpdnybZjqiXlImdIVgMgYKD2Ff58G68=" crossorigin="anonymous">
 
 
       <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
@@ -44,7 +44,7 @@
       
 <div class="row">
   <aside class="col-4">
-    <ul>
+    <ul class="docs-ul">
       
       <li>
         <a href="/docs/tutorial/01/">A Program That Does Nothing</a>
@@ -71,7 +71,7 @@
   <div class="col-8">
     <h1>Hello World</h1>
     <p><p>Isn&rsquo;t it odd to reach the &ldquo;Hello, World!&rdquo; moment only in the third lesson - the starting point that most tutorials begin with? Well, many peculiarities await us in Nevalang. However, we hope that by the end of this tutorial, they will no longer seem like oddities. Who knows, you might even start thinking, &ldquo;Could it have been any other way?&rdquo;. Of course, we could have started with &ldquo;Hello, World!&rdquo; too, without delving into the intricate details of how every little thing works, but our goal, once again, is to achieve a deep understanding of how Nevalang is structured. And, actually, &ldquo;Hello, World!&rdquo; is not as straightforward as it seems.</p>
-<p>Go to your <code>nevalang_test</code> directory and replace content of the <code>main.neva</code> with this:</p>
+<p>Go to your <code>test/src</code> directory and replace content of the <code>main.neva</code> with this:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">const greeting string = &#39;Hello, World!&#39;
 
 component Main(start any) (stop any) {
@@ -84,8 +84,8 @@ component Main(start any) (stop any) {
 	net {
 		:start -&gt; blocker:sig
 		emitter:msg -&gt; blocker:data
-		blocker:data -&gt; printer:msg
-		printer:msg -&gt; :stop
+		blocker:data -&gt; printer:data
+		printer:sig -&gt; :stop
 	}
 }
 </code></pre><p>You might be thinking right now - &ldquo;This is the most verbose &lsquo;Hello, World!&rsquo; I&rsquo;ve ever seen!&rdquo; And, quite likely, you are correct. But don&rsquo;t rush to close the page; by dissecting this example, we&rsquo;ll learn how to write code more concisely. Without going through this example and jumping straight to the shorter version, we would never understand how the short version actually works.</p>
@@ -95,24 +95,21 @@ component Main(start any) (stop any) {
 <pre tabindex="0"><code class="language-neva" data-lang="neva">const greeting string = &#39;Hello, World!&#39;
 </code></pre><p>Let&rsquo;s take a step back and ask ourselves, what exactly are packages? Well, they are what modules are made of. Alright, but what are they made of themselves? We&rsquo;ve already seen that we can declare components. So, do packages consist of components? Among other things, yes. And what are components? Can we say that they are entities? Probably, yes. Thus, a package in Nevalang is a collection of <em>entities</em>. Entities come in four kinds, one of which we&rsquo;ve already discussed - components. It&rsquo;s time to talk about the second type of entity - <em>constants</em>.</p>
 <p>Declaring a constant begins with the keyword <code>const</code>, followed by an arbitrary name. Incidentally, an entity&rsquo;s name must be unique within its package. This means, for example, that a constant could not be named <code>Main</code> in our case, because there is already a component with that name. After the name comes the type expression; in this case, we simply refer to the familiar type <code>string</code>. Then comes the <code>=</code> symbol, and finally, the value of the constant - a so-called <em>literal</em>, in our case the string <code>'Hello, World!'</code></p>
-<pre><code>const &lt;name&gt; &lt;type_expr&gt; = &lt;literal_expr&gt;
-</code></pre>
-<p>So, what exactly is a constant? It&rsquo;s an entity that describes a <em>static message</em> - a message whose value is known at the time of writing the program (at <em>compile time</em>) and is directly present in the program&rsquo;s source code. The value of a constant must be explicitly set; it cannot be computed in any way. The values of constants are <em>immutable</em> - if a constant describes the string message <code>&quot;Hello, world!&quot;</code> then it will remain so throughout the program. It&rsquo;s impossible for a constant to change in any way. Note that in Nevalang, there are no variables and, consequently, no mutable state.</p>
+<pre tabindex="0"><code class="language-neva" data-lang="neva">const &lt;name&gt; &lt;type_expr&gt; = &lt;literal_expr&gt;
+</code></pre><p>So, what exactly is a constant? It&rsquo;s an entity that describes a <em>static message</em> - a message whose value is known at the time of writing the program (at <em>compile time</em>) and is directly present in the program&rsquo;s source code. The value of a constant must be explicitly set; it cannot be computed in any way. The values of constants are <em>immutable</em> - if a constant describes the string message <code>&quot;Hello, world!&quot;</code> then it will remain so throughout the program. It&rsquo;s impossible for a constant to change in any way. Note that in Nevalang, there are no variables and, consequently, no mutable state.</p>
 <h2 id="compiler-directives">Compiler Directives</h2>
 <p>The next piece of code that deserves close attention is this block:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">#bind(greeting)
 emitter Emitter&lt;string&gt;
 </code></pre><p>The second line should be clear to us - a <code>greeting</code> node that is an instance of the <code>Emitter</code> component <em>parameterized</em> with <code>string</code>. But what about the first line?</p>
-<pre><code>#bind(greeting)
-</code></pre>
-<p>This is what&rsquo;s known as a <em>directive</em> - a special instruction for the compiler. There are several directives, and each tells the compiler some information on how to correctly compile the program. The syntax for any directive is as follows:</p>
+<pre tabindex="0"><code class="language-neva" data-lang="neva">#bind(greeting)
+</code></pre><p>This is what&rsquo;s known as a <em>directive</em> - a special instruction for the compiler. There are several directives, and each tells the compiler some information on how to correctly compile the program. The syntax for any directive is as follows:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">#&lt;directive_name&gt;(&lt;arguments&gt;)
 </code></pre><h2 id="emitter">Emitter</h2>
 <p>To understand what the <code>#bind</code> directive does, let&rsquo;s look into the standard library&rsquo;s code, at the definition of the Emitter component (let&rsquo;s ignore <code>pub</code> keyword once again):</p>
-<pre><code>#extern(Emitter)
+<pre tabindex="0"><code class="language-neva" data-lang="neva">#extern(Emitter)
 pub Emitter&lt;T&gt;() (msg T)
-</code></pre>
-<p>Firstly, the Emitter has no input ports! This is only possible in the standard library. The compiler will not allow us to do this ourselves - any component outside the standard library must have at least one input and one output port. Anyway, the Emitter is the only component without input ports. We need at least one such component, and soon we&rsquo;ll understand why. Let&rsquo;s move on to the <code>#extern</code> directive:</p>
+</code></pre><p>Firstly, the Emitter has no input ports! This is only possible in the standard library. The compiler will not allow us to do this ourselves - any component outside the standard library must have at least one input and one output port. Anyway, the Emitter is the only component without input ports. We need at least one such component, and soon we&rsquo;ll understand why. Let&rsquo;s move on to the <code>#extern</code> directive:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">#extern(Emitter)
 </code></pre><p>Now we&rsquo;re truly delving into the details, but only for a short while. Please, hang in there a little longer; it will get simpler afterward.</p>
 <h2 id="native-components-and-runtime-functions">Native Components and Runtime Functions</h2>
@@ -149,10 +146,10 @@ pub Blocker&lt;T&gt;(sig any, data T) (data T)
 <p>Let&rsquo;s take another look at our network and verbalize what it does:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">:start -&gt; blocker:sig
 emitter:msg -&gt; blocker:data
-blocker:data -&gt; printer:msg
-printer:msg -&gt; :stop
+blocker:data -&gt; printer:data
+printer:sig -&gt; :stop
 </code></pre><p>When the input signal <code>:start</code> arrives at the <code>blocker:sig</code> inport (this happens exactly once at the program&rsquo;s start), the <code>blocker</code> locks the flow, awaiting data. The message from <code>emitter:msg</code> (our &ldquo;Hello, World!&rdquo; constant) goes into the blocker but doesn&rsquo;t pass further until the <code>blocker:sig</code> signal arrives. If the signal arrives first, then the data immediately moves on; if not, it waits for the signal. We don&rsquo;t know which will happen faster - whether the data or the signal reaches the <code>blocker</code> first, but we do know that the flow won&rsquo;t proceed until these two messages meet in the <code>blocker</code>. Once this happens, we send the data to be printed. If by this time the emitter has already sent another message (with the same &ldquo;Hello, World!&rdquo; text), there&rsquo;s no need to worry - it will be forever blocked by the <code>blocker</code> - a new signal to <code>block:sig</code> won&rsquo;t arrive, because there won&rsquo;t be a new signal from <code>:start</code>. Finally, when the printing is finished, we terminate the program by sending a signal to <code>:stop</code>.</p>
-<p>Assuming the program could compile without using <code>:start</code>, or if <code>:start</code> wasn&rsquo;t used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from <code>printer:msg</code> was moving to <code>:stop</code>, the printer would continue to work in parallel, if the machine has enough resources.</p>
+<p>Assuming the program could compile without using <code>:start</code>, or if <code>:start</code> wasn&rsquo;t used to control the execution flow, we might manage to print the constant several times before the program would end. The thing is, components in Nevalang operate asynchronously, and while the message from <code>printer:sig</code> was moving to <code>:stop</code>, the printer would continue to work in parallel, if the machine has enough resources.</p>
 <p>This feature of the language - maximum asynchrony, allows for easily writing concurrent programs and achieving, theoretically, high performance, but it comes with the overhead of needing to block the flow where the sequence of events is important.</p>
 <h2 id="whats-next">What&rsquo;s Next?</h2>
 <p>Wow, bet you&rsquo;ve never written a hello world like this before. How about we <a href="/docs/tutorial/04">simplify</a> things a bit here?</p>

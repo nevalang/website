@@ -15,7 +15,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,400;0,500;0,700;1,200;1,400&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/chota@latest">
-      <link rel="stylesheet" href="/css/main.min.b49014e5a1bebae026f331aaf7b0ad5b46a861e591815477e2f8d6021e7814f8.css" integrity="sha256-tJAU5aG&#43;uuAm8zGq97CtW0aoYeWRgVR34vjWAh54FPg=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.05dc3ab0df5dcbd9902a9767c9b663aa25e522674856032060a0f615fe7c1baf.css" integrity="sha256-Bdw6sN9dy9mQKpdnybZjqiXlImdIVgMgYKD2Ff58G68=" crossorigin="anonymous">
 
 
       <script src="/js/main.909cfdd5f68897fdb16963b1bc2befd1d91a0d09047ff71f1fc2256938687e25.js" integrity="sha256-kJz91faIl/2xaWOxvCvv0dkaDQkEf/cfH8IlaThofiU=" crossorigin="anonymous"></script>
@@ -44,7 +44,7 @@
       
 <div class="row">
   <aside class="col-4">
-    <ul>
+    <ul class="docs-ul">
       
       <li>
         <a href="/docs/tutorial/01/">A Program That Does Nothing</a>
@@ -71,15 +71,11 @@
   <div class="col-8">
     <h1>Echo</h1>
     <p><h2 id="module-and-manifest">Module and Manifest</h2>
-<p>If you&rsquo;ve gone through the quick start, you should have already created your first project. In that case, simply update the code in <code>main.neva</code> to include the <code>Echo</code> component from this example. For everyone else, let&rsquo;s execute the following commands:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>mkdir nevalang_test <span style="color:#75715e"># create directory</span>
-</span></span><span style="display:flex;"><span>cd nevalang_test <span style="color:#75715e"># go there</span>
-</span></span><span style="display:flex;"><span>touch neva.yml <span style="color:#75715e"># create manifest file</span>
-</span></span><span style="display:flex;"><span>echo <span style="color:#e6db74">&#34;compiler: 0.0.1&#34;</span> &gt;&gt; neva.yml <span style="color:#75715e"># insert compiler version</span>
-</span></span><span style="display:flex;"><span>touch main.neva <span style="color:#75715e"># create source code file</span>
-</span></span></code></pre></div><p>With these commands, we&rsquo;re creating a <em>module</em>. We&rsquo;ll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.</p>
+<p>If you&rsquo;ve gone through the quick start, you should have already created your first project. In that case, simply update the code in <code>main.neva</code> to include the <code>Echo</code> component from this example. For everyone else, let&rsquo;s execute the following command:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>neva new test
+</span></span></code></pre></div><p>With these command, we&rsquo;re creating a <em>module</em>. We&rsquo;ll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.</p>
 <p>Each module has a <code>neva.yml</code> file, which describes its <em>dependencies</em> (modules can depend on other modules, in this case, there are no dependencies) and the required version of the compiler (in this case, 0.0.1). Such a file is called the module&rsquo;s <em>manifest</em>.</p>
-<p>So, after our module is created, let&rsquo;s make sure that the file <code>main.neva</code> contains the following code:</p>
+<p>So, after our module is created, replace the content of the <code>test/src/main.neva</code> file with the following code:</p>
 <pre tabindex="0"><code class="language-neva" data-lang="neva">import { std/builtin }
 
 component Main(start any) (stop any) {
@@ -93,7 +89,7 @@ component Main(start any) (stop any) {
 		printer:sig -&gt; :stop
 	}
 }
-</code></pre><p>Now make sure that you&rsquo;re in the <code>nevalang_test</code> directory and run <code>neva run</code>. Terminal should block until you type something. Type anything e.g. &ldquo;how are you?&rdquo;. If everything is okay you should see this output:</p>
+</code></pre><p>Now make sure that you&rsquo;re in the <code>test</code> directory and run <code>neva run src</code>. Terminal should block until you type something. Type anything e.g. &ldquo;how are you?&rdquo;. If everything is okay you should see this output:</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt; how are you?
 </span></span></code></pre></div><p>The program printer what you&rsquo;ve entered and quit. That&rsquo;s all it does.</p>
 <h2 id="packages-std-module-builtin-package">Packages, Std Module, Builtin Package</h2>

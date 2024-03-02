@@ -1,6 +1,6 @@
 ---
 title: Compiler directives
-weight: 5
+weight: 4
 ---
 
 Compiler directives are special instructions for compiler.

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Language Specification on Neva Programming Language</title>
+    <link>https://nevalang.org/docs/spec/</link>
+    <description>Recent content in Language Specification on Neva Programming Language</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <atom:link href="https://nevalang.org/docs/spec/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Source Code</title>
+      <link>https://nevalang.org/docs/spec/source-code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/spec/source-code/</guid>
+      <description>This section provides an overview of Nevalang, focusing on its user and compiler perspectives, excluding the type-system which is covered separately. It doesn&amp;rsquo;t delve into the execution details of Nevalang programs, but rather explores the abstractions present in the source code and their governing principles.&#xA;Build Build is set of Nevalang modules. Every module has unique module reference. One of the modules is entry module.&#xA;Module Module is a set of packages.</description>
+    </item>
+    <item>
+      <title>Type System</title>
+      <link>https://nevalang.org/docs/spec/type-system/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/spec/type-system/</guid>
+      <description>WIP</description>
+    </item>
+    <item>
+      <title>Runtime</title>
+      <link>https://nevalang.org/docs/spec/runtime/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/spec/runtime/</guid>
+      <description>WIP</description>
+    </item>
+  </channel>
+</rss>

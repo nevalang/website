@@ -22,11 +22,18 @@
       <description>What Is This? This is Neva or Nevalang (these two names are interchangeable) - an open-source flow-based general-purpose programming language with static typing and a focus on visual programming, which compiles into machine code and Go.&#xA;Why Yet Another Language? As cliché and unbelievable as it sounds, Nevalang has no direct analogs. Its combination of characteristics makes it a unique language, well-suited for addressing two issues in programming where significant progress has not been felt for many years - visual programming and implicit parallelism.</description>
     </item>
     <item>
+      <title>Source Code</title>
+      <link>https://nevalang.org/docs/spec/source-code/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/spec/source-code/</guid>
+      <description>This section provides an overview of Nevalang, focusing on its user and compiler perspectives, excluding the type-system which is covered separately. It doesn&amp;rsquo;t delve into the execution details of Nevalang programs, but rather explores the abstractions present in the source code and their governing principles.&#xA;Build Build is set of Nevalang modules. Every module has unique module reference. One of the modules is entry module.&#xA;Module Module is a set of packages.</description>
+    </item>
+    <item>
       <title>Echo</title>
       <link>https://nevalang.org/docs/tutorial/02/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/tutorial/02/</guid>
-      <description>Module and Manifest If you&amp;rsquo;ve gone through the quick start, you should have already created your first project. In that case, simply update the code in main.neva to include the Echo component from this example. For everyone else, let&amp;rsquo;s execute the following commands:&#xA;mkdir nevalang_test # create directory cd nevalang_test # go there touch neva.yml # create manifest file echo &amp;#34;compiler: 0.0.1&amp;#34; &amp;gt;&amp;gt; neva.yml # insert compiler version touch main.neva # create source code file With these commands, we&amp;rsquo;re creating a module.</description>
+      <description>Module and Manifest If you&amp;rsquo;ve gone through the quick start, you should have already created your first project. In that case, simply update the code in main.neva to include the Echo component from this example. For everyone else, let&amp;rsquo;s execute the following command:&#xA;neva new test With these command, we&amp;rsquo;re creating a module. We&amp;rsquo;ll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.</description>
     </item>
     <item>
       <title>Quick Start</title>
@@ -36,6 +43,13 @@
       <description>Install Nevalang and create your first project in one minute!&#xA;Installing Nevalang To begin, download the Nevalang installation script using the following command:&#xA;curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash If everything is ok you should be able to execute&#xA;neva version And see output like this (version could differ):&#xA;0.8.0 Creating Your First Project Let&amp;rsquo;s create a new project named test. Execute the following commands to set up your project:&#xA;neva new test This command will create test directory with neva.</description>
     </item>
     <item>
+      <title>Type System</title>
+      <link>https://nevalang.org/docs/spec/type-system/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/spec/type-system/</guid>
+      <description>WIP</description>
+    </item>
+    <item>
       <title>Hello World</title>
       <link>https://nevalang.org/docs/tutorial/03/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
@@ -43,18 +57,25 @@
       <description>Isn&amp;rsquo;t it odd to reach the &amp;ldquo;Hello, World!&amp;rdquo; moment only in the third lesson - the starting point that most tutorials begin with? Well, many peculiarities await us in Nevalang. However, we hope that by the end of this tutorial, they will no longer seem like oddities. Who knows, you might even start thinking, &amp;ldquo;Could it have been any other way?&amp;rdquo;. Of course, we could have started with &amp;ldquo;Hello, World!&amp;rdquo; too, without delving into the intricate details of how every little thing works, but our goal, once again, is to achieve a deep understanding of how Nevalang is structured.</description>
     </item>
     <item>
+      <title>Roadmap</title>
+      <link>https://nevalang.org/roadmap/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/roadmap/</guid>
+      <description>These features were envisioned from the very beginning of the project. The ultimate goal of Nevalang is to fully realize these features, providing a robust, efficient, and user-friendly programming language.&#xA;Visual Programming Nevalang started as a visual programming language but has evolved into a hybrid, offering a clean, C-like syntax alongside a visual editor. This approach addresses common drawbacks of visual programming by supporting standard development practices like version control and code reviews, while also making complex projects manageable through its package system and component abstractions.</description>
+    </item>
+    <item>
+      <title>Runtime</title>
+      <link>https://nevalang.org/docs/spec/runtime/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/spec/runtime/</guid>
+      <description>WIP</description>
+    </item>
+    <item>
       <title>Better Hello World</title>
       <link>https://nevalang.org/docs/tutorial/04/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/tutorial/04/</guid>
       <description>Const Senders We promised that &amp;ldquo;hello world&amp;rdquo; could be simplified. After all, if writing such a basic program is so complex, what does real programming look like? Fear not, our promise will be fulfilled. Let&amp;rsquo;s start simplifying immediately, beginning with eliminating the explicit mention of the emitter.&#xA;We remove the emitter node along with its directive:&#xA;#bind(greeting) emitter Emitter&amp;lt;string&amp;gt; Then we modify this connection:&#xA;emitter:msg -&amp;gt; blocker:data This way:&#xA;$greeting -&amp;gt; blocker:data Voilà, our program is now two lines shorter:</description>
-    </item>
-    <item>
-      <title>Style Guide</title>
-      <link>https://nevalang.org/docs/style-guide/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://nevalang.org/docs/style-guide/</guid>
-      <description>The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It&amp;rsquo;s recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.&#xA;Code Organization Lines Count: Aim for files to be up to 300 lines. Files longer than 300 lines should be split, indicating a need for better organization. Formatting Short Lines: Keep lines under 80 characters to enhance readability, accommodate split-screen setups, and avoid horizontal scrolling, especially for those who prefer large text for eye care.</description>
     </item>
     <item>
       <title>Compiler directives</title>
@@ -68,7 +89,14 @@
       <link>https://nevalang.org/docs/tutorial/05/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/tutorial/05/</guid>
-      <description>&amp;hellip;</description>
+      <description>Unfortunately documentation isn&amp;rsquo;t finished. We haven&amp;rsquo;t cover a lot of stuff including interfaces and dependency injection, array ports and streams, error handling, working with structures and enums and a lot more.&#xA;Please refer to examples in the Nevalang&amp;rsquo;s git repository. Meanwile we will continue to improve documentation.&#xA;As always, PRs are welcome. Also feel free to ask questions in the community.</description>
+    </item>
+    <item>
+      <title>Style Guide</title>
+      <link>https://nevalang.org/docs/style-guide/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>https://nevalang.org/docs/style-guide/</guid>
+      <description>The Nevalang style guide outlined in this document sets the standards for organizing and formatting code, designing components, and choosing appropriate names. It&amp;rsquo;s recommended that all programs follow this guide to ensure consistency across Nevalang code, making it easier to read and understand.&#xA;Code Organization Lines Count: Aim for files to be up to 300 lines. Files longer than 300 lines should be split, indicating a need for better organization. Formatting Short Lines: Keep lines under 80 characters to enhance readability, accommodate split-screen setups, and avoid horizontal scrolling, especially for those who prefer large text for eye care.</description>
     </item>
     <item>
       <title>FAQ</title>
@@ -76,13 +104,6 @@
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/faq/</guid>
       <description>Welcome to the FAQ page! Here, we&amp;rsquo;ve compiled all the questions that you might not find answers to on other documentation pages. This section was primarily created as a reference for ourselves - when developing something as complex as a programming language, it&amp;rsquo;s easy to forget the reasons behind certain decisions. So, we thought, why not document at least those related to the language&amp;rsquo;s external aspects, right here on the website!</description>
-    </item>
-    <item>
-      <title>Specification (WIP)</title>
-      <link>https://nevalang.org/docs/spec/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://nevalang.org/docs/spec/</guid>
-      <description>Build Build is set of Nevalang modules. Every module has unique module reference. One of the modules is entry module.&#xA;Module Module is a set of packages. Every module has its own manifest file.&#xA;Entry Module Entry is a root module for compilation algorithm. Every entry module must have executable package.&#xA;Module Reference Entity that refers to a module via path and version.&#xA;Module Manifest File that describes which version of language this package supports and list of its dependencies.</description>
     </item>
     <item>
       <title>🎉 Nevalang Released!</title>
