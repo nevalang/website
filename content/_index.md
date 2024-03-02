@@ -78,7 +78,7 @@ component Main(start) (stop) {
 
 Nevalang operates on a flow-based programming model, where components are connected through inputs and outputs. This eliminates the need for low-level instructions like "call/return" and state manipulations, empowering you to reason about programs in a more natural way.
 
-### Effortless Concurrency
+### Implicit Parallelism
 
 FBP allows messages to flow concurrently across connections. This fundamental shift from synchronous to asynchronous operations by default enables seamless parallel computation, without the complexities of mutexes, channels, or promises, and avoids common pitfalls like deadlocks and race conditions. First-class support for streaming data processing allows the system to operate at maximum speed.
 
