@@ -19,7 +19,7 @@
       <link>https://nevalang.org/docs/quick-start/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://nevalang.org/docs/quick-start/</guid>
-      <description>Install Nevalang and create your first project in one minute!&#xA;Installing Nevalang To begin, download the Nevalang installation script using the following command:&#xA;curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash If everything is ok you should be able to execute&#xA;neva version And see output like this (version could differ):&#xA;0.8.0 Creating Your First Project Let&amp;rsquo;s create a new project named test. Execute the following commands to set up your project:&#xA;neva new test This command will create test directory with neva.</description>
+      <description>Install Nevalang and create your first project in one minute!&#xA;Installing Nevalang To begin, download the Nevalang installation script using the following command:&#xA;curl -sSL https://raw.githubusercontent.com/nevalang/neva/main/scripts/install.sh | bash If everything is ok you should be able to execute&#xA;neva version And see output like this (version could differ):&#xA;0.9.0 Creating Your First Project Let&amp;rsquo;s create a new project named test. Execute the following commands to set up your project:&#xA;neva new test This command will create test directory with neva.</description>
     </item>
     <item>
       <title>Compiler directives</title>
