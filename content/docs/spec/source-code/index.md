@@ -7,11 +7,11 @@ This section provides an overview of Nevalang, focusing on its user and compiler
 
 ## Build
 
-Build is set of Nevalang _modules_. Every module has unique _module reference_. One of the modules is _entry_ module.
+Build is a set of Nevalang _modules_. Every module has a unique _module reference_. One of the modules is the _entry_ module.
 
 ## Module
 
-Module is a set of _packages_. Every module has its own _manifest file_.
+A module is a set of _packages_. Every module has its own _manifest file_.
 
 ## Entry Module
 
