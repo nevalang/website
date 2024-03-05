@@ -11,6 +11,7 @@
     <loc>https://nevalang.org/docs/spec/source-code/</loc>
   </url><url>
     <loc>https://nevalang.org/blog/</loc>
+    <lastmod>2024-03-03T14:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nevalang.org/docs/tutorial/02/</loc>
   </url><url>
@@ -40,9 +41,13 @@
   </url><url>
     <loc>https://nevalang.org/docs/faq/</loc>
   </url><url>
-    <loc>https://nevalang.org/categories/</loc>
+    <loc>https://nevalang.org/blog/001_release/</loc>
+    <lastmod>2024-03-03T14:00:00+00:00</lastmod>
   </url><url>
     <loc>https://nevalang.org/</loc>
+    <lastmod>2024-03-03T14:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://nevalang.org/categories/</loc>
   </url><url>
     <loc>https://nevalang.org/tags/</loc>
   </url>
