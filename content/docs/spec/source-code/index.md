@@ -208,30 +208,30 @@ If (_resolved_) type of sender-side is _structure_, then it's possible to have s
 
 ## Port Address
 
-Port Address consist of name of the node, name of the port and optional index of the slot. Slot index must be present only if port address refers to array-port.
+A port address consists of the name of the node, the name of the referenced port, and an optional index of the slot. A slot index must be present only if the port address refers to an array-port.
 
 ## Constant Reference Sender
 
-In normal connection not just port address but also reference to constant entity (that must be available in the scope) could be a sender. This works exactly like if there's _emitter_ sender with _bound_ constant.
+In a normal connection, not just the port address but also a reference to a constant entity (that must be available in the scope) could be a sender. This works exactly like an _emitter_ sender with a _bound_ constant.
 
 ## Primitive Message Literal Sender
 
-This works almost like constant reference sender except instead of referencing some constant we simply use message literal. Only primitive data-types are supported: booleans, numbers, strings and enum members.
+This works almost like a constant reference sender, except instead of referencing some constant it references a message literal. Only primitive data-types are supported: booleans, numbers, strings and enumerator members.
 
 ## Array-Bypass Connection
 
-Connection that connects all slots of some sender with all slots of some receiver. Sender and receiver must both be array-ports. Component is only allowed to bypass it's own inports. Such connection always consist of two port addresses without slot indexes.
+A connection that connects all slots of some sender with all slots of some receiver. Sender and receiver must both be array-ports. A component is only allowed to bypass it's own inports. Such a connection always consists of two port addresses without slot indexes.
 
 ## Bound Constant
 
-Constant that is referenced inside `bind` compiler directive
+A constant that is referenced by a `bind` compiler directive.
 
 ## Compiler Directive
 
-Special instructions for compiler. Directives that must be supported by the compiler are `#extern`, `#autoports` and `#bind`.
+Special instructions for the compiler. Directives that must be supported by the compiler are `#extern`, `#autoports` and `#bind`.
 
 ## Runtime Function Overloading
 
-Native components pass several arguments to `#extern` directive to utilize overloading. In this case arguments are pairs separated by whitespace, they have form `#extern(t1 f1, t2 f2, ... tN fN)` where `t` is a type and `f` is the name of a _runtime function_.
+Native components pass several arguments to the `#extern` directive to utilize overloading. These arguments are pairs separated by whitespace, they have the form `#extern(t1 f1, t2 f2, ... tN fN)` where `t` is a type and `f` is the name of a _runtime function_.
 
-Component that uses overloading must have exactly one type parameter (it's name doesn't matter) of type `union`. Types that are referenced inside directive must be members of that union.
+A component that uses overloading must have exactly one type parameter (it's name doesn't matter) of type `union`. Types that are referenced inside the directive must be members of that union.
