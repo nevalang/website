@@ -39,7 +39,7 @@ A File is a set of _imports_ and _entities_. Unlike a package, a file is not a n
 
 ## Imports
 
-Imports are used to access entities defined in other packages. Imports declared in one file are not visible inside another. An import consists of a _module reference_ and a _package name_. For example, `std:http/net` is an import of the package `http/net` from module `std`. Only _public_ entities can be imported.
+Imports are used to access entities defined in other packages. Imports declared in one file are not visible inside another. An import consists of a _module reference_ and a _package name_. For example, `std:http/net` is an import of the package `http/net` from the module `std`. Only _public_ entities can be imported.
 
 ## Entities
 
@@ -54,7 +54,7 @@ There are four _kinds_ of entities (from simple to complex):
 
 ## Entity Reference
 
-An entity reference consists of an optional package name and the name of the referenced entity. The package name can be omitted if the referenced entity either exists in the same package or in `std/builtin`. If an entity in the current package has the same name as an entity in the builtin, it _shadows_ it.
+An entity reference consists of an optional package name and the name of the referenced entity. The package name can be omitted if the referenced entity either exists in the same package or in `std/builtin`. If an entity in the current package has the same name as an entity in builtin, it _shadows_ (overrides) it.
 
 ## Type Entity
 
@@ -62,132 +62,132 @@ Type entities (type definitions) consist of an optional list of _type parameters
 
 ## Base Type
 
-Type definition without body means _base_ type. Compiler is aware of base types and will throw error if non-base type has no body. Base types are only allowed inside `std/builtin` package. Some base types can be used inside _recursive type definitions_.
+A type definition without a body is assumed to be of the type _base_. The compiler is aware of base types and will throw an error if a non-base type has no body. Base types are only allowed inside the `std/builtin` package. Some base types can be used inside _recursive type definitions_.
 
 ## Recursive Type Definition
 
-If type refers to itself inside its own definition, then it's recursive definition. Example: `type l list<l>`. In this case `list` must be base type that supports recursive definitions. Compiler knows which types supports recursion and which do not.
+A recurcsive type definition happens when a type refers to itself inside its definition. Example: `type l list<l>`. In this case `list` must be a base type that supports recursive definitions. The compiler knows which types support recursion and which do not.
 
 ## Type Parameters (Generics)
 
-Every type paremeter has name that must be unique across all other type parameters in this definition and constrant.
+Every type paremeter has a name that must be unique across all other type parameters in it's definition and constraint.
 
 ## Type Parameter Constraint
 
-Constraint is a type expression that is used as _supertype_ to ensure _type compatibility_ between _type argument_ and type corresponding parameter. If no constrained explicitly defined then `any` is implicitly used.
+A constraint is a type expression that is used as a _supertype_ to ensure _type compatibility_ between a _type argument_ and the corresponding parameter. If no constraint is explicitly defined, `any` is implicitly used.
 
 ## Type Parameters and Arguments Compatibility
 
-Argument `A` compatible with parameter `P` if there's subtyping relation of form `A <: C` where`C` is a constraint of `P`. If there's several parameters/arguments, every one of them must be compatible. Count of arguments must always be equal to the count of parameters.
+Argument `A` is compatible with parameter `P` if there's a subtyping relationship of the form `A <: C` where`C` is a constraint of `P`. If there's several parameters/arguments, every one of them must be compatible. The number of arguments must always be equal to the number of parameters.
 
 ## Type Expression
 
-There is 2 _kinds_ of type expressions:
+There are two  _kinds_ of type expressions:
 
 1. Instantiation expressions
 2. Literals expressions
 
-Type expressions can be infinitely nested. Process of reducing the type expression called _type resolving_. Resolved type expression is an expression that cannot be reduced to a more simple form.
+Type expressions can be infinitely nested. The process of reducing type expressions is called _type resolving_. A resolved type expression is an expression that cannot be reduced to a more simple form.
 
 ## Type Instantiation Expression
 
-Such expression consist of _entity reference_ (that must refer to existing type definition or type parameter) and optional list of _type arguments_. Type arguments themselves are arbitrary type expressions (they follows the same rules described above).
+A type instantiation expression consists of an _entity reference_ (that must refer to an existing type definition or type parameters) and an optional list of _type arguments_. Type arguments themselves are arbitrary type expressions (they follows the same rules described above).
 
 ## Literal Type Expression
 
-Type expressions that cannot be described in a instantiation form.
+Type expressions that cannot be described in an instantiation form.
 
 ## Interface Definition
 
-Interface is a _component signature_ that describes _abstract component_ - its input and output _ports_ and optional type parameters. Interfaces are used with _dependency injection_ and _abstract components_.
+An interface is a _component signature_ that describes an _abstract component_ - its input and output _ports_ and optional type parameters. Interfaces are used in combination with _dependency injection_ and _abstract components_.
 
 ## Ports
 
-Port definition consist of a _type expression_ describing the data-type port expects and a flag that describes whether the port is an _array_ or _single_ port. Type expression can refer to interface's type parameters. If no type paremeter given then `any` is implicitly used.
+A port definition consists of a _type expression_ describing the data-type that the port expects and a flag that describes whether the port is an _array_ or _single_ port. Type expressions can refer to an interface's type parameters. If no type paremeter is given then `any` is implicitly used.
 
 ## Single Ports
 
-Single port is port with one _slot_. Reference to such ports should not include slot index.
+A single port is a port with one _slot_. Reference to such ports should not include a slot index.
 
 ## Array Ports
 
-Array port is port with multiple (up to 255) _slots_. Such ports must be referenced either via slot indexes or in _array-bypass connection_ expressions.
+An array port is a port with multiple (up to 255) _slots_. Such ports must be referenced either via slot indexes or in _array-bypass connection_ expressions.
 
 ## Constant
 
-Constant is an entity that consist of either _message_ or _entity reference_ to other constant. Message can include references to other constants. Constant messages can be infinitely nested. Constants may refer imported constants from other packages. _Components_ are only entities that can refer constants, that are not constants themselves - they can refer to constants via _compiler directives_ and from their _networks_.
+A constant is an entity that consists of either a _message_ or an _entity reference_ to another constant. A message can include references to other constants. Constant messages can be infinitely nested. Constants may refer to imported constants from other packages. _Components_ are the only entities able to refer constants, that are not constants themselves - they can refer to constants via _compiler directives_ and from their _networks_.
 
 ## Component
 
-Component always has _interface_ and optional _compiler directives_, _nodes_ and _network_. There are two kinds of components: _normal_ and _native_ ones.
+A component always has an _interface_, and may optionally contain _compiler directives_, _nodes_ and a _network_. There are two kinds of components: _normal_ and _native_ ones.
 
 ## Main Component
 
-Executable package must have _component_ called `Main`. This component must follow specific set of rules:
+An executable package must have a _component_ called `Main`. This component must follow a specific set of rules:
 
-- Must be _normal_
-- Must be _private_
-- Must have exactly 1 inport `start`
-- Must have exactly one outport `stop`
+- It must be _normal_
+- It must be _private_
+- It must have exactly 1 inport `start`
+- It must have exactly one outport `stop`
 - Both ports must have type `any`
-- Must have no _abstract nodes_
+- It must have no _abstract nodes_
 
-Main component doesn't have to have _network_ but it is usually the case because it's the _root_ component in the program.
+The main component doesn't have to have _network_ but it is usually the case because it's the _root_ component in the program.
 
 ## Native Components
 
-Component without implementation (without nodes and network) must use `#extern` directive to refer to _runtime function_. Such component called _native component_. Native components normally only exist inside `std` module, but there should be no forced restriction for that.
+A component without an implementation (without nodes and a network) must use the `#extern` directive to refer to a _runtime function_. Such a component is called a _native component_. Native components normally only exist within the `std` module, but there should be no forced restriction on this.
 
 ## Normal Component
 
-Normal component is implemented in source code i.e. it has not only interface but also nodes and network, or at least just network. Normal components must never use `#extern` directive.
+A normal component is implemented in source code, i.e. it not only has an interface but also a network and usually also nodes. Normal components must never use the `#extern` directive.
 
 ## Nodes
 
-Nodes are things that have inports and outports that can be connected in network. There's two kinds of nodes:
+Nodes are things that have inports and outports that can be connected in network. There are two kinds of nodes:
 
 1. IO Nodes
 2. Computational nodes
 
-IO nodes are created implicitly. Every component have one `in` and one `out` node. Node `in` has outports corresponding to component's interface's inports. And vice versa - `out` node has inports corresponding to component interface's inports.
+IO nodes are created implicitly. Every component has one `in` and one `out` node. The `in` node has outports corresponding to a component's interface's inports. Vice versa, the `out` node also has inports corresponding to a component's interface's inports.
 
-Computational nodes are nodes that are instantiated from entities - components or interfaces. There's 2 types of computational nodes: concrete and abstract. Nodes that are instantiated from components are _concrete nodes_ and those that instantiated from interfaces are _abstract nodes_.
+Computational nodes are nodes that are instantiated from entities - components or interfaces. There's 2 types of computational nodes: concrete and abstract. Nodes that are instantiated from components are _concrete nodes_ and those that are instantiated from interfaces are _abstract nodes_.
 
-Interfaces and component's interfaces can have type parameters. In this case node must specify type arguments in instantiation expression.
+Interfaces and component interfaces can have type parameters. In this case, a node must specify type arguments in an instantiation expression.
 
 ## Dependency Injection (DI)
 
-Normal component can have _abstract node_ that is instantiated from an interface instead of a component. Such components with abstract nodes needs what's called dependency injection.
+Normal component can have an _abstract node_ that is instantiated from an interface instead of a component. Such components with abstract nodes need what's called dependency injection.
 
-I.e. if a component has dependency node `n` instantiated with interface `I` one must provide concrete component that _implements_ this interface.
+I.e. if a component has a dependency node `n` instantiated with interface `I` one must provide a concrete component that _implements_ this interface.
 
-Dependency Injection can be infinitely nested. Component `Main` cannot use dependency injection.
+Dependency Injection can be infinitely nested. The `Main` component cannot use dependency injection.
 
 ## Component and Interface Compatability (Implementation)
 
-Component _implements_ interface (is _compatible_ with it) if type paremeters, inports and outports are compatible.
+A component _implements_ an interface (is _compatible_ with it) if type paremeters, inports and outports are compatible.
 
-Type parameters are compatible if their count, order and names are equal. Constraints of component's type parameters must be compatible with the constraints of the corresponding interface's type parameter's constraints.
+Type parameters are compatible if their amount, order and name are equal. Constraints of a component's type parameters must be compatible with the constraints of the corresponding interface's type parameter's constraints.
 
-Component's inports are compatible with the interface's if:
+A component's inports are compatible with the interface's if:
 
-1. Amount is exactly equal
+1. Their amount is exactly equal
 2. They have exactly the same names and _kind_ (array or single)
-3. Their types are _compatible_ (are _subtypes_ of) with the corresponding interface's inports
+3. Their types are _compatible_ with (are _subtypes_ of) the corresponding interface's inports
 
 Outports of a component are compatible with the interface's if:
 
-1. Amount is equal or more (this is only difference with inports)
+1. Their amount is equal or larger (this is the only difference with inports)
 2. Exactly the same names and _kind_
 3. Their types are _compatible_
 
 ## Network
 
-Network is a set of connections. Every connection consist of sender-side and receiver-side. Sender and receiver must be _compatible_. There is 2 types of connections: normal and array-bypass.
+A network is a set of connections. Every connection consist of sender-side and receiver-side. Sender and receiver must be _compatible_. There are two types of connections: normal and array-bypass.
 
 ## Normal Connection
 
-Normal connection can have several types of sender-side and receiver-side.
+Normal connections can have several types of sender-side and receiver-side.
 
 Sender-side:
 
@@ -200,15 +200,15 @@ Receiver-side:
 1. List of inport-addresses
 2. List of _deferred connections_
 
-Sender-side in of a normal connection can also have optional _struct selectors_.
+The sender-side of a normal connection can also have optional _struct selectors_.
 
 ## Sender-Side Struct Selectors
 
-If (_resolved_) type of sender-side is _structure_, then it's possible to have selectors in it. Selectors are list of strings, where each element means field in a struct. More than one selector means that there is a structure inside structure. Selectors must be type safe. I.e. it must be possible to "unwrap" structure each time we process next selector.
+If the (_resolved_) type of the sender-side is _structure_, then it's possible to have selectors in it. Selectors are a list of strings, where each element represents a field in a struct. More than one selector means that there is a structure inside another structure. Selectors must be type safe, i.e. it must be possible to "unwrap" the structure each time the next selector is processed.
 
 ## Port Address
 
-A port address consists of the name of the node, the name of the referenced port, and an optional index of the slot. A slot index must be present only if the port address refers to an array-port.
+A port address consists of the name of the node it belongs to, the name of the referenced port, and an optionally the index of the slot. A slot index must be present only if the port address refers to an array-port.
 
 ## Constant Reference Sender
 
