@@ -3,11 +3,11 @@ title: Source Code
 weight: 1
 ---
 
-This section provides an overview of Nevalang, focusing on its user and compiler perspectives, excluding the type-system which is covered separately. It doesn't delve into the execution details of Nevalang programs, but rather explores the abstractions present in the source code and their governing principles.
+This section provides an overview of Nevalang, focusing on its user and compiler perspectives, excluding the type system which is covered separately. It doesn't delve into the execution details of Nevalang programs, but rather explores the abstractions present in the source code and their governing principles.
 
 ## Build
 
-Build is a set of Nevalang _modules_. Every module has a unique _module reference_. One of the modules is the _entry_ module.
+A build is a set of Nevalang _modules_. Every module has a unique _module reference_. One of the modules is the _entry_ module.
 
 ## Module
 
@@ -15,35 +15,35 @@ A module is a set of _packages_. Every module has its own _manifest file_.
 
 ## Entry Module
 
-Entry module is a root module for compilation. Every entry module must have at least one _executable_ package.
+The entry module is the root module for compilation. Every entry module must have at least one _executable_ package.
 
 ## Module Manifest
 
-File that describes which version of language this module supports and list of its _dependencies_.
+File that describes which version of language this module supports and contains list of its _dependencies_.
 
 ## Module Dependencies
 
-Every module except `std` has dependencies, at least `std`. Module defines dependencies by specifing dependend module's path and version. Every dependency module can have local alias.
+Every module besides `std` has dependencies, at least `std`. Modules define dependencies by specifing their paths and versions. Every dependency module can have a local alias.
 
 ## Package
 
-Package is a set of _files_ located in the same directory. Name of the package is the path to its directory from module's root. All _entities_ in a package forms single namespace so they must have unique names across package. An entity can refer to entities described in other files in the same package without _imports_.
+A package is a set of _files_ located in the same directory. The name of a package is the path to its directory from the module's root. All _entities_ in a package form a single namespace, so they must have names names that are unique in the entire package. An entity can refer to entities described in other files in the same package without having to import it.
 
 ## Executable Package
 
-Package without _public_ entities and with _main_ component
+A package without _public_ entities and with a _main_ component.
 
 ## File
 
-File is a set of _imports_ and _entities_. Unlike package file is not a namespace itself, but imports declared inside one file are not visible inside another. There's no restriction on how one should group entities in files inside a package.
+a File is a set of _imports_ and _entities_. Unlike a package, a file is not a namespace itself, but imports declared inside one file are not visible inside another. There's no restriction on how one should group entities in files inside a package.
 
 ## Imports
 
-Imports allow to use entities defined in other packages. Imports declared in one file are not visible inside another. Import consist of _module reference_ and _package name_. E.g. `std:http/net` is an import of package `http/net` from module `std`. Only _public_ entities can be imported.
+Imports are used to access entities defined in other packages. Imports declared in one file are not visible inside another. An import consists of a _module reference_ and a _package name_. For example, `std:http/net` is an import of the package `http/net` from module `std`. Only _public_ entities can be imported.
 
 ## Entities
 
-Entities are abstractions for creating programs. They are either _private_ or _public_. They are private by default and can be made public by using `pub` keyword. Every entity has name that is unique across the package. Entities are _referenced_ by _entity references_.
+Entities are abstractions for creating programs. They are either _private_ or _public_. They are private by default and can be made public using the `pub` keyword. Every entity has a name that is unique across the package. Entities are _referenced_ by _entity references_.
 
 There are four _kinds_ of entities (from simple to complex):
 
@@ -54,11 +54,11 @@ There are four _kinds_ of entities (from simple to complex):
 
 ## Entity Reference
 
-Entity reference consist of an optional package name and name of the referenced entity. Package name can be omitted if entity that we reference either exist in the same package or in `std/builtin`. If entity in current package has the same name as the one in the builtin, then it _shadows_ it.
+An entity reference consists of an optional package name and the name of the referenced entity. The package name can be omitted if the referenced entity either exists in the same package or in `std/builtin`. If an entity in the current package has the same name as an entity in the builtin, it _shadows_ it.
 
 ## Type Entity
 
-Type entity (type definition) consist of an optional list of _type parameters_ followed by optional _type expression_ that is called _body_.
+Type entities (type definitions) consist of an optional list of _type parameters_ followed by an optional _type expression_ that is called the _body_.
 
 ## Base Type
 
