@@ -19,7 +19,7 @@ The entry module is the root module for compilation. Every entry module must hav
 
 ## Module Manifest
 
-File that describes which version of language this module supports and contains list of its _dependencies_.
+A file that describes which version of the language this module supports and contains a list of its _dependencies_.
 
 ## Module Dependencies
 
@@ -35,7 +35,7 @@ A package without _public_ entities and with a _main_ component.
 
 ## File
 
-a File is a set of _imports_ and _entities_. Unlike a package, a file is not a namespace itself, but imports declared inside one file are not visible inside another. There's no restriction on how one should group entities in files inside a package.
+A File is a set of _imports_ and _entities_. Unlike a package, a file is not a namespace itself, but imports declared inside one file are not visible inside another. There's no restriction on how entities ahould be grouped in files inside a package.
 
 ## Imports
 
