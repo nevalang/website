@@ -3,7 +3,7 @@ title: A Program That Does Nothing
 weight: 1
 ---
 
-Here is the smallest program in Nevalang that compiles. It absolutely does nothing, but by looking at it, you can learn a lot about Nevalang.
+Here is the smallest program in Nevalang that compiles. It does absolutely nothing, but by looking at it, you can learn a lot about Nevalang.
 
 ```neva
 component Main(start any) (stop any) {
@@ -13,9 +13,9 @@ component Main(start any) (stop any) {
 
 Let's break down what's written here.
 
-A Nevalang program consists of _components_ that send _messages_ to each other through _ports_ but ports cannot be connected randomly. Each port has its own _data type_, and when we connect one port to another, the compiler checks if they are _compatible_. Otherwise, it throws an error.
+A Nevalang program consists of _components_ that send _messages_ to each other through _ports_, but ports cannot be connected randomly. Each port has its own _data type_, and when we connect one port to another, the compiler checks if they are _compatible_. Otherwise, it throws an error.
 
-It states that there is a "Main" component (every component has a name), with two ports - one for input - `start` - and one for output - `stop`. The data type of both ports is `any` - a universal data type, saying "I am compatible with any types of data."
+It states that there is a "Main" component (every component has a name), with two ports - one for input - `start` - and one for output - `stop`. The data type of both ports is `any` - a universal data type, saying "I am compatible with any type of data."
 
 ```neva
 Main (start any) (stop any)
@@ -43,4 +43,4 @@ In other words, our Main component does nothing. It just lets data pass through 
 
 ## What's Next?
 
-What, think this program isn't useful enough? Then let's move on to the [next chapter](/docs/tutorial/02)!
+What, you think this program isn't useful enough? Then let's move on to the [next chapter](/docs/tutorial/02)!
