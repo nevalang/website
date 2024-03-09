@@ -11,7 +11,7 @@ If you've gone through the quick start, you should have already created your fir
 neva new test
 ```
 
-With these command, we're creating a _module_. We'll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.
+With this command, we're creating a _module_. We'll learn more about modules later, but for now, remember that any Nevalang program consists of at least one module.
 
 Each module has a `neva.yml` file, which describes its _dependencies_ (modules can depend on other modules, in this case, there are no dependencies) and the required version of the compiler (in this case, 0.0.1). Such a file is called the module's _manifest_.
 
@@ -33,13 +33,13 @@ component Main(start any) (stop any) {
 }
 ```
 
-Now make sure that you're in the `test` directory and run `neva run src`. Terminal should block until you type something. Type anything e.g. "how are you?". If everything is okay you should see this output:
+Now make sure that you're in the `test` directory and run `neva run src`. The terminal should block until you type something. Type anything, e.g. "how are you?". If everything is okay you should see this output:
 
 ```bash
 > how are you?
 ```
 
-The program printer what you've entered and quit. That's all it does.
+As you can see, the program prints what you've entered and quits. That's all it does.
 
 ## Packages, Std Module, Builtin Package
 
@@ -89,15 +89,15 @@ pub Printer<T>(data T) (sig T)
 
 We will not yet touch upon what `#extern` and `pub` mean, as we still have to understand these. Let's focus on the interface. We see that the `Printer` component has an input port `data` with type `T` and an output port `sig` also with type `T`. But what is this type `T`?
 
-It's all about this code `Printer<T>`. Such a syntactic construction, where triangle brackets follow the component's name, and within them are letters (typically uppercase), is called type parameters. In this case, the `Printer` component has one parameter `T`. Essentially, this means that when instantiating this component, that is, when creating a node based on it, we need to provide a type argument.
+It's all about this code `Printer<T>`. Such a syntactic construction, where triangle brackets follow the component's name, and within them are letters (typically uppercase), is called a type parameter. In this case, the `Printer` component has one parameter `T`. Essentially, this means that when instantiating this component (when creating a node based on it) we need to provide a type argument.
 
-In our case, we provide `string` and
+In our case, we provide a `string` and
 
 ```
 Printer<T>(data T) (sig T)
 ```
 
-Transforms for us into
+Behaves as
 
 ```
 Printer(data string) (sig string)
