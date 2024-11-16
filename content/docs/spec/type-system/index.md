@@ -15,11 +15,11 @@ These are types that doesn't have definition in neva source code. Instead compil
 
 - _any_
 - _maybe_
-- _boolean_
-- _integer_
+- _bool_
+- _int_
 - _float_
 - _string_
-- _map_
+- _dict_
 - _list_
 - _enum_
 - _union_
