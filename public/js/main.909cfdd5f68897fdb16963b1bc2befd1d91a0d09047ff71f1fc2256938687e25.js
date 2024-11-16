@@ -1,1 +1,0 @@
-(()=>{document.addEventListener("DOMContentLoaded",d);function d(){let e=localStorage.getItem("dark");if(e==="true"){document.body.classList.add("dark");return}e!=="false"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches&&document.body.classList.add("dark")}})();
