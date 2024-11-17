@@ -30,6 +30,58 @@
         backdrop-filter: blur(10px);
         border: 1px solid #333;
       }
+      .social-links a {
+        margin: 0 10px;
+        color: #e2e8f0;
+        transition: color 0.3s;
+        font-size: 0.875rem; /* Smaller font size for social links */
+      }
+      .social-links a:hover {
+        color: white;
+      }
+      .github-link {
+        color: white;
+        font-weight: bold;
+        font-size: 1rem; /* Larger font size for GitHub link */
+        position: relative;
+        display: inline-block;
+        border-radius: 5px; /* Add border radius */
+        overflow: hidden; /* Ensure the gradient doesn't overflow */
+      }
+      .github-link::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          red,
+          orange,
+          yellow,
+          green,
+          blue,
+          indigo,
+          violet
+        );
+        background-size: 200%; /* Adjusted for smoother transition */
+        z-index: -1;
+        transition: opacity 0.3s ease;
+        opacity: 0;
+      }
+      .github-link:hover::before {
+        opacity: 1;
+        animation: rainbow 3s linear infinite; /* Adjusted duration for smoothness */
+      }
+      @keyframes rainbow {
+        0% {
+          background-position: 0% 50%;
+        }
+        100% {
+          background-position: 200% 50%; /* Adjusted for smoother transition */
+        }
+      }
     </style>
   </head>
   <body class="flex items-center justify-center">
@@ -69,10 +121,21 @@ def Main(start any) (stop any) {
       <footer class="mt-16 text-center">
         <a
           href="https://github.com/nevalang/neva"
-          class="inline-flex items-center text-gray-400 hover:text-white transition-colors"
+          class="inline-flex items-center github-link transition-colors"
         >
           View on GitHub →
         </a>
+        <div class="social-links mt-4">
+          <a href="https://discord.gg/dmXbC79UuH" class="hover:text-white"
+            >Discord</a
+          >
+          <a href="https://www.reddit.com/r/nevalang/" class="hover:text-white"
+            >Reddit</a
+          >
+          <a href="https://t.me/+H1kRClL8ppI1MWJi" class="hover:text-white"
+            >Telegram</a
+          >
+        </div>
       </footer>
     </div>
   </body>
