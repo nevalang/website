@@ -92,11 +92,15 @@
           alt="Neva"
           class="logo mb-8"
         />
-        <!-- <h1 class="text-4xl font-bold mb-6 tracking-tight">Neva</h1> -->
+        <h1 class="text-2xl font-bold mb-6 tracking-tight">
+          Neva Programming Language
+        </h1>
         <p class="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
-          A general-purpose dataflow programming language with static types and
-          implicit parallelism. Compiles to machine code and Go.
+          General purpose dataflow programming language with static types and
+          implicit parallelism that compiles to machine code.
         </p>
+        <br />
+        <img src="static/animations/dataflow.gif" alt="Neva" class="dataflow" />
       </header>
 
       <main>
@@ -111,7 +115,7 @@
           ><code>import { fmt }
 
 def Main(start any) (stop any) {
-    println fmt.Println
+    println fmt.Println&lt;string&gt;
     ---
     :start -> 'Hello, World!' -> println -> :stop
 }</code></pre>
@@ -131,6 +135,9 @@ def Main(start any) (stop any) {
           >
           <a href="https://www.reddit.com/r/nevalang/" class="hover:text-white"
             >Reddit</a
+          >
+          <a href="https://x.com/neva_language" class="hover:text-white"
+            >Twitter</a
           >
           <a href="https://t.me/+H1kRClL8ppI1MWJi" class="hover:text-white"
             >Telegram</a
