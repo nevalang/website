@@ -34,7 +34,7 @@
         margin: 0 10px;
         color: #e2e8f0;
         transition: color 0.3s;
-        font-size: 0.875rem; /* Smaller font size for social links */
+        font-size: 0.875rem;
       }
       .social-links a:hover {
         color: white;
@@ -42,11 +42,11 @@
       .github-link {
         color: white;
         font-weight: bold;
-        font-size: 1rem; /* Larger font size for GitHub link */
+        font-size: 1rem;
         position: relative;
         display: inline-block;
-        border-radius: 5px; /* Add border radius */
-        overflow: hidden; /* Ensure the gradient doesn't overflow */
+        border-radius: 5px;
+        overflow: hidden;
       }
       .github-link::before {
         content: "";
@@ -65,21 +65,21 @@
           indigo,
           violet
         );
-        background-size: 200%; /* Adjusted for smoother transition */
+        background-size: 200%;
         z-index: -1;
         transition: opacity 0.3s ease;
         opacity: 0;
       }
       .github-link:hover::before {
         opacity: 1;
-        animation: rainbow 3s linear infinite; /* Adjusted duration for smoothness */
+        animation: rainbow 3s linear infinite;
       }
       @keyframes rainbow {
         0% {
           background-position: 0% 50%;
         }
         100% {
-          background-position: 200% 50%; /* Adjusted for smoother transition */
+          background-position: 200% 50%;
         }
       }
     </style>
@@ -87,20 +87,14 @@
   <body class="flex items-center justify-center">
     <div class="max-w-3xl w-full px-6 py-12">
       <header class="text-center mb-16">
-        <img
-          src="static/images/dark_gradient.svg"
-          alt="Neva"
-          class="logo mb-8"
-        />
-        <h1 class="text-2xl font-bold mb-6 tracking-tight">
+        <img src="static/images/light_gradient.svg" alt="Neva" class="logo" />
+        <h1 class="text-2xl font-bold mb-4 tracking-tight">
           Neva Programming Language
         </h1>
         <p class="text-lg text-gray-400 leading-relaxed max-w-2xl mx-auto">
           General purpose dataflow programming language with static types and
           implicit parallelism that compiles to machine code.
         </p>
-        <br />
-        <img src="static/animations/dataflow.gif" alt="Neva" class="dataflow" />
       </header>
 
       <main>
@@ -112,14 +106,16 @@
           </div>
           <pre
             class="text-sm text-gray-300 overflow-x-auto"
-          ><code>import { fmt }
+          ><code><span class="text-blue-400">import</span> { fmt }
 
-def Main(start any) (stop any) {
-    println fmt.Println&lt;string&gt;
+<span class="text-blue-400">def</span> <span class="text-green-400">Main</span>(<span class="text-purple-400">start</span> <span class="text-yellow-400">any</span>) (<span class="text-purple-400">stop</span> <span class="text-yellow-400">any</span>) {
+    <span class="text-purple-400">println</span> fmt.Println&lt;<span class="text-yellow-400">string</span>&gt;
     ---
-    :start -> 'Hello, World!' -> println -> :stop
+    <span class="text-purple-400">:start</span> -> <span class="text-orange-400">'Hello, World!'</span> -> <span class="text-purple-400">println</span> -> <span class="text-purple-400">:stop</span>
 }</code></pre>
         </div>
+
+        <br />
       </main>
 
       <footer class="mt-16 text-center">
